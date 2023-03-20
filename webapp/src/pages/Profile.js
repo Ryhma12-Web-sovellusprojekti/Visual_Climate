@@ -1,0 +1,14 @@
+import React from "react";
+import { auth } from "../firebase-config";
+
+function Profile({ isAuth, signUserOut }) {
+    return (
+        <section class="profile">
+            <img src={auth?.currentUser.photoURL} alt={auth?.currentUser.displayName}></img>
+            <button className="logout-btn small-btn" onClick={signUserOut}>Log Out</button>
+            <button className="logout-btn small-btn" onClick={null}>Delete Account</button>
+        </section>
+    );
+}
+
+export default Profile;

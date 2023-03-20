@@ -35,7 +35,7 @@ function App() {
       </nav>
       <Routes>
         <Route path="/" element={<Login setIsAuth={setIsAuth}/>} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<Home signUserOut={signUserOut}/>} />
         <Route path="/view1" element={<View1 />} />
         <Route path="/view2" element={<View2 />} />
         <Route path="/viewown" element={<ViewOwn />} />
