@@ -4,14 +4,14 @@ import Profile from "./Profile";
 
 function Home({ isAuth, signUserOut }) {
     return (
-        <div class="wrapper-side">
+        <div className="wrapper-side">
             <aside></aside>
-            <section class="sidebyside">
+            <section className="sidebyside">
                 <main>
                     <h1>Welcome to The Visual Climate, {auth?.currentUser.displayName}!</h1>
                     <div>
                     viewit tähän
-                </div>
+                    </div>
                 </main>
                 <Profile signUserOut={signUserOut} />
             </section>

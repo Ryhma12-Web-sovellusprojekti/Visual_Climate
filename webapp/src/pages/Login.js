@@ -83,7 +83,7 @@ function Login({ setIsAuth }) {
                         setRegisterPassword(event.target.value);
                     }}
                 />
-                <button onClick={register}>Sign Up</button>            
+                <button onClick={register}>Sign Up</button>        
             </form>
             <h3>Or use your Google account</h3>
             <button className="login-with-google-btn" onClick={signInWithGoogle}>

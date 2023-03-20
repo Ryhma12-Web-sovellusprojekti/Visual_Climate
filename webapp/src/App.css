@@ -106,13 +106,13 @@ nav {
 }
 
 /*buttons*/
-a:hover, input[type=submit]:hover, .logout-btn:hover {
+a:hover, input[type=submit]:hover, .logout-btn:hover, button:hover {
   background-color: var(--cerulean);
 } 
-a:active, input[type=submit]:active, .logout-btn:active {
+a:active, input[type=submit]:active, .logout-btn:active, button:active {
   background-color: var(--orange);
 }
-a, input[type=submit], .logout-btn {
+a, input[type=submit], .logout-btn, button {
   background-color: var(--blue);
   color: var(--white);
   padding: 14px 28px;
