@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/react-chartjs-demo/static/js/main.e4afe241.js",
+    "index.html": "/react-chartjs-demo/index.html",
+    "main.e4afe241.js.map": "/react-chartjs-demo/static/js/main.e4afe241.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.e4afe241.js"
+  ]
+}
