@@ -151,25 +151,7 @@ a, input[type=submit], .logout-btn, button {
   grid-template-columns: 2fr 200px;
   padding: 2rem;  
 }
-@media screen and (max-width: 720px) {
-  .wrapper-side{
-      grid-template-columns: 1fr;
-  }
-  aside{
-      display: none;
-  }
-}
-@media screen and (max-width: 600px) {
-  .sidebyside{
-      grid-template-columns: 1fr;
-      grid-template-rows: max-content max-content;
-  }
-}
-@media screen and (max-height: 600px){
-  header{
-      display: none;
-  }
-}
+
 /* GOOGLE BUTTON */
 .login-with-google-btn {
   cursor: pointer;
@@ -206,3 +188,22 @@ a, input[type=submit], .logout-btn, button {
   cursor: not-allowed;
 }
 
+@media screen and (max-width: 720px) {
+  .wrapper-side{
+      grid-template-columns: 1fr;
+  }
+  aside{
+      display: none;
+  }
+}
+@media screen and (max-width: 600px) {
+  .sidebyside{
+      grid-template-columns: 1fr;
+      grid-template-rows: max-content max-content;
+  }
+}
+@media screen and (max-height: 600px){
+  header{
+      display: none;
+  }
+}
