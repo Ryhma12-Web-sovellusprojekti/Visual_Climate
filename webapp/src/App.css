@@ -35,6 +35,38 @@ body {
   grid-template-rows: 1fr max-content;
   grid-template-columns: 225px 1fr;
 }
+header{
+  grid-column: 1/-1;
+  grid-row: 1/2;
+  width: 100%;
+  background-image: url("../public/images/pexels_test.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+aside{
+  grid-column: 1/2;
+  grid-row: 1/-1;
+  width: 100%;
+  background-image: url("../public/images/pexels_test.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  max-width: 200px;
+}
+main{
+  width: 100%;
+}
+main h1{
+  margin: auto;
+  color: var(--oxblue);
+  text-align: center;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+}
+footer{
+  grid-row: -1/-2;
+  text-align: right;
+  padding: 0.2rem;
+}
 .wrapper{
   min-height: 100vh;
   display: grid;
@@ -82,13 +114,13 @@ nav {
 }
 
 /*buttons*/
-a:hover, input[type=submit]:hover, .logout-btn:hover {
+a:hover, input[type=submit]:hover, .logout-btn:hover, button:hover {
   background-color: var(--cerulean);
 } 
-a:active, input[type=submit]:active, .logout-btn:active {
+a:active, input[type=submit]:active, .logout-btn:active, button:active {
   background-color: var(--orange);
 }
-a, input[type=submit], .logout-btn {
+a, input[type=submit], .logout-btn, button {
   background-color: var(--blue);
   color: var(--white);
   padding: 14px 28px;
@@ -100,6 +132,24 @@ a, input[type=submit], .logout-btn {
   font-family: "Source Sans Pro", Helvetica, sans-serif;
   font-size: 1rem;
   margin: 10px;
+}
+.profile{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: max-content max-content max-content;
+  grid-gap: 1rem;
+}
+.profile img{
+  border-radius: 100%;
+  justify-self: center;
+}
+.profile a, .profile button{
+ margin-left: 0px;
+}
+.sidebyside{
+  display: grid;
+  grid-template-columns: 2fr 200px;
+  padding: 2rem;  
 }
 
 /* GOOGLE BUTTON */
@@ -138,3 +188,22 @@ a, input[type=submit], .logout-btn {
   cursor: not-allowed;
 }
 
+@media screen and (max-width: 720px) {
+  .wrapper-side{
+      grid-template-columns: 1fr;
+  }
+  aside{
+      display: none;
+  }
+}
+@media screen and (max-width: 600px) {
+  .sidebyside{
+      grid-template-columns: 1fr;
+      grid-template-rows: max-content max-content;
+  }
+}
+@media screen and (max-height: 600px){
+  header{
+      display: none;
+  }
+}
