@@ -9,11 +9,11 @@ function Home({ isAuth, signUserOut }) {
             <section class="sidebyside">
                 <main>
                     <h1>Welcome to The Visual Climate, {auth?.currentUser.displayName}!</h1>
-                </main>
-                <Profile signUserOut={signUserOut} />
-                <div>
+                    <div>
                     viewit tähän
                 </div>
+                </main>
+                <Profile signUserOut={signUserOut} />
             </section>
         </div>
     );
