@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { auth, provider } from "../firebase-config"; 
 import { useNavigate } from "react-router-dom";
-
-import Footer from "./Footer";
-
 import { createUserWithEmailAndPassword, 
     signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+
+    import Footer from "./Footer";
+
+
+
 
 function Login({ setIsAuth }) {
     let navigate = useNavigate();
@@ -53,8 +55,8 @@ function Login({ setIsAuth }) {
             setIsAuth(true);
             navigate("/home");
         });
-
     };
+
     return (
         <div className="wrapper">
             <header>

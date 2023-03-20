@@ -12,7 +12,7 @@ import ViewOwn from "./pages/ViewOwn";
 import Login from "./pages/Login";
 
 function App() {
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
   const signUserOut = () => {
     signOut(auth).then(() => {
       localStorage.clear();
@@ -20,11 +20,12 @@ function App() {
       window.location.pathname = "/";
     });
   }
+  
   return <div className="App">
     <Router>
       <Routes>
         <Route path="/" element={<Login setIsAuth={setIsAuth}/>} />
-        <Route path="/home" element={<Home signUserOut={signUserOut}/>} />
+        <Route path="/home" element={<Home isAuth={isAuth} signUserOut={signUserOut}/>} />
         <Route path="/view1" element={<View1 />} />
         <Route path="/view2" element={<View2 />} />
         <Route path="/viewown" element={<ViewOwn />} />
