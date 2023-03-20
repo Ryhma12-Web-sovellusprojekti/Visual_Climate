@@ -1,6 +1,7 @@
 import React from "react";
 import { auth } from "../firebase-config";
 import Profile from "./Profile";
+import Footer from "./Footer";
 
 function Home({ isAuth, signUserOut }) {
     return (
@@ -15,6 +16,7 @@ function Home({ isAuth, signUserOut }) {
                 </main>
                 <Profile signUserOut={signUserOut} />
             </section>
+            <Footer />
         </div>
     );
 }
