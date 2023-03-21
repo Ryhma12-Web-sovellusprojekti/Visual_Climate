@@ -2,6 +2,7 @@ import React from "react";
 import { auth } from "../firebase-config";
 import Profile from "./Profile";
 import Footer from "./Footer";
+import Viewlinks from "./Viewlinks";
 
 function Home({ isAuth, signUserOut }) {
     return (
@@ -10,9 +11,7 @@ function Home({ isAuth, signUserOut }) {
             <section className="sidebyside">
                 <main>
                     <h1>Welcome to The Visual Climate, {auth?.currentUser.displayName}!</h1>
-                    <div>
-                    viewit tähän
-                    </div>
+                    <Viewlinks />
                 </main>
                 <Profile signUserOut={signUserOut} />
             </section>

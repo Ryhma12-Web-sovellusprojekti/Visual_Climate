@@ -229,7 +229,7 @@ function TimeLineGraphDemo() {
       },
     };
     return (
-        <div style={{ width: "1000px" }}>
+        <div>
           <h1>Global historical surface temperature</h1>
           <button onClick={null} value="year">Annual</button>
           <br/>
