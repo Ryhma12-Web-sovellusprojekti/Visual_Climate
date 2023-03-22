@@ -4,7 +4,7 @@ import { auth } from "../firebase-config";
 import Profile from "./Profile";
 import Footer from "../components/Footer";
 
-function Home({ signUserOut }) {
+function Home() {
     const [user, setUser] = useState({});
     onAuthStateChanged(auth, (currentUser) => {
         setUser(currentUser);
@@ -20,7 +20,7 @@ function Home({ signUserOut }) {
                     viewit tähän
                     </div>
                 </main>
-                <Profile signUserOut={signUserOut} />
+                <Profile />
             </section>
             <Footer />
         </div>
