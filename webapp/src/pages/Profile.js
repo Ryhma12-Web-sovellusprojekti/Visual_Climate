@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase-config";
 
-function Profile({ isAuth, signUserOut }) {
+function Profile({ signUserOut }) {
+    const [user, setUser] = useState({});
+    onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+    })
+
+    function deleteSignedUser() {
+        user
+            .delete()
+            .then(() => {
+                console.log("User Account Deleted");
+                localStorage.removeItem("user");
+                localStorage.setItem("isAuth", false);
+                signUserOut()
+            })
+            .catch((error) => {
+                console.log(error.message)
+            })
+    }
+
     return (
         <section className="profile">
-            <img src={auth?.currentUser.photoURL} alt={auth?.currentUser.displayName} title={auth?.currentUser.displayName}></img>
+            <img src={user?.photoURL} alt={user?.displayName} title={user?.displayName}></img> 
             <button className="small-btn" onClick={signUserOut}>Log Out</button>
-            <button className="small-btn" onClick={null}>Delete Account</button>
+            <button className="small-btn" onClick={deleteSignedUser}>Delete Account</button>
         </section>
     );
 }

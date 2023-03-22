@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase-config";
 import Profile from "./Profile";
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 
-function Home({ isAuth, signUserOut }) {
+function Home({ signUserOut }) {
+    const [user, setUser] = useState({});
+    onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+    });
+
     return (
         <div className="wrapper-side">
             <aside></aside>
             <section className="sidebyside">
                 <main>
-                    <h1>Welcome to The Visual Climate, {auth?.currentUser.displayName}!</h1>
+                    <h1>Welcome to The Visual Climate {user?.displayName}!</h1>
                     <div>
                     viewit tähän
                     </div>
