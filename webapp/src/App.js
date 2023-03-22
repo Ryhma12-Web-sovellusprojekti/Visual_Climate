@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useState } from "react";
 
 // pages
+import Login from "./pages/Login";
 import Home from "./pages/Home";
 import View1 from "./pages/View1";
 import View2 from "./pages/View2";
 import ViewOwn from "./pages/ViewOwn";
-import Login from "./pages/Login";
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
