@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase-config";
+import SignUserOut, { DeleteSignedUser } from "../components/SignOutDelete";
 
-function Profile({ isAuth, signUserOut }) {
+function Profile() {
+    const [user, setUser] = useState({});
+    onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+    })
+
     return (
         <section className="profile">
-            <img src={auth?.currentUser.photoURL} alt={auth?.currentUser.displayName} title={auth?.currentUser.displayName}></img>
-            <button className="small-btn" onClick={signUserOut}>Log Out</button>
-            <button className="small-btn" onClick={null}>Delete Account</button>
+            <img src={user?.photoURL} alt={user?.displayName} title={user?.displayName}></img> 
+            <button className="small-btn" onClick={SignUserOut}>Log Out</button>
+            <button className="small-btn" onClick={DeleteSignedUser}>Delete Account</button>
         </section>
     );
 }

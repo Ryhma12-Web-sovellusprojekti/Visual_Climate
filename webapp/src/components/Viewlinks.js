@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import View1 from "./View1";
-import View2 from "./View2";
+import View1 from "../pages/View1";
+import View2 from "../pages/View2";
 //import { Link } from "react-router-dom";
 
 function Viewlinks() {
