@@ -3,7 +3,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase-config";
 import Profile from "./Profile";
 import Footer from "../components/Footer";
-import Viewlinks from "./Viewlinks";
+import Viewlinks from "../components/Viewlinks";
 
 function Home() {
     const [user, setUser] = useState({});
