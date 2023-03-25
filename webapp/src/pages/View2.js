@@ -1,29 +1,12 @@
 import React from "react";
-import { rtdb } from '../firebase-config'; // Tämä on meidän realtime database
-import { ref, child, get } from "firebase/database";
-import { useEffect, useState } from "react";
+import Get_v4_national_emissions from "../components/V4_National_CO2_emissions";
 import { Chart, LineController, LineElement, UpdateModeEnum } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import 'chartjs-adapter-date-fns';
 import { yearsToMonths } from "date-fns";
 import { getDocs, collection } from "firebase/firestore";
 
-function Graphv2() {
-    const [data, setData] = useState(null);
-
-    useEffect(() => {
-      const emissionsRef = ref(rtdb, "V4_National_CO2_emissions/Afghanistan");
-      get(emissionsRef).then((snapshot) => {
-        if (snapshot.exists()) {
-          setData(snapshot.val());
-        } else {
-          console.log("No data available");
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
-    }, []);
-
+function Graphv2({ data }) {
     return (
       <div>
         {data ? (
@@ -34,10 +17,14 @@ function Graphv2() {
       </div>
     );
 }
+
 function View2() {
-    return <div> 
-        <Graphv2 /> 
-        </div>
+  const V4_national = Get_v4_national_emissions();
+  return (
+    <div>
+      <Graphv2 data={V4_national}/>
+    </div>
+  );
 }
 
 export default View2;
