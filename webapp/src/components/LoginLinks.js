@@ -43,12 +43,6 @@ switch(x){
         </div>
       );
 
-    default:
-      return (
-      <>
-        <button value={1} onClick={e => changeView(e)}>Sign In</button>
-        <button value={2} onClick={e => changeView(e)}>Sign Up</button></>);
-
       }
   }
 
