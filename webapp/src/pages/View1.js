@@ -4,6 +4,7 @@ import { Line } from "react-chartjs-2";
 import 'chartjs-adapter-date-fns';
 import { yearsToMonths } from "date-fns";
 import { getDocs, collection } from "firebase/firestore";
+import Visu3 from "../components/Visu3";
 
 //export default 
 function TimeLineGraphDemo() {
@@ -257,6 +258,7 @@ function TimeLineGraphDemo() {
 function View1() {
     return <div>
         <TimeLineGraphDemo />
+        <Visu3 />
      </div>
 }
 
