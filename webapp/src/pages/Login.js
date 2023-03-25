@@ -1,6 +1,5 @@
 import React from "react";
-import SignIn from "../components/SignIn"
-import SignUp from "../components/SignUp"
+import LoginLinks from "../components/LoginLinks"
 import Footer from "../components/Footer";
 
 function Login({ setIsAuth }) {
@@ -8,9 +7,8 @@ function Login({ setIsAuth }) {
         <div className="wrapper">
             <header>
             </header>
-            <main>
-            <SignIn setIsAuth={setIsAuth}/>   
-            <SignUp setIsAuth={setIsAuth}/>       
+            <main>  
+            <LoginLinks setIsAuth={setIsAuth}/>
             </main>
             <Footer />
         </div>
