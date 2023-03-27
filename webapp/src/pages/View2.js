@@ -1,28 +1,27 @@
-import React from "react";
-import Get_v4_national_emissions from "../components/V4_National_CO2_emissions";
-import { Chart, LineController, LineElement, UpdateModeEnum } from "chart.js/auto";
-import { Line } from "react-chartjs-2";
-import 'chartjs-adapter-date-fns';
-import { yearsToMonths } from "date-fns";
-import { getDocs, collection } from "firebase/firestore";
+import Get_v4_national_emissions_func from "../components/V4_National_CO2_emissions";
+import V5_sectors_func from "../components/V5_Sectors";
+import { useState, React } from "react";
 
-function Graphv2({ data }) {
+function Graphv2({ V4_National_Data, V5_Sectors_data }) {
     return (
       <div>
-        {data ? (
-          <pre>{JSON.stringify(data, null, 2)}</pre>
+        {V5_Sectors_data ? (
+          <pre>{JSON.stringify(V5_Sectors_data, null, 1)}</pre>
         ) : (
-          <p>Loading...</p>
+          <p>Data empty/null</p>
         )}
       </div>
     );
 }
 
 function View2() {
-  const V4_national = Get_v4_national_emissions();
+  const [V4_National_State, Set_V4_National] = useState(null);
+  const [V5_Sectors_State, Set_V5_Sectors] = useState(null);
   return (
     <div>
-      <Graphv2 data={V4_national}/>
+      <Get_v4_national_emissions_func Set_v4_national={Set_V4_National} />
+      <V5_sectors_func Set_v5_sectors={Set_V5_Sectors} />
+      <Graphv2 V4_National_Data={V4_National_State} V5_Sectors_data={V5_Sectors_State} />
     </div>
   );
 }
