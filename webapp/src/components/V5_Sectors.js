@@ -2,13 +2,13 @@ import { rtdb } from '../firebase-config';
 import { ref, get} from "firebase/database";
 import { useEffect } from "react";
 
-function Get_v4_national_emissions_func({ Set_v4_national}) {
+function V5_sectors_func({ Set_v5_sectors }) {
     useEffect(() => {
-      const emissionsRef = ref(rtdb, "6/V4_National_CO2_emissions");
+      const emissionsRef = ref(rtdb, "7/V5_Sectors");
       get(emissionsRef)
         .then((snapshot) => {
           if (snapshot.exists()) {
-            Set_v4_national(snapshot.val());
+            Set_v5_sectors(snapshot.val());
           } else {
             console.log("No data available");
           }
@@ -20,4 +20,4 @@ function Get_v4_national_emissions_func({ Set_v4_national}) {
     return null;
 }
 
-export default Get_v4_national_emissions_func;
+export default V5_sectors_func;
