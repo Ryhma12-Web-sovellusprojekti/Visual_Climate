@@ -6,7 +6,7 @@ export default function Visu4() {
   const [v4nationalstate, setV4National] = useState(null);
   return (
     <div>      
-      <DataImport setData={setV4National}  path="7/V4_National_CO2_emissions/Finland" />
+      <DataImport setData={setV4National}  path="7/V4_National_CO2_emissions" />
       <Graph v4nationalstate={v4nationalstate}/>
     </div>
   );
@@ -42,12 +42,6 @@ function Graph(v4nationalstate) {
       },
     },
     scales: {
-      x: {
-        type: "time",
-        time: {
-            unit: dat,
-        },
-    },
     yAxis: {
         type: "linear",
     },
