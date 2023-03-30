@@ -112,7 +112,7 @@ function Graph({co2, temperature, events, shortLabel}) {
       },
     };
     return (
-        <div>
+        <div className="chart">
             <h1>Evolution of global temperature over the past two million years</h1>
             <Line options={options} data={data} />
         </div>

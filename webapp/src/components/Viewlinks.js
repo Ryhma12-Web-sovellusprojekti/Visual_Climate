@@ -10,12 +10,16 @@ function Viewlinks() {
     const changeView = (e) => {
         setView(e.target.value);
     };
+    const goBack = () => {
+      setView(0);
+    };
+
         switch (rview) {
           case "1":
-            return <View1 />;
+            return <View1 goBack={goBack} />;
           case "2":
             return <View2 />;
-            case "3":
+          case "3":
             return <View1Testi />;
           default:
             return (

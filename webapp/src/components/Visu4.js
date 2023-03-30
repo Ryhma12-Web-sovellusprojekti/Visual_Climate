@@ -49,7 +49,7 @@ function Graph(v4nationalstate) {
   };
 
     return (
-        <div>
+        <div className="chart">
             <h1> CO2 emissions by country </h1>
             <Line data={data} options={options}/>
         </div>
