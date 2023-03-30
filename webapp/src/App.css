@@ -196,7 +196,7 @@ a, input[type=submit], .logout-btn, button {
 canvas{
   width: 100% !important;
 }
-@media screen and (max-width: 860px) {
+@media screen and (max-width: 1024px) {
   .wrapper-side{
       grid-template-columns: 1fr;
   }
@@ -204,7 +204,7 @@ canvas{
       display: none;
   }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 720px) {
   .sidebyside{
       grid-template-columns: 1fr;
       grid-template-rows: max-content max-content;
