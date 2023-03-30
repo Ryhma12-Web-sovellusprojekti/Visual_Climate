@@ -289,7 +289,7 @@ export default function Visu1() {
                     <button value={"2"} onClick={e => changeView(e)}>Monthly</button>
                     {isClicked &&                     
                     <div style={{position: "relative", width:"100%"}}>
-                        <Line options={options} data={year} />
+                        <Line options={options} data={annual} />
                         <br />
                         <p><a href="https://www.metoffice.gov.uk/hadobs/hadcrut5/">Link to data sources.</a></p>
                     </div>}
@@ -304,7 +304,7 @@ export default function Visu1() {
                     <button value={"2"} onClick={e => changeView(e)}>Monthly</button>
                     {isClicked &&
                     <div style={{position: "relative", width:"100%"}}>
-                        <Line options={options} data={month} />
+                        <Line options={options} data={monthly} />
                         <br />
                         <p><a href="https://www.metoffice.gov.uk/hadobs/hadcrut5/">Link to data sources.</a></p>
                     </div>}
