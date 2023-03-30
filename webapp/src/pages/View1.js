@@ -4,7 +4,7 @@ import Visu3, { Visu3Information } from "../components/Visu3";
 
 function View1( {goBack}) {
     return <div>
-        <Visu1 />
+        <Visu1 goBack={goBack}/>
         <Visu1Information />
         <Visu3 />
         <Visu3Information />

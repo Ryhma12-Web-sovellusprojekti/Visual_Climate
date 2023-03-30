@@ -19,7 +19,7 @@ function Viewlinks() {
             return <View1 goBack={goBack} />;
           case "2":
             return <View2 />;
-            case "3":
+          case "3":
             return <View1Testi />;
           default:
             return (
