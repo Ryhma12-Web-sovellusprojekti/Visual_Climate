@@ -30,7 +30,7 @@ function Profile() {
             <button className="small-btn" onClick={SignUserOut}>Log Out</button>
             <button className="small-btn" onClick={toggleDialog}>Delete Account</button>
             {removeState &&
-                <ConfirmationDialog yesFunction={DeleteSignedUser()} noFunction={toggleDialog} />
+                <ConfirmationDialog yesFunction={DeleteSignedUser} noFunction={toggleDialog} />
             }
         </section>
     );
