@@ -7,7 +7,7 @@ import { yearsToMonths } from "date-fns";
 import { getDocs, collection } from "firebase/firestore";
 
 
-function Visu1() {
+function Visu1( {goBack}) {
     const year = {
         //Muuta tähän tietojen haku Firebasesta
         datasets: [
@@ -249,29 +249,32 @@ function Visu1() {
 
         case "1":
             return (
-                <div>
+                <div className="chart">
+                    <button onClick={goBack}>Back</button>
                     <h1>Global historical surface temperature</h1>
                     <button value={"1"} onClick={e => changeView(e)}>Annual</button>
                     <button value={"2"} onClick={e => changeView(e)}>Monthly</button>
-                    {isClicked && <>
+                    {isClicked &&                     
+                    <div style={{position: "relative", width:"100%"}}>
                         <Line options={options} data={year} />
                         <br />
                         <p><a href="https://www.metoffice.gov.uk/hadobs/hadcrut5/">Link to data sources.</a></p>
-                    </>}
+                    </div>}
                 </div>
             );
 
         case "2":
             return (
-                <div>
+                <div className="chart">
                     <h1>Global historical surface temperature</h1>
                     <button value={"1"} onClick={e => changeView(e)}>Annual</button>
                     <button value={"2"} onClick={e => changeView(e)}>Monthly</button>
-                    {isClicked && <>
+                    {isClicked &&
+                    <div style={{position: "relative", width:"100%"}}>
                         <Line options={options} data={month} />
                         <br />
                         <p><a href="https://www.metoffice.gov.uk/hadobs/hadcrut5/">Link to data sources.</a></p>
-                    </>}
+                    </div>}
                 </div>
             );
 

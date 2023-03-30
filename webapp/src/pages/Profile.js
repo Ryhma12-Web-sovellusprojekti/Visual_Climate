@@ -11,7 +11,9 @@ function Profile() {
 
     return (
         <section className="profile">
-            <img src={user?.photoURL} alt={user?.displayName} title={user?.displayName}></img> 
+                {user?.photoURL &&
+                    <img src={user?.photoURL} alt={user?.displayName} title={user?.displayName}></img> 
+                }
             <button className="small-btn" onClick={SignUserOut}>Log Out</button>
             <button className="small-btn" onClick={DeleteSignedUser}>Delete Account</button>
         </section>

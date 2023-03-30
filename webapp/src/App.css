@@ -187,8 +187,16 @@ a, input[type=submit], .logout-btn, button {
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.25);
   cursor: not-allowed;
 }
-
-@media screen and (max-width: 720px) {
+.chart p{
+  padding-top: 24px;
+}
+.chart{
+  width: 100%;
+}
+canvas{
+  width: 100% !important;
+}
+@media screen and (max-width: 860px) {
   .wrapper-side{
       grid-template-columns: 1fr;
   }
@@ -200,6 +208,7 @@ a, input[type=submit], .logout-btn, button {
   .sidebyside{
       grid-template-columns: 1fr;
       grid-template-rows: max-content max-content;
+      grid-gap: 40px;
   }
 }
 @media screen and (max-height: 600px){

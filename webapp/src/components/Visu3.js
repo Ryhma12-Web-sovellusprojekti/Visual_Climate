@@ -57,10 +57,10 @@ export default function V3graph() {
     };
 
     return (
-        <div>
+        <div className="chart">
             <h1>Evolution of global temperature over the past two million years</h1>
             <Line options={options} data={data} />
             <p><a href="https://climate.fas.harvard.edu/files/climate/files/snyder_2016.pdf ">Link to data sources.</a></p>
-            </div>
+        </div>
     ); 
 }
