@@ -138,13 +138,15 @@ a, input[type=submit], .logout-btn, button {
   grid-template-columns: 1fr;
   grid-template-rows: max-content max-content max-content;
   grid-gap: 1rem;
+  position: sticky;
+  top: 24px;
 }
 .profile img{
   border-radius: 100%;
   justify-self: center;
 }
 .profile a, .profile button{
- margin-left: 0px;
+  margin-left: 0px;
 }
 .sidebyside{
   display: grid;
@@ -197,20 +199,30 @@ canvas{
   width: 100% !important;
   max-height: 500px;
 }
-.dialog{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: max-content max-content;
-  position: absolute;
+.dialog-wrapper{
+  position: fixed;
+  top: 0;
   left: 0;
   right: 0;
-  max-width: 300px;
   width: 100%;
-  padding: 24px;
+  height: 100%;
+  display: grid;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+.dialog{
+  margin: auto;
+  display: grid;
+  grid-gap: 48px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: max-content max-content;
+  max-width: 400px;
+  width: 100%;
+  padding: 48px;
   background-color: var(--white);
 }
 .dialog h3{
-  grid-column: span 2 ;
+  grid-column: span 2;
+  padding-bottom: 24px;
 }
 
 @media screen and (max-width: 1024px) {
