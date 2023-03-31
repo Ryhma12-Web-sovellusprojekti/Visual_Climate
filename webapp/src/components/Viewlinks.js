@@ -26,7 +26,6 @@ function Viewlinks() {
                 <>
                     <button value={1} onClick={e => changeView(e)}>View 1</button>
                     <button value={2} onClick={e => changeView(e)}>View 2</button>
-                    <button value={3} onClick={e => changeView(e)}>Testinappi view 1</button>
                 </>
             );
         }
