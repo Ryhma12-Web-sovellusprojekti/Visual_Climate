@@ -1,6 +1,7 @@
 import React from "react";
 import Visu1,{Visu1Information} from "../components/Visu1";
 import Visu3, { Visu3Information } from "../components/Visu3";
+import Visu5 from "../components/Visu5";
 
 function View1( {goBack}) {
     return <div>

@@ -21,7 +21,7 @@ export default function Visu3() {
 
 export function Visu3Information() {
   return(
-    <div>
+    <div className="info">
       <a href="https://climate.fas.harvard.edu/files/climate/files/snyder_2016.pdf"target="_blank"rel="noreferrer">CO2 and temperature data sources</a>
       <a href="https://www.southampton.ac.uk/~cpd/history.html"target="_blank"rel="noreferrer">Global events data source</a>
     </div>
