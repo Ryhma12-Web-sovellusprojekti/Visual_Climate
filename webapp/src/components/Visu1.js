@@ -70,7 +70,8 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
               backgroundColor: "rgba(3, 64, 120, 0.5)",
               pointRadius: 1,
               tension: 0.4,
-              yAxisID: "y"
+              yAxisID: "y",
+              hidden: true
           },
       ],
       };
