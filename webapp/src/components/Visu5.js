@@ -2,7 +2,7 @@ import DataImport from "./DataImport";
 import { useState, React, useRef } from "react";
 import { Doughnut, getElementsAtEvent  } from "react-chartjs-2";
 
-export default function Visu3() {
+export default function Visu5() {
     const [sectors, setSectors] = useState([]);
     const [subAgri, setSubAgri] = useState([]);
     const [subEnergy, setSubEnergy] = useState([]);
