@@ -105,37 +105,7 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
     ],
       };
       
-      const options1 = {
-        responsive: true,
-        plugins: {
-          tooltip: {
-            displayColors: false,
-          },
-          legend: {
-            position: "top",
-          },
-          title: {
-            display: true,
-            text: "Global historical surface temperature anomalies from January 1850 onwards",
-          },
-        },
-        scales: {
-          x:{
-            type: "linear",
-            ticks: {
-              stepSize: 1
-            }
-          },
-            y:  {
-              beginAtZero: true,
-              type: "linear",
-              position: "left"
-            }
-        },
-      };
-      const [chartTime, setChartTime] = useState("month");
-
-      const options2 = {
+      const options = {
         responsive: true,
         plugins: {
           tooltip: {
@@ -152,7 +122,7 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
         scales: {
           x:{
             type: "time",
-            time:{unti: chartTime},
+            time:{unit: "year"},
             ticks: {
               stepSize: 1
             }
@@ -164,6 +134,7 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
             }
         },
       };
+      
 
       const [isClicked, setIsClicked] = useState(true);
 
@@ -172,12 +143,6 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
     const changeView = (e) => {
         setX(e.target.value);
         setIsClicked(true);
-        if (e.target.value === "1") {
-            setChartTime("year");
-        }
-        else {
-            setChartTime("month");
-        }
 
     };
 
@@ -191,7 +156,7 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
                     <button value={"2"} onClick={e => changeView(e)}>Monthly</button>
                     {isClicked &&                     
                     <div>
-                        <Line options={options1} data={annual} />
+                        <Line options={options} data={annual} />
                     </div>}
                 </div>
             );
@@ -199,12 +164,12 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
         case "2":
             return (
                 <div className="chart">
-                    <h1>Global historical surface temperature</h1>
+                    <h1>Global historical surface temperature anomalies from January 1850 onwards</h1>
                     <button value={"1"} onClick={e => changeView(e)}>Annual</button>
                     <button value={"2"} onClick={e => changeView(e)}>Monthly</button>
                     {isClicked &&
                     <div>
-                        <Line options={options2} data={monthly} />
+                        <Line options={options} data={monthly} />
                     </div>}
                 </div>
             );
@@ -213,6 +178,7 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
 }
 
 export function Visu1Information() {
+
     return(
     <section>
       <article>
