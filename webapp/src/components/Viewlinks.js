@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import View1 from "../pages/View1";
 import View2 from "../pages/View2";
-import View1Testi from "../pages/View1Testi";
 //import { Link } from "react-router-dom";
 
 function Viewlinks() {
@@ -19,8 +18,6 @@ function Viewlinks() {
             return <View1 goBack={goBack} />;
           case "2":
             return <View2 />;
-          case "3":
-            return <View1Testi />;
           default:
             return (
                 <>
