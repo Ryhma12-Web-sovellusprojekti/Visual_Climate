@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import View1 from "../pages/View1";
 import View2 from "../pages/View2";
-//import { Link } from "react-router-dom";
 
 function Viewlinks() {
     const [rview, setView ] = useState(0);
@@ -9,15 +8,16 @@ function Viewlinks() {
     const changeView = (e) => {
         setView(e.target.value);
     };
+
     const goBack = () => {
       setView(0);
     };
-
+    
         switch (rview) {
           case "1":
-            return <View1 goBack={goBack} />;
+            return <View1 goBack={goBack}/>;
           case "2":
-            return <View2 />;
+            return <View2 goBack={goBack}/>;
           default:
             return (
                 <>

@@ -3,9 +3,10 @@ import Visu1,{Visu1Information} from "../components/Visu1";
 import Visu2 from "../components/Visu2";
 import Visu3, { Visu3Information } from "../components/Visu3";
 
-function View1( {goBack}) {
+function View1({goBack}) {
     return <div>
-        <Visu1 goBack={goBack}/>
+        <button onClick={goBack}>Back</button>
+        <Visu1/>
         <Visu1Information />
         <Visu2/>
         <Visu3 />
