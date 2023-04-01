@@ -15,8 +15,8 @@ switch(x){
   case "1":
     return (
       <div>
-        <button value={1} onClick={e => changeView(e)}>Sign In</button>
-        <button value={2} onClick={e => changeView(e)}>Sign Up</button>
+        <button className="signinselect active" value={1} onClick={e => changeView(e)}>Sign In</button>
+        <button className="signinselect" value={2} onClick={e => changeView(e)}>Sign Up</button>
         {isClicked && 
           <div> 
           <h1>Sign in to Continue</h1>
@@ -32,8 +32,8 @@ switch(x){
     case "2":
       return (
         <div>
-        <button value={1} onClick={e => changeView(e)}>Sign In</button>
-        <button value={2} onClick={e => changeView(e)}>Sign Up</button>
+        <button className="signinselect" value={1} onClick={e => changeView(e)}>Sign In</button>
+        <button className="signinselect active" value={2} onClick={e => changeView(e)}>Sign Up</button>
         {isClicked && 
         <div> 
         <h1>Not registered yet? Sign up here!</h1>
