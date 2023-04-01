@@ -133,6 +133,24 @@ a, input[type=submit], .logout-btn, button {
   font-size: 1rem;
   margin: 10px;
 }
+
+.signinselect{
+  background-color: rgba(0,0, 0, 0.0);
+  color: var(--cerulean);
+  font-weight: bold;
+  font-size: x-large;
+  margin: auto;
+}
+.signinselect:hover{
+  color: var(--blue);
+  background-color: var(--white);
+}
+.active{
+  text-decoration-line: underline;
+  text-decoration-skip-ink: none;
+  text-decoration-color: var(--orange);
+  text-decoration-thickness: 6px;
+}
 .profile{
   display: grid;
   grid-template-columns: 1fr;
@@ -197,8 +215,28 @@ a, input[type=submit], .logout-btn, button {
 }
 canvas{
   width: 100% !important;
-  max-height: 500px;
+  max-height:720px;
 }
+
+section{
+  margin-top: 48px;
+}
+section a{
+  display: inline-block;
+}
+
+article{
+  margin-top: 24px;
+}
+article h3{
+  padding-top: 16px;
+}
+article p{
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+}
+
 .dialog-wrapper{
   position: fixed;
   top: 0;
