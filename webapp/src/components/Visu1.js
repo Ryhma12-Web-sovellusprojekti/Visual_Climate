@@ -105,37 +105,7 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
     ],
       };
       
-      const options1 = {
-        responsive: true,
-        plugins: {
-          tooltip: {
-            displayColors: false,
-          },
-          legend: {
-            position: "top",
-          },
-          title: {
-            display: true,
-            text: "Global historical surface temperature anomalies from January 1850 onwards",
-          },
-        },
-        scales: {
-          x:{
-            type: "linear",
-            ticks: {
-              stepSize: 1
-            }
-          },
-            y:  {
-              beginAtZero: true,
-              type: "linear",
-              position: "left"
-            }
-        },
-      };
-      const [chartTime, setChartTime] = useState("month");
-
-      const options2 = {
+      const options = {
         responsive: true,
         plugins: {
           tooltip: {
@@ -152,7 +122,7 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
         scales: {
           x:{
             type: "time",
-            time:{unti: chartTime},
+            time:{unit: "year"},
             ticks: {
               stepSize: 1
             }
@@ -164,6 +134,7 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
             }
         },
       };
+      
 
       const [isClicked, setIsClicked] = useState(true);
 
@@ -172,12 +143,6 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
     const changeView = (e) => {
         setX(e.target.value);
         setIsClicked(true);
-        if (e.target.value === "1") {
-            setChartTime("year");
-        }
-        else {
-            setChartTime("month");
-        }
 
     };
 
@@ -191,7 +156,7 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
                     <button value={"2"} onClick={e => changeView(e)}>Monthly</button>
                     {isClicked &&                     
                     <div>
-                        <Line options={options1} data={annual} />
+                        <Line options={options} data={annual} />
                     </div>}
                 </div>
             );
@@ -199,12 +164,12 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
         case "2":
             return (
                 <div className="chart">
-                    <h1>Global historical surface temperature</h1>
+                    <h1>Global historical surface temperature anomalies from January 1850 onwards</h1>
                     <button value={"1"} onClick={e => changeView(e)}>Annual</button>
                     <button value={"2"} onClick={e => changeView(e)}>Monthly</button>
                     {isClicked &&
                     <div>
-                        <Line options={options2} data={monthly} />
+                        <Line options={options} data={monthly} />
                     </div>}
                 </div>
             );
@@ -214,11 +179,10 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
 
 export function Visu1Information() {
     return(<>
-    <a href="https://www.metoffice.gov.uk/hadobs/hadcrut5/">Link to data sources.</a>
-    <p><b>Annual and Monthly global, north and south area data</b><br/>The HadCRUT5 near surface temperature data set is produced by blending data from the CRUTEM5 surface air temperature dataset and the HadSST4 sea-surface temperature dataset. The following files contain time series derived from the HadCRUT5 grids for selected regions. These 'best estimate' series are computed as the means of regional time series computed for each of the 200 ensemble member realisations. Time series are presented as temperature anomalies (deg C) relative to 1961-1990. <br/><br/>
+    <p><b>Annual and monthly global, north and south area data</b><br/>The HadCRUT5 near surface temperature data set is produced by blending data from the CRUTEM5 surface air temperature dataset and the HadSST4 sea-surface temperature dataset. The dataset are presented as an ensemble of 200 dataset realisations that sample the distribution of uncertainty. Time series are presented as temperature anomalies (deg C) relative to 1961-1990. It is good to note that in the ensemble generated from the statistical analysis includes uncertainties which can be caused, for example, by a measurement error. <br/><br/>
     <a href="https://www.metoffice.gov.uk/hadobs/hadcrut5/"target="_blank"rel="noreferrer">Link to global, north and south data sources.</a></p><br/>
-    <p><b>Reconstrction data</b><br/>In reconstruct data set there is Northern Hemisphere temperatures for the past 2,000 years which is provided by combining low-resolution proxies with tree-ring data, using a wavelet transform technique to achieve timescale-dependent processing of the data. The reconstruction shows larger multicentennial variability than most previous multi-proxy reconstructions but agrees well with temperatures reconstructed from borehole measurements and with temperatures obtained with a general circulation model.These findings can be found in the study, which you can read more about in the link below.<br/><br/>
-    <a href="https://www.ncei.noaa.gov/pub/data/paleo/contributions_by_author/moberg2005/nhtemp-moberg2005.txt" target="_blank"rel="noreferrer">Link to reconstructions data sources.</a>
+    <p><b>Reconstruction data</b><br/>In reconstruction data set there is Northern Hemisphere temperatures from 2,000 years which is provided by combining low-resolution proxies with tree-ring data, using a wavelet transform technique to reach timescale-dependent processing of the data. The reconstruction shows larger multicentennial variability than most previous multi-proxy reconstructions. It agrees well with temperatures reconstructed from borehole measurements and also with temperatures obtained with a general circulation model. These findings can be found in the study, which you can read more about in the link below.<br/><br/>
+    <a href="https://www.ncei.noaa.gov/pub/data/paleo/contributions_by_author/moberg2005/nhtemp-moberg2005.txt" target="_blank"rel="noreferrer">Link to reconstruction data sources.</a>
     <a href="https://www.nature.com/articles/nature03265"target="_blank"rel="noreferrer">Link to the study.</a>
     </p></>
     );
