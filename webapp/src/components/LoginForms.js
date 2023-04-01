@@ -6,6 +6,8 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fire
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { signInWithPopup } from "firebase/auth";
+import { fsdb } from '../firebase-config';
+import { doc, collection, setDoc } from "firebase/firestore";
 
 export default function RegisterForm({ setIsAuth }) {   
     const schema = yup.object().shape({
@@ -39,6 +41,15 @@ export default function RegisterForm({ setIsAuth }) {
                 email, 
                 password
             );
+
+            const usersCollectionRef = collection(fsdb, "users");
+            const docRef = doc(usersCollectionRef, user.user.uid);
+            
+            await setDoc(docRef, {
+              firstName: firstName,
+              lastName: lastName,
+              userName: userName
+            });
 
             console.log(user);
             localStorage.setItem("isAuth", true);

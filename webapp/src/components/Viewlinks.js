@@ -13,7 +13,6 @@ function Viewlinks() {
       setView(0);
     };
     
-
         switch (rview) {
           case "1":
             return <View1 goBack={goBack}/>;
