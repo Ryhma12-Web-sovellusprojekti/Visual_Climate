@@ -5,7 +5,7 @@ import { Chart, registerables } from 'chart.js';
 import "chartjs-adapter-date-fns";
 Chart.register(...registerables);
 
-export default function Visu1({goBack}) {
+export default function Visu1() {
   const [annual_global, setAnnual_global] = useState([]);
   const [annual_north, setAnnual_north] = useState([]);
   const [annual_south, setAnnual_south] = useState([]);
@@ -23,12 +23,12 @@ export default function Visu1({goBack}) {
       <DataImport setData={setMonthly_global} path="1/V1_Monthly/global" />
       <DataImport setData={setMonthly_north} path="1/V1_Monthly/north" />
       <DataImport setData={setMonthly_south} path="1/V1_Monthly/south" />
-      <Graph1  annual_global={annual_global} annual_north={annual_north} annual_south={annual_south} annual_rec={annual_rec} monthly_global={monthly_global} monthly_north={monthly_north} monthly_south={monthly_south} goBack={goBack}/>
+      <Graph1  annual_global={annual_global} annual_north={annual_north} annual_south={annual_south} annual_rec={annual_rec} monthly_global={monthly_global} monthly_north={monthly_north} monthly_south={monthly_south}/>
     </div>
   );
 }
 
-function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_global, monthly_north, monthly_south, goBack }) {
+function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_global, monthly_north, monthly_south }) {
     const dat1 = Object.keys(annual_global);
     const dat2 = Object.keys(annual_north);
     const dat3 = Object.keys(annual_south);
@@ -187,7 +187,6 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
             return (
                 <div className="chart">
                     <h1>Global historical surface temperature</h1>
-                    <button onClick={goBack}>Back</button>
                     <button value={"1"} onClick={e => changeView(e)}>Annual</button>
                     <button value={"2"} onClick={e => changeView(e)}>Monthly</button>
                     {isClicked &&                     
@@ -201,7 +200,6 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
             return (
                 <div className="chart">
                     <h1>Global historical surface temperature</h1>
-                    <button onClick={goBack}>Back</button>
                     <button value={"1"} onClick={e => changeView(e)}>Annual</button>
                     <button value={"2"} onClick={e => changeView(e)}>Monthly</button>
                     {isClicked &&
