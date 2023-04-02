@@ -183,12 +183,12 @@ export function Visu1Information() {
     <section>
         <article>
         <h3>Annual and monthly global, north and south area data</h3>
-        <p>The HadCRUT5 near surface temperature data set is produced by blending data from the CRUTEM5 surface air temperature dataset and the HadSST4 sea-surface temperature dataset. The dataset are presented as an ensemble of 200 dataset realisations that sample the distribution of uncertainty. Time series are presented as temperature anomalies (deg C) relative to 1961-1990. It is good to note that in the ensemble generated from the statistical analysis includes uncertainties which can be caused, for example, by a measurement error.</p>
-        <a href="https://www.metoffice.gov.uk/hadobs/hadcrut5/" target="_blank" rel="noreferrer" title="link to data sources">Link to global, north and south data sources.</a>
+        <p>The HadCRUT5 near surface temperature data set is produced by blending data from the CRUTEM5 surface air temperature dataset and the HadSST4 sea-surface temperature dataset. The dataset are presented as an ensemble of 200 dataset realisations that sample the distribution of uncertainty. Time series are presented as temperature anomalies (deg C) relative to 1961-1990. It is good to note that in the ensemble generated from the statistical analysis includes uncertainties which can be caused, for example, by a measurement error. You can learn more from the links below.</p>
+        <a href="https://www.metoffice.gov.uk/hadobs/hadcrut5/" target="_blank" rel="noreferrer" title="link to data sources">Global, north and south data sources</a>
         <h3>Reconstruction data</h3>
         <p>In reconstruction data set there is Northern Hemisphere temperatures from 2,000 years which is provided by combining low-resolution proxies with tree-ring data, using a wavelet transform technique to reach timescale-dependent processing of the data. The reconstruction shows larger multicentennial variability than most previous multi-proxy reconstructions. It agrees well with temperatures reconstructed from borehole measurements and also with temperatures obtained with a general circulation model. These findings can be found in the study, which you can read more about in the link below.</p>
-        <a href="https://www.ncei.noaa.gov/pub/data/paleo/contributions_by_author/moberg2005/nhtemp-moberg2005.txt" target="_blank" rel="noreferrer" title="link to reconstruction">Link to reconstructions data sources.</a>
-        <a href="https://www.nature.com/articles/nature03265" target="_blank" rel="noreferrer" title="link to the study">Link to the study.</a>
+        <a href="https://www.ncei.noaa.gov/pub/data/paleo/contributions_by_author/moberg2005/nhtemp-moberg2005.txt" target="_blank" rel="noreferrer" title="link to reconstruction">Reconstructions data sources</a>
+        <a href="https://www.nature.com/articles/nature03265" target="_blank" rel="noreferrer" title="link to the study">Leran more about the study.</a>
       </article>
     </section>
     );
