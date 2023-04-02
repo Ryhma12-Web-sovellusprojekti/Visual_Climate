@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, updateProfile } from "firebase/auth";
 import { fsdb } from '../firebase-config';
 import { doc, collection, setDoc } from "firebase/firestore";
 
@@ -40,7 +40,14 @@ export default function RegisterForm({ setIsAuth }) {
                 auth, 
                 email, 
                 password
-            );
+            )
+
+            await updateProfile(auth.currentUser, { 
+                displayName: `${firstName} ${lastName}`,
+                photoURL: "https://cdn.pixabay.com/photo/2017/11/10/05/48/user-2935527_1280.png"
+            }).catch(
+                (err) => console.log(err)
+              );
 
             const usersCollectionRef = collection(fsdb, "users");
             const docRef = doc(usersCollectionRef, user.user.uid);
@@ -148,9 +155,7 @@ export function LoginForm({ setIsAuth }) {
 };
 
 export function GoogleForm({ setIsAuth }) {
-
     const navigate = useNavigate();
-
     const signInWithGoogle = () => {
         signInWithPopup(auth, provider).then((result) => {
             localStorage.setItem("isAuth", true);

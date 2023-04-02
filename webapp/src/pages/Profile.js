@@ -19,14 +19,13 @@ function Profile() {
 
     const toggleDialog = () => {
         setRemove(removeState => !removeState);
-    };
- 
+    }; 
 
     return (
         <section className="profile">
-                {user?.photoURL &&
-                    <img src={user?.photoURL} alt={user?.displayName} title={user?.displayName}></img> 
-                }
+            {user?.photoURL &&
+                <img src={user?.photoURL} alt={user?.displayName} title={user?.displayName} width="100"></img> 
+            }
             <button className="small-btn" onClick={SignUserOut}>Log Out</button>
             <button className="small-btn" onClick={toggleDialog}>Delete Account</button>
             {removeState &&
