@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import View1 from "../pages/View1";
 import View2 from "../pages/View2";
+import CustomView from "../pages/CustomView";
 
 function Viewlinks() {
     const [rview, setView ] = useState(0);
@@ -18,11 +19,14 @@ function Viewlinks() {
             return <View1 goBack={goBack}/>;
           case "2":
             return <View2 goBack={goBack}/>;
+          case "3":
+            return <CustomView goBack={goBack}/>;
           default:
             return (
                 <>
                     <button value={1} onClick={e => changeView(e)}>View 1</button>
                     <button value={2} onClick={e => changeView(e)}>View 2</button>
+                    <button value={3} onClick={e => changeView(e)}>Custom View</button>
                 </>
             );
         }
