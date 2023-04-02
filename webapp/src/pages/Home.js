@@ -1,15 +1,11 @@
-import React, { useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase-config";
+import React from "react";
 import Profile from "./Profile";
 import Footer from "../components/Footer";
 import Viewlinks from "../components/Viewlinks";
+import useAuth from "../components/CustomHooks";
 
 function Home() {
-    const [user, setUser] = useState({});
-    onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
-    });
+    const user = useAuth();
 
     return (
         <div className="wrapper-side">
