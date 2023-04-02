@@ -41,24 +41,24 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
           datasets: [{
               label: "Global annual anomalies",
               data: dat1.map((v, i) => ({ x: v, y: Object.values(annual_global)[i] })),
-              borderColor: "rgb(0, 0, 0)",
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              borderColor: "rgb(10, 17, 40)",
+              backgroundColor: "rgba(10, 17, 40, 0.5)",
               pointRadius: 1,
               tension: 0.4,
               yAxisID: "y"
           },{
               label: "North annual anomalies",
               data: dat2.map((v, i) => ({ x: v, y: Object.values(annual_north)[i] })),
-              borderColor: "rgb(255, 99, 132)",
-              backgroundColor: "rgba(255, 99, 132, 0.5)",
+              borderColor: "rgb(3, 64, 120)",
+              backgroundColor: "rgba(3, 64, 120, 0.5)",
               pointRadius: 1,
               tension: 0.4,
               yAxisID: "y"
             },{
               label: "South annual anomalies",
               data: dat3.map((v, i) => ({ x: v, y: Object.values(annual_south)[i] })),
-              borderColor: "rgb(255, 145, 0)",
-              backgroundColor: "rgba(255, 145, 0, 0.5)",
+              borderColor: "rgb(253, 99, 43)",
+              backgroundColor: "rgba(253, 99, 43, 0.5)",
               pointRadius: 1,
               tension: 0.4,
               yAxisID: "y"
@@ -66,8 +66,8 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
          {
               label: "Reconstruction",
               data: dat4.map((v, i) => ({ x: v, y: Object.values(annual_rec)[i] })),
-              borderColor: "rgb(3, 64, 120)",
-              backgroundColor: "rgba(3, 64, 120, 0.5)",
+              borderColor: "rgb(18, 130, 162)",
+              backgroundColor: "rgba(18, 130, 162, 0.5)",
               pointRadius: 1,
               tension: 0.4,
               yAxisID: "y",
@@ -105,7 +105,36 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
     ],
       };
       
-      const options = {
+      const options1 = {
+        responsive: true,
+        plugins: {
+          tooltip: {
+            displayColors: false,
+          },
+          legend: {
+            position: "top",
+          },
+          title: {
+            display: true,
+            text: "Global historical surface temperature anomalies from January 1850 onwards",
+          },
+        },
+        scales: {
+          x:{
+            type: "linear", //using this type, the reconstruction data shows right
+            ticks: {
+              stepSize: 1
+            }
+          },
+            y:  {
+              beginAtZero: true,
+              type: "linear",
+              position: "left"
+            }
+        },
+      };
+
+      const options2 = {
         responsive: true,
         plugins: {
           tooltip: {
@@ -122,7 +151,7 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
         scales: {
           x:{
             type: "time",
-            time:{unit: "year"},
+            time:{unit: "month"},
             ticks: {
               stepSize: 1
             }
@@ -156,7 +185,7 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
                     <button value={"2"} onClick={e => changeView(e)}>Monthly</button>
                     {isClicked &&                     
                     <div>
-                        <Line options={options} data={annual} />
+                        <Line options={options1} data={annual} />
                     </div>}
                 </div>
             );
@@ -169,7 +198,7 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
                     <button value={"2"} onClick={e => changeView(e)}>Monthly</button>
                     {isClicked &&
                     <div>
-                        <Line options={options} data={monthly} />
+                        <Line options={options2} data={monthly} />
                     </div>}
                 </div>
             );

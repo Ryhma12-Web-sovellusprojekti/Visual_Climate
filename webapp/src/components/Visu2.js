@@ -36,24 +36,24 @@ function Graph1({maunaloa_annual, maunaloa_monthly, de08_ice, de08_2_ice, dss_ic
           datasets: [{
               label: "CO2 Annual",
               data: dat1.map((v, i) => ({ x: v, y: Object.values(maunaloa_annual)[i] })),
-              borderColor: "rgb(0, 0, 0)",
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              borderColor: "rgb10, 17, 40)",
+              backgroundColor: "rgba(10, 17, 40, 0.5)",
               pointRadius: 1,
               tension: 0.4,
               yAxisID: "y"
           },{
               label: "CO2 Monthly",
               data: dat2.map((v, i) => ({ x: v, y: Object.values(maunaloa_monthly)[i] })),
-              borderColor: "rgb(255, 145, 0)",
-              backgroundColor: "rgba(255, 145, 0, 0.5)",
+              borderColor: "rgb(3, 64, 120)",
+              backgroundColor: "rgba(3, 64, 120, 0.5)",
               pointRadius: 1,
               tension: 0.4,
               yAxisID: "y"
             },{
                 label: "DE08 ice",
                 data: dat3.map((v, i) => ({ x: v, y: Object.values(de08_ice)[i] })),
-                borderColor: "rgb(3, 64, 120)",
-                backgroundColor: "rgba(3, 64, 120, 0.5)",
+                borderColor: "rgb(253, 99, 43)",
+                backgroundColor: "rgba(253, 99, 43, 0.5)",
                 pointRadius: 1,
                 tension: 0.4,
                 yAxisID: "y",
@@ -61,8 +61,8 @@ function Graph1({maunaloa_annual, maunaloa_monthly, de08_ice, de08_2_ice, dss_ic
               },{
                 label: "DE08-2 ice",
                 data: dat4.map((v, i) => ({ x: v, y: Object.values(de08_2_ice)[i] })),
-                borderColor: "rgb(0, 178, 53)",
-                backgroundColor: "rgba(0, 178, 53, 0.5)",
+                borderColor: "rgb(18, 130, 162)",
+                backgroundColor: "rgba(18, 130, 162, 0.5)",
                 pointRadius: 1,
                 tension: 0.4,
                 yAxisID: "y",
@@ -70,8 +70,8 @@ function Graph1({maunaloa_annual, maunaloa_monthly, de08_ice, de08_2_ice, dss_ic
               },{
                 label: "DSS ice",
                 data: dat5.map((v, i) => ({ x: v, y: Object.values(dss_ice)[i] })),
-                borderColor: "rgb(255, 99, 132)",
-                backgroundColor: "rgba(255, 99, 132, 0.5)",
+                borderColor: "rgb(255, 235, 44)",
+                backgroundColor: "rgba(255, 235, 44, 0.5)",
                 pointRadius: 1,
                 tension: 0.4,
                 yAxisID: "y",
