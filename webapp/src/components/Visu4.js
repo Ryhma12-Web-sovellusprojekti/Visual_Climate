@@ -11,6 +11,7 @@ export default function Visu4() {
     if (!selectedCountries.includes(value)) {
       setSelectedCountries([...selectedCountries, value]);
     }
+    event.target.value = "";
   };
 
   const handleDeleteCountry = (country) => {
