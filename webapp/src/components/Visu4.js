@@ -14,10 +14,6 @@ export default function Visu4() {
     event.target.value = "";
   };
 
-  const handleDeleteCountry = (country) => {
-    setSelectedCountries(selectedCountries.filter((c) => c !== country));
-  };
-
   const path = `7/V4_National_CO2_emissions`;
 
   useEffect(() => {
@@ -45,12 +41,6 @@ export default function Visu4() {
             <option key={country} value={country} />
           ))}
       </datalist>
-      {selectedCountries.map((country) => (
-        <div key={country}>
-          {country}{" "}
-          <button onClick={() => handleDeleteCountry(country)}>x</button>
-        </div>
-      ))}
       <DataImport setData={setV4National} path={path} />
       {countriesData && <Graph countriesData={countriesData} />}
     </div>
