@@ -4,7 +4,7 @@ import { Line } from "react-chartjs-2";
 
 export default function Visu4() {
   const [v4nationalstate, setV4National] = useState(null);
-  const [selectedCountries, setSelectedCountries] = useState([]);
+  const [selectedCountries, setSelectedCountries] = useState(["Finland"]);
 
   const handleInputChange = (event) => {
     const value = event.target.value;
