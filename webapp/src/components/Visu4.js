@@ -4,10 +4,17 @@ import { Line } from "react-chartjs-2";
 
 export default function Visu4() {
   const [v4nationalstate, setV4National] = useState(null);
-  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCountries, setSelectedCountries] = useState([]);
 
   const handleInputChange = (event) => {
-    setSelectedCountry(event.target.value);
+    const value = event.target.value;
+    if (!selectedCountries.includes(value)) {
+      setSelectedCountries([...selectedCountries, value]);
+    }
+  };
+
+  const handleDeleteCountry = (country) => {
+    setSelectedCountries(selectedCountries.filter((c) => c !== country));
   };
 
   const path = `7/V4_National_CO2_emissions`;
@@ -16,15 +23,18 @@ export default function Visu4() {
     setV4National(null);
   }, [path]);
 
-  let countryData = null;
+  let countriesData = null;
   if (v4nationalstate) {
-    countryData = v4nationalstate[selectedCountry];
+    countriesData = selectedCountries.map((country) => ({
+      country,
+      data: v4nationalstate[country],
+    }));
   }
   return (
     <div>
       <input
         type="text"
-        value={selectedCountry}
+        value=""
         onChange={handleInputChange}
         list="countryList"
       />
@@ -34,25 +44,30 @@ export default function Visu4() {
             <option key={country} value={country} />
           ))}
       </datalist>
+      {selectedCountries.map((country) => (
+        <div key={country}>
+          {country}{" "}
+          <button onClick={() => handleDeleteCountry(country)}>x</button>
+        </div>
+      ))}
       <DataImport setData={setV4National} path={path} />
-      {countryData && <Graph countryData={countryData} />}
+      {countriesData && <Graph countriesData={countriesData} />}
     </div>
   );
 }
-function Graph({ countryData }) {
+
+function Graph({ countriesData }) {
   const data = {
-    labels: Object.keys(countryData),
-    datasets: [
-      {
-        label: "CO2 emissions by country",
-        data: Object.values(countryData),
-        borderColor: "rgba(3, 64, 120, 1)",
-        backgroundColor: "rgba(3, 64, 120, 0.5)",
-        pointRadius: 1,
-        tension: 0.4,
-        yAxisID: "y",
-      },
-    ],
+    labels: countriesData.length > 0 ? Object.keys(countriesData[0].data) : [],
+    datasets: countriesData.map((cd, i) => ({
+      label: cd.country,
+      data: Object.values(cd.data),
+      borderColor: `rgba(3, 64, 120, ${i / countriesData.length})`,
+      backgroundColor: `rgba(3, 64, 120, ${i / countriesData.length})`,
+      pointRadius: 1,
+      tension: 0.4,
+      yAxisID: "y",
+    })),
   };
   const options = {
     responsive: true,
