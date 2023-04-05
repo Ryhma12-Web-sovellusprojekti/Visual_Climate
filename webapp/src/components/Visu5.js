@@ -176,7 +176,7 @@ function Graph({ sectors, subAgri, subEnergy, subIndustry, subWaste }) {
     };
 
     return (
-        <div style={{ width: "500px" }}>
+        <div className="doughnuts">
             <h1>CO2 emissions by sectors</h1>
             <Doughnut options={sectorOptions} data={dataSectors} onClick={onClick} ref={chartRef} />
             <Doughnut options={subsectorOptions} data={subsectorData} />

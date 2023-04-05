@@ -22,6 +22,7 @@ html {
   --orange: #fd632b;
   --cerulean: #1282a2;
   --white: #fefcfb;
+  font-size: 18px;
 }
 
 body {
@@ -43,19 +44,24 @@ header{
   background-size: cover;
   background-repeat: no-repeat;
 }
+
 aside{
   grid-column: 1/2;
   grid-row: 1/-1;
   width: 100%;
+  /*height: 100vw;*/
   background-image: url("../public/images/pexels_test1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   max-width: 200px;
+  /*position: fixed;*/
 }
+
 main{
   width: 100%;
 }
 main h1{
+  grid-column: -1/-2;
   margin: auto;
   color: var(--oxblue);
   text-align: center;
@@ -169,6 +175,7 @@ a, input[type=submit], .logout-btn, button {
 .sidebyside{
   display: grid;
   grid-template-columns: 2fr 200px;
+  grid-gap: 24px;
   padding: 2rem;  
 }
 
@@ -261,6 +268,74 @@ article p{
 .dialog h3{
   grid-column: span 2;
   padding-bottom: 24px;
+}
+.datalist-wrapper{
+  display: grid;
+}
+.search-wrapper{
+  display: grid;
+}
+.countries{
+  margin-left: 0px;
+  text-align: left;
+  grid-column: span 1;
+  padding: 4px;
+  padding-left: 12px;
+  z-index: 10;
+  pointer-events: none;
+  margin-bottom: 8px;
+  grid-column: 1/-1;
+  grid-row: 1/-1;
+}
+
+.search-wrapper input{
+  padding: 24px;
+  z-index: 5;
+  border: 1px solid black;
+  text-align: right;
+  grid-column: 1/-1;
+  grid-row: 1/-1;
+  display: grid;
+}
+
+.selected-country{
+  display: inline-block;
+  text-align: left;
+  grid-column: span 1;
+  margin-left: 0;
+  margin-right: 8px;
+  margin-top: 8px;
+  border-radius: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 12px;
+  padding-right: 4px;
+  background-color: rgb(220, 220, 220);
+}
+
+.selected-country button{
+  margin: 0;
+  padding: 0;
+  margin-left: 8px;
+  pointer-events: all;
+  height: 48px;
+  width: 48px;
+  text-align: center;
+  background-color: rgb(122, 122, 122);
+}
+
+.doughnuts{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px,1fr));
+  grid-template-rows: max-content;
+}
+
+.doughnuts canvas{
+  height: 100% !important;
+}
+
+.doughnuts h1{
+  grid-column: 1/-1;
 }
 
 @media screen and (max-width: 1024px) {
