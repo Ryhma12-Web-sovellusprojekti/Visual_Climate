@@ -9,11 +9,24 @@ export default function Visu4() {
 
   const handleInputChange = (event) => {
     const value = event.target.value;
-    if (!selectedCountries.includes(value)) {
-      setSelectedCountries([...selectedCountries, value]);
-      setColors([...colors, `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 1)`]);
-    }
+    const matchingCountries = Object.keys(v4nationalstate || {}).filter(
+      (country) => country.toLowerCase().startsWith(value.toLowerCase())
+    );
+  
+    if (matchingCountries.length === 1) {
+      const country = matchingCountries[0];
+  
+      if (!selectedCountries.includes(country)) {
+        setSelectedCountries([...selectedCountries, country]);
+        setColors([
+          ...colors,
+          `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(
+            Math.random() * 256
+          )}, ${Math.floor(Math.random() * 256)}, 1)`,
+        ]);
+      }
     event.target.value = "";
+    }
   };
 
   const path = `7/V4_National_CO2_emissions`;
