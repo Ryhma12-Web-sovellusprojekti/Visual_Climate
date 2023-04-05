@@ -5,7 +5,7 @@ import { Line } from "react-chartjs-2";
 export default function Visu4() {
   const [v4nationalstate, setV4National] = useState(null);
   const [selectedCountries, setSelectedCountries] = useState(["Finland"]);
-  const [colors, setColors] = useState(["rgba(3, 64, 120, 1)"]);
+  const [colors, setColors] = useState([]);
 
   const handleInputChange = (event) => {
     const value = event.target.value;
@@ -30,24 +30,33 @@ export default function Visu4() {
       color: colors[i],
     }));
   }
-  return (
+return (
+  <div>
     <div>
+      {selectedCountries.map((country) => (
+        <span key={country} className="selected-country">
+          {country}
+          <button onClick={() => setSelectedCountries(selectedCountries.filter(c => c !== country))}>
+            &times;
+          </button>
+        </span>
+      ))}
       <input
         type="text"
-        value=""
         onChange={handleInputChange}
         list="countryList"
       />
-      <datalist id="countryList">
-        {v4nationalstate &&
-          Object.keys(v4nationalstate).map((country) => (
-            <option key={country} value={country} />
-          ))}
-      </datalist>
-      <DataImport setData={setV4National} path={path} />
-      {countriesData && <Graph countriesData={countriesData} />}
     </div>
-  );
+    <datalist id="countryList">
+      {v4nationalstate &&
+        Object.keys(v4nationalstate).map((country) => (
+          <option key={country} value={country} />
+        ))}
+    </datalist>
+    <DataImport setData={setV4National} path={path} />
+    {countriesData && <Graph countriesData={countriesData} />}
+  </div>
+);
 }
 
 function Graph({ countriesData }) {
@@ -83,7 +92,6 @@ function Graph({ countriesData }) {
     </div>
   );
 }
-
 
 export function Visu4Information() {
   return (
