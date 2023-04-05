@@ -60,17 +60,34 @@ return (
 }
 
 function Graph({ countriesData }) {
-  const data = {
-    labels: countriesData.length > 0 ? Object.keys(countriesData[0].data) : [],
-    datasets: countriesData.map((cd) => ({
-      label: cd.country,
-      data: Object.values(cd.data),
-      borderColor: cd.color,
-      backgroundColor: cd.color,
+  const allYears = countriesData.reduce((years, { data }) => {
+    const countryYears = Object.keys(data).map(Number);
+    return [...years, ...countryYears];
+  }, []);
+  const minYear = Math.min(...allYears);
+  const maxYear = Math.max(...allYears);
+  const years = Array.from({ length: maxYear - minYear + 1 }, (_, i) => i + minYear);
+  const datasets = countriesData.map(({ country, data, color }) => {
+    const countryData = Array.from({ length: years.length }, () => null);
+    Object.entries(data).forEach(([year, value]) => {
+      const index = years.indexOf(Number(year));
+      if (index !== -1) {
+        countryData[index] = value;
+      }
+    });
+    return {
+      label: country,
+      data: countryData,
+      borderColor: color,
+      backgroundColor: color,
       pointRadius: 1,
       tension: 0.4,
       yAxisID: "y",
-    })),
+    };
+  });
+  const data = {
+    labels: years,
+    datasets,
   };
   const options = {
     responsive: true,
