@@ -5,11 +5,13 @@ import { Line } from "react-chartjs-2";
 export default function Visu4() {
   const [v4nationalstate, setV4National] = useState(null);
   const [selectedCountries, setSelectedCountries] = useState(["Finland"]);
+  const [colors, setColors] = useState(["rgba(3, 64, 120, 1)"]);
 
   const handleInputChange = (event) => {
     const value = event.target.value;
     if (!selectedCountries.includes(value)) {
       setSelectedCountries([...selectedCountries, value]);
+      setColors([...colors, `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 1)`]);
     }
     event.target.value = "";
   };
@@ -22,9 +24,10 @@ export default function Visu4() {
 
   let countriesData = null;
   if (v4nationalstate) {
-    countriesData = selectedCountries.map((country) => ({
+    countriesData = selectedCountries.map((country, i) => ({
       country,
       data: v4nationalstate[country],
+      color: colors[i],
     }));
   }
   return (
@@ -50,11 +53,11 @@ export default function Visu4() {
 function Graph({ countriesData }) {
   const data = {
     labels: countriesData.length > 0 ? Object.keys(countriesData[0].data) : [],
-    datasets: countriesData.map((cd, i) => ({
+    datasets: countriesData.map((cd) => ({
       label: cd.country,
       data: Object.values(cd.data),
-      borderColor: `rgba(3, 64, 120, ${i / countriesData.length})`,
-      backgroundColor: `rgba(3, 64, 120, ${i / countriesData.length})`,
+      borderColor: cd.color,
+      backgroundColor: cd.color,
       pointRadius: 1,
       tension: 0.4,
       yAxisID: "y",
@@ -80,6 +83,7 @@ function Graph({ countriesData }) {
     </div>
   );
 }
+
 
 export function Visu4Information() {
   return (
