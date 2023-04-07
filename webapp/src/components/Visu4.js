@@ -7,13 +7,37 @@ export default function Visu4() {
   const [selectedCountries, setSelectedCountries] = useState(["Finland"]);
   const [colors, setColors] = useState([]);
 
+  function randomRGB(){ //pyrkii arpomaan contrastia omaavan rgb-arvon
+    const highLimit = 300;
+    let red, green, blue;
+
+    do{
+      red = Math.floor(Math.random() * 256);
+      green = Math.floor(Math.random() * 256);
+      blue = Math.floor(Math.random() * 256);
+    } while ((red + green + blue) < highLimit);
+
+    return "rgb(" + red + ", " + green + ", " + blue + ")";
+  }
+
   const handleInputChange = (event) => {
     const value = event.target.value;
-    if (!selectedCountries.includes(value)) {
-      setSelectedCountries([...selectedCountries, value]);
-      setColors([...colors, `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 1)`]);
-    }
+    const matchingCountries = Object.keys(v4nationalstate || {}).filter(
+      (country) => country.toLowerCase().startsWith(value.toLowerCase())
+    );
+  
+    if (matchingCountries.length === 1) {
+      const country = matchingCountries[0];
+  
+      if (!selectedCountries.includes(country)) {
+        setSelectedCountries([...selectedCountries, country]);
+        setColors([
+          ...colors,
+          randomRGB(),
+        ]);
+      }
     event.target.value = "";
+    }
   };
 
   const path = `7/V4_National_CO2_emissions`;
@@ -31,18 +55,21 @@ export default function Visu4() {
     }));
   }
 return (
-  <div>
-    <div>
-      {selectedCountries.map((country) => (
-        <span key={country} className="selected-country">
-          {country}
-          <button onClick={() => setSelectedCountries(selectedCountries.filter(c => c !== country))}>
-            &times;
-          </button>
-        </span>
-      ))}
+  <div className="datalist-wrapper">
+    <div className="search-wrapper">
+      <div className="countries">
+        {selectedCountries.map((country) => (
+          <span key={country} className="selected-country">
+            {country}
+            <button onClick={() => setSelectedCountries(selectedCountries.filter(c => c !== country))}>
+              &times;
+            </button>
+          </span>
+        ))}
+      </div>
       <input
-        type="text"
+        className="inside-search"
+        type="search"
         onChange={handleInputChange}
         list="countryList"
       />
