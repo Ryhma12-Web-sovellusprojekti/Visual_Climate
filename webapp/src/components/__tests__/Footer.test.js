@@ -15,7 +15,7 @@ test('Footer manual test', () => {
     expect(footerElement).toContainHTML('<footer data-testid="Footer1">© Ryhmä 12 2023</footer>');
 }); 
 
-test('Matches snapshot', () =>{
+test('Matches Footer snapshot', () =>{
     const tree = renderer.create(<Footer />).toJSON();
     expect(tree).toMatchSnapshot();
 });

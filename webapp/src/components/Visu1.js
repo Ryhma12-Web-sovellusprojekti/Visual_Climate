@@ -179,7 +179,7 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
 
         case "1":
             return (
-                <div className="chart">
+                <div className="chart" data-testid="visu1">
                     <h1>Global historical surface temperature</h1>
                     <button value={"1"} onClick={e => changeView(e)}>Annual</button>
                     <button value={"2"} onClick={e => changeView(e)}>Monthly</button>
@@ -192,7 +192,7 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
 
         case "2":
             return (
-                <div className="chart">
+                <div className="chart" data-testid="visu1">
                     <h1>Global historical surface temperature anomalies from January 1850 onwards</h1>
                     <button value={"1"} onClick={e => changeView(e)}>Annual</button>
                     <button value={"2"} onClick={e => changeView(e)}>Monthly</button>

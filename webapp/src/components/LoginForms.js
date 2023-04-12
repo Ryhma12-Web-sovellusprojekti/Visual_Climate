@@ -100,7 +100,7 @@ export default function RegisterForm({ setIsAuth }) {
                 placeholder="Password confirmation..." {...register("confirmPassword")}
                 onChange={user => setConfirmPassword(user.target.value)} />
                 <p>{errors.confirmPassword?.message}</p>
-            <input type="submit" />
+            <input type="submit" value="Submit"/>
         </form>
     );
 };
@@ -149,7 +149,7 @@ export function LoginForm({ setIsAuth }) {
                 placeholder="Password..." {...register("password")}
                 onChange={user => setPassword(user.target.value)} />
                 <p>{errors.password?.message}</p>
-            <input type="submit" />
+            <input type="submit" value="Submit" />
         </form>
     );
 };

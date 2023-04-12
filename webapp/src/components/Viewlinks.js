@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import View1 from "../pages/View1";
 import View2 from "../pages/View2";
 import CustomView from "../pages/CustomView";
+import { useNavigate } from 'react-router-dom';
 
 function Viewlinks() {
     const [rview, setView ] = useState(0);

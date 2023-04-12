@@ -68,6 +68,11 @@ main h1{
   margin-top: 4rem;
   margin-bottom: 2rem;
 }
+
+#error{
+  color: var(--orange);
+}
+
 footer{
   grid-row: -1/-2;
   text-align: right;
