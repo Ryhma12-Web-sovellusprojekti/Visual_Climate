@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import View1 from "./pages/View1";
 import View2 from "./pages/View2";
 import CustomView from "./pages/CustomView";
+import ShowCustomView from "./pages/ShowCustomView";
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<Login setIsAuth={setIsAuth}/>} />
         <Route path="/home" element={<Home isAuth={isAuth} />} />
         <Route path="/customview" element={<CustomView />} />
+        <Route path="/showcustomview" element={<ShowCustomView />} />
       </Routes>
     </Router>
   </div>;

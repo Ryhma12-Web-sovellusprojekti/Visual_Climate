@@ -96,7 +96,7 @@ function Graph({co2, temperature, events, shortLabel}) {
         x: {
           type: "linear",
           ticks: {
-            stepSize: 1000
+            stepSize: 10000
           }
         },
         y: {
