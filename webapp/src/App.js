@@ -18,9 +18,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Login setIsAuth={setIsAuth}/>} />
         <Route path="/home" element={<Home isAuth={isAuth} />} />
-        <Route path="/view1" element={<View1 />} />
-        <Route path="/view2" element={<View2 />} />
-        <Route path="/customview" element={<CustomView />} />
         <Route path="/showcustomview" element={<ShowCustomView />} />
       </Routes>
     </Router>
