@@ -222,8 +222,7 @@ a, input[type=submit], .logout-btn, button {
 }
 canvas{
   width: 100% !important;
-  max-height:720px;
-}
+  }
 
 section{
   margin-top: 48px;
