@@ -14,6 +14,7 @@ jest.mock('react-router-dom', () => ({
     useNavigate: () => mockedUsedNavigate,
 }));
 
+
 describe(("LoginForm tests"), () => {
 
     test("renders LoginForm content", () => {
@@ -40,6 +41,16 @@ describe(("LoginForm tests"), () => {
         expect(googleSignInButton).toBeDefined()
     })
 
+    test("does not show LoginForm when Sign Up button is clicked", async () => {
+        const user = userEvent.setup()
+        const { getByText, queryByText } = render(<LoginLinks />);
+        const signUpButton = getByText("Sign Up");
+
+        await user.click(signUpButton);
+    
+        const LoginFormText = queryByText("Sign in to Continue");
+        expect(LoginFormText).toBeNull();
+      });
 
     test(("LoginForm gives a note if email and password are missing"), async () => {
 
@@ -75,6 +86,27 @@ describe(("LoginForm tests"), () => {
 
         const emailMessage = screen.getByText("this is requred information")
         expect(emailMessage).toBeDefined()
+        expect(setIsAuth).not.toHaveBeenCalledWith(true)
+
+
+    })
+
+    test(("LoginForm gives a note if email is not valid"), async () => {
+
+        const user = userEvent.setup()
+        const setIsAuth = jest.fn();
+        render(<LoginForm setIsAuth={setIsAuth} />);
+
+        const emailInput = screen.getByPlaceholderText("Email...")
+        const passwordInput = screen.getByPlaceholderText("Password...")
+        const SignInButton = screen.getByRole('button', { name: /Submit/i })
+
+        await user.type(emailInput, "example.fi")
+        await user.type(passwordInput, 'Salasana12345!')
+        await user.click(SignInButton)
+
+        const emailErrorMessage = screen.getByTestId("email-error");
+        expect(emailErrorMessage).toBeInTheDocument()
         expect(setIsAuth).not.toHaveBeenCalledWith(true)
 
 
@@ -135,11 +167,31 @@ describe(("LoginForm tests"), () => {
 
         await user.click(submitButton);
         await waitFor(() => { expect(setIsAuth).toHaveBeenCalledWith(true) })
+        expect(mockedUsedNavigate).toHaveBeenCalledWith('/home');
 
     });
 
 })
 
+describe(("RegisterForm tests"), () => {
 //testaa eihän sigup formi näy heti ensin
-//testaa sähköpostin syöttäminen virheellisenä, esim ilman @merkkiä
-//testaa SignUp form
+
+test("does not show RegisterForm by default", () => {
+    const { queryByText } = render(<LoginLinks />);
+    const registerForm = queryByText("Not registered yet? Sign up here!");
+
+    expect(registerForm).toBeNull();
+  });
+
+  test("shows RegisterForm after Sign Up button is clicked", async () => {
+    const user = userEvent.setup()
+    const { getByText, queryByText } = render(<LoginLinks />);
+    const signUpButton = getByText("Sign Up");
+
+    await user.click(signUpButton);
+
+    const registerFormText = queryByText("Not registered yet? Sign up here!");
+
+    expect(registerFormText).toBeInTheDocument();
+});
+})

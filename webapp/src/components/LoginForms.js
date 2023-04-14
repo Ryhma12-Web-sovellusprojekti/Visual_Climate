@@ -143,7 +143,7 @@ export function LoginForm({ setIsAuth }) {
                 placeholder="Email..." 
                 {...register("email")}
                 onChange={user => setEmail(user.target.value)} />
-                <p>{errors.email?.message}</p>
+                <p data-testid="email-error">{errors.email?.message}</p>
             <input type="password" 
                 value={password} 
                 placeholder="Password..." {...register("password")}
