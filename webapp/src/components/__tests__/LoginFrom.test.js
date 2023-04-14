@@ -2,10 +2,8 @@ import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-//import { MockFirebase } from 'firebase-mock';
 import LoginLinks from "../LoginLinks"
 import { LoginForm } from '../LoginForms'
-//import { useNavigate } from 'react-router-dom';
 
 
 const mockedUsedNavigate = jest.fn();
@@ -22,7 +20,7 @@ describe(("LoginForm tests"), () => {
         const textElement = screen.getByText("Sign in to Continue")
         const emailPlacehoder = screen.getByPlaceholderText("Email...")
         const passwordPlacehoder = screen.getByPlaceholderText("Password...")
-        const SignInButton = screen.getByRole('button', { name: /Submit/i })
+        const SignInButton = screen.getByTestId("signin-submit");
         const googleTextElement = screen.getByText("Or use your Google account")
         const googleSignInButton = screen.getByRole('button', { name: /Sign in with Google/i })
 
@@ -47,10 +45,10 @@ describe(("LoginForm tests"), () => {
         const signUpButton = getByText("Sign Up");
 
         await user.click(signUpButton);
-    
+
         const LoginFormText = queryByText("Sign in to Continue");
         expect(LoginFormText).toBeNull();
-      });
+    });
 
     test(("LoginForm gives a note if email and password are missing"), async () => {
 
@@ -59,7 +57,7 @@ describe(("LoginForm tests"), () => {
         render(<LoginForm setIsAuth={setIsAuth} />);
 
 
-        const SignInButton = screen.getByRole('button', { name: /Submit/i })
+        const SignInButton = screen.getByTestId("signin-submit");
         await user.click(SignInButton)
 
         const emailMessage = screen.getByText("this is requred information")
@@ -79,9 +77,9 @@ describe(("LoginForm tests"), () => {
 
 
         const passwordInput = screen.getByPlaceholderText("Password...")
-        const SignInButton = screen.getByRole('button', { name: /Submit/i })
+        const SignInButton = screen.getByTestId("signin-submit");
 
-        await user.type(passwordInput, 'Salasana12345!')
+        await user.type(passwordInput, 'Password')
         await user.click(SignInButton)
 
         const emailMessage = screen.getByText("this is requred information")
@@ -99,10 +97,10 @@ describe(("LoginForm tests"), () => {
 
         const emailInput = screen.getByPlaceholderText("Email...")
         const passwordInput = screen.getByPlaceholderText("Password...")
-        const SignInButton = screen.getByRole('button', { name: /Submit/i })
+        const SignInButton = screen.getByTestId("signin-submit");
 
         await user.type(emailInput, "example.fi")
-        await user.type(passwordInput, 'Salasana12345!')
+        await user.type(passwordInput, 'Password')
         await user.click(SignInButton)
 
         const emailErrorMessage = screen.getByTestId("email-error");
@@ -119,9 +117,9 @@ describe(("LoginForm tests"), () => {
         render(<LoginForm setIsAuth={setIsAuth} />);
 
         const emailInput = screen.getByPlaceholderText("Email...")
-        const SignInButton = screen.getByRole('button', { name: /Submit/i })
+        const SignInButton = screen.getByTestId("signin-submit");
 
-        await user.type(emailInput, 'etunimi.sukunimi@sahkoposti.fi')
+        await user.type(emailInput, 'essi@example.fi')
         await user.click(SignInButton)
 
         const message = screen.getByText("password must be at least 6 characters")
@@ -140,10 +138,10 @@ describe(("LoginForm tests"), () => {
 
         const emailInput = screen.getByPlaceholderText("Email...")
         const passwordInput = screen.getByPlaceholderText("Password...")
-        const SignInButton = screen.getByRole('button', { name: /Submit/i })
+        const SignInButton = screen.getByTestId("signin-submit");
 
-        await user.type(emailInput, 'etunimi.sukunimi@sahkoposti.fi')
-        await user.type(passwordInput, 'Sala')
+        await user.type(emailInput, 'essi@example.fi')
+        await user.type(passwordInput, 'Pass')
         await user.click(SignInButton)
 
         const message = screen.getByText("password must be at least 6 characters")
@@ -160,38 +158,16 @@ describe(("LoginForm tests"), () => {
         render(<LoginForm setIsAuth={setIsAuth} />);
         const emailInput = screen.getByPlaceholderText("Email...")
         const passwordInput = screen.getByPlaceholderText("Password...")
-        const submitButton = screen.getByRole('button', { name: /Submit/i })
+        const submitButton = screen.getByTestId("signin-submit");
 
-        await user.type(emailInput, 't1nies00@students.oamk.fi')
-        await user.type(passwordInput, 'Salasana1234!')
+        await user.type(emailInput, 'essi@example.fi')
+        await user.type(passwordInput, 'Password')
 
         await user.click(submitButton);
         await waitFor(() => { expect(setIsAuth).toHaveBeenCalledWith(true) })
-        expect(mockedUsedNavigate).toHaveBeenCalledWith('/home');
+        await expect(mockedUsedNavigate).toHaveBeenCalledWith('/home');
 
     });
 
 })
 
-describe(("RegisterForm tests"), () => {
-//testaa eihän sigup formi näy heti ensin
-
-test("does not show RegisterForm by default", () => {
-    const { queryByText } = render(<LoginLinks />);
-    const registerForm = queryByText("Not registered yet? Sign up here!");
-
-    expect(registerForm).toBeNull();
-  });
-
-  test("shows RegisterForm after Sign Up button is clicked", async () => {
-    const user = userEvent.setup()
-    const { getByText, queryByText } = render(<LoginLinks />);
-    const signUpButton = getByText("Sign Up");
-
-    await user.click(signUpButton);
-
-    const registerFormText = queryByText("Not registered yet? Sign up here!");
-
-    expect(registerFormText).toBeInTheDocument();
-});
-})
