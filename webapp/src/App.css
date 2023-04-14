@@ -145,6 +145,10 @@ a, input[type=submit], .logout-btn, button {
   margin: 10px;
 }
 
+button.copied {
+  background: var(--orange);
+}
+
 .signinselect{
   background-color: rgba(0,0, 0, 0.0);
   color: var(--cerulean);

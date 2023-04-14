@@ -39,8 +39,6 @@ function ShowCustomView() {
                
                 <h1>{data.title}</h1>
                 <p>{data.viewText}</p>
-                <h2>These visuals should be showing: </h2>
-                <h3>{JSON.stringify(data.visuals)}</h3>
                 {data.visuals.v1 === true &&
                 <Visu1/>}
                 {data.visuals.v2 === true &&
