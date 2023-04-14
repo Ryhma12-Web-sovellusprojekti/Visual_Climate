@@ -10,31 +10,52 @@ import Visu5 from "../components/Visu5";
 
 function ShowCustomView() {
     const [data, setData] = useState({});
+    const [loading, setLoading] = useState(true);
     const { id } = useParams();
 
-    useEffect(() => {
+    useEffect( () => {
         const docRef = doc(collection(fsdb, "customview"), id);
-        getDoc(docRef)
+         getDoc(docRef)
             .then((doc) => {
                 if (doc.exists()) {
                     setData(doc.data());
                 } else {
                     console.log("No data available");
                 }
+                setLoading(false);
             })
             .catch((error) => {
                 console.error('Error getting the document:', error);
             })
     }, []);
 
-    return (
-        <div>
-            <h1>{data.title}</h1>
-            <p>{data.viewText}</p>
-            <h2>These visuals should be showing: </h2>
-            <h3>{JSON.stringify(data.visuals)}</h3>
-        </div>
-    );
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+   
+        return (
+            
+            <div>
+               
+                <h1>{data.title}</h1>
+                <p>{data.viewText}</p>
+                <h2>These visuals should be showing: </h2>
+                <h3>{JSON.stringify(data.visuals)}</h3>
+                {data.visuals.v1 === true &&
+                <Visu1/>}
+                {data.visuals.v2 === true &&
+                <Visu2/>}
+                {data.visuals.v3 === true &&
+                <Visu3/>}
+                {data.visuals.v4 === true &&
+                <Visu4/>}
+                {data.visuals.v5 === true &&
+                <Visu5/>}
+               
+            </div>
+        );
+    
+  
 }
 
 export default ShowCustomView;
