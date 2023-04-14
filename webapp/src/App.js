@@ -5,9 +5,6 @@ import { useState } from "react";
 // pages
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import View1 from "./pages/View1";
-import View2 from "./pages/View2";
-import CustomView from "./pages/CustomView";
 import ShowCustomView from "./pages/ShowCustomView";
 
 function App() {
@@ -18,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login setIsAuth={setIsAuth}/>} />
         <Route path="/home" element={<Home isAuth={isAuth} />} />
-        <Route path="/showcustomview" element={<ShowCustomView />} />
+        <Route path="/customview/:id" element={<ShowCustomView />} />
       </Routes>
     </Router>
   </div>;

@@ -44,7 +44,7 @@ function CustomView({ goBack }) {
   };
 
   const generateUrl = () => {
-    setShowUrl(`http://localhost:3000/${docId}`);
+    setShowUrl(`http://localhost:3000/customview/${docId}`);
   };
 
 
