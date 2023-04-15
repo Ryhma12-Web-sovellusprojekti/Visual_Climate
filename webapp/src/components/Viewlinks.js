@@ -5,8 +5,8 @@ import View2 from "../pages/View2";
 import CustomView from "../pages/CustomView";
 import ShowCustomView from "../pages/ShowCustomView";
 
-function Viewlinks() {
-    const [rview, setView ] = useState(0);
+function Viewlinks({route}) {
+    const [rview, setView ] = useState(route);
 
     const changeView = (e) => {
         window.history.pushState(null, "", `/home/${e.target.value}`);
@@ -15,17 +15,11 @@ function Viewlinks() {
     
     useEffect(() => {
       const handlePopState = () => {
-        // Handle the back button event
-        // You can implement custom logic here
-        // to revert to the previous URL state
-        // and update your component state accordingly
         setView(0);
       };
-  
-      // Add event listener for the popstate event
+
       window.addEventListener("popstate", handlePopState);
-  
-      // Clean up the event listener on component unmount
+
       return () => {
         window.removeEventListener("popstate", handlePopState);
       };
