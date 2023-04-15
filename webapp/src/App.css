@@ -108,9 +108,26 @@ form input:not(input[type=submit]) {
   border: 0.5px solid gray;
 }
 
+form textarea {
+  height: 6rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
+}
+
 .signup-link:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.copy-clipboard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copy-clipboard button.copied {
+  background: var(--orange);
 }
 
 nav {
@@ -143,10 +160,6 @@ a, input[type=submit], .logout-btn, button {
   font-family: "Source Sans Pro", Helvetica, sans-serif;
   font-size: 1rem;
   margin: 10px;
-}
-
-button.copied {
-  background: var(--orange);
 }
 
 .signinselect{
