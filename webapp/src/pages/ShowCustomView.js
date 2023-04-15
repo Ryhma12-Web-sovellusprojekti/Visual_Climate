@@ -32,28 +32,18 @@ function ShowCustomView() {
     if (loading) {
         return <p>Loading...</p>;
     }
-   
-        return (
-            
-            <div>
-               
-                <h1>{data.title}</h1>
-                <p>{data.viewText}</p>
-                {data.visuals.v1 === true &&
-                <Visu1/>}
-                {data.visuals.v2 === true &&
-                <Visu2/>}
-                {data.visuals.v3 === true &&
-                <Visu3/>}
-                {data.visuals.v4 === true &&
-                <Visu4/>}
-                {data.visuals.v5 === true &&
-                <Visu5/>}
-               
-            </div>
-        );
     
-  
+    return (
+        <div>
+            <h1>{data.title}</h1>
+            <p>{data.viewText}</p>
+            {data.visuals.v1 && <Visu1 />}
+            {data.visuals.v2 && <Visu2 />}
+            {data.visuals.v3 && <Visu3 />}
+            {data.visuals.v4 && <Visu4 />}
+            {data.visuals.v5 && <Visu5 />}
+        </div>
+    );
 }
 
 export default ShowCustomView;

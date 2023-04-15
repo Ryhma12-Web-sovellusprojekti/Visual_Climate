@@ -64,8 +64,8 @@ function CustomView({ goBack }) {
       <form>
 
         <h3>Add title and text to your view</h3>
-          <input type="text" value={title} placeholder="Title of your view..." onChange={e => setTitle(e.target.value)} />
-          <textarea value={viewText} placeholder="Text or comments..." onChange={e => setViewText(e.target.value)} />
+        <input type="text" value={title} placeholder="Title of your view..." onChange={e => setTitle(e.target.value)} />
+        <textarea value={viewText} placeholder="Text or comments..." onChange={e => setViewText(e.target.value)} />
 
         <h3>Select visualizations</h3>
         <label>Visualization 1 <Switch isToggled={showV1} onToggle={() => {setShowV1(!showV1)}}/></label>
@@ -78,14 +78,20 @@ function CustomView({ goBack }) {
     
       <button onClick={saveCustomView}>Save view info</button>     
       <button onClick={generateUrl}>Generate URL for this view</button>
-      <p>{newUrl}</p>
 
-      <CopyToClipboard 
-        text={newUrl}
-        onCopy={() => setCopied(true)} >
-        <button className={copied ? "copied" : ""}>Copy to clipboard</button>
-      </CopyToClipboard>
-           
+      <section className="copy-clipboard">
+        {newUrl.length > 0 &&
+        <>
+          <p>{newUrl}</p>
+          <CopyToClipboard 
+            text={newUrl}
+            onCopy={() => setCopied(true)} >
+            <button className={copied ? "copied" : ""}>Copy to clipboard</button>
+          </CopyToClipboard>
+        </>
+        }
+      </section>
+      
       <h1 dangerouslySetInnerHTML={{ __html: title }} />
       <div dangerouslySetInnerHTML={{ __html: viewText }} />
     
