@@ -15,7 +15,7 @@ jest.mock('react-router-dom', () => ({
 
 describe(("LoginForm tests"), () => {
 
-    test("renders LoginForm content", () => {
+    test("renders content", () => {
         render(<LoginLinks />)
         const textElement = screen.getByText("Sign in to Continue")
         const emailPlacehoder = screen.getByPlaceholderText("Email...")
@@ -39,7 +39,7 @@ describe(("LoginForm tests"), () => {
         expect(googleSignInButton).toBeDefined()
     })
 
-    test("does not show LoginForm when Sign Up button is clicked", async () => {
+    test("does not show when Sign Up button is clicked", async () => {
         const user = userEvent.setup()
         const { getByText, queryByText } = render(<LoginLinks />);
         const signUpButton = getByText("Sign Up");
@@ -50,7 +50,7 @@ describe(("LoginForm tests"), () => {
         expect(LoginFormText).toBeNull();
     });
 
-    test(("LoginForm gives a note if email and password are missing"), async () => {
+    test(("gives a note if email and password are missing"), async () => {
 
         const user = userEvent.setup()
         const setIsAuth = jest.fn();
@@ -60,16 +60,15 @@ describe(("LoginForm tests"), () => {
         const SignInButton = screen.getByTestId("signin-submit");
         await user.click(SignInButton)
 
-        const emailMessage = screen.getByText("this is requred information")
-        const passwordMessage = screen.getByText("password must be at least 6 characters")
-        expect(emailMessage).toBeDefined()
-        expect(passwordMessage).toBeDefined()
+        expect(screen.getByTestId("email-error")).toBeDefined()
+        expect(screen.getByTestId("password-error")).toBeDefined()
         expect(setIsAuth).not.toHaveBeenCalledWith(true)
+        expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home')
 
 
     })
 
-    test(("LoginForm gives a note if email is missing"), async () => {
+    test(("gives a note if email is missing"), async () => {
 
         const user = userEvent.setup()
         const setIsAuth = jest.fn();
@@ -82,14 +81,13 @@ describe(("LoginForm tests"), () => {
         await user.type(passwordInput, 'Password')
         await user.click(SignInButton)
 
-        const emailMessage = screen.getByText("this is requred information")
-        expect(emailMessage).toBeDefined()
+        expect(screen.getByTestId("email-error")).toBeDefined()
         expect(setIsAuth).not.toHaveBeenCalledWith(true)
-
+        expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home')
 
     })
 
-    test(("LoginForm gives a note if email is not valid"), async () => {
+    test(("gives a note if email is not valid"), async () => {
 
         const user = userEvent.setup()
         const setIsAuth = jest.fn();
@@ -97,39 +95,39 @@ describe(("LoginForm tests"), () => {
 
         const emailInput = screen.getByPlaceholderText("Email...")
         const passwordInput = screen.getByPlaceholderText("Password...")
-        const SignInButton = screen.getByTestId("signin-submit");
+        const SignInButton = screen.getByTestId("signin-submit")
 
         await user.type(emailInput, "example.fi")
         await user.type(passwordInput, 'Password')
         await user.click(SignInButton)
 
-        const emailErrorMessage = screen.getByTestId("email-error");
-        expect(emailErrorMessage).toBeInTheDocument()
+        expect(screen.getByTestId("email-error")).toBeInTheDocument()
         expect(setIsAuth).not.toHaveBeenCalledWith(true)
+        expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home')
 
 
     })
 
-    test(("LoginForm gives a note if password is missing"), async () => {
+    test(("gives a note if password is missing"), async () => {
 
         const user = userEvent.setup()
         const setIsAuth = jest.fn();
         render(<LoginForm setIsAuth={setIsAuth} />);
 
         const emailInput = screen.getByPlaceholderText("Email...")
-        const SignInButton = screen.getByTestId("signin-submit");
+        const SignInButton = screen.getByTestId("signin-submit")
 
         await user.type(emailInput, 'essi@example.fi')
         await user.click(SignInButton)
 
-        const message = screen.getByText("password must be at least 6 characters")
-        expect(message).toBeDefined()
-        expect(setIsAuth).not.toHaveBeenCalledWith(true)
+        expect(screen.getByTestId("password-error")).toBeDefined()
+        expect(setIsAuth).not.toHaveBeenCalledWith(true)        
+        expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home')
 
 
     })
 
-    test(("LoginForm gives a note if password is too short"), async () => {
+    test(("gives a note if password is too short"), async () => {
 
         const user = userEvent.setup()
 
@@ -138,36 +136,37 @@ describe(("LoginForm tests"), () => {
 
         const emailInput = screen.getByPlaceholderText("Email...")
         const passwordInput = screen.getByPlaceholderText("Password...")
-        const SignInButton = screen.getByTestId("signin-submit");
+        const SignInButton = screen.getByTestId("signin-submit")
 
         await user.type(emailInput, 'essi@example.fi')
         await user.type(passwordInput, 'Pass')
         await user.click(SignInButton)
 
-        const message = screen.getByText("password must be at least 6 characters")
-        expect(message).toBeDefined()
-        expect(setIsAuth).not.toHaveBeenCalledWith(true)
+        expect(screen.getByTestId("password-error")).toBeDefined()
+        expect(setIsAuth).not.toHaveBeenCalledWith(true)        
+        expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home')
 
 
     })
 
-    test('successful login when Login Form receives correct email and password ', async () => {
+    test('successful login when form receives correct email and password', async () => {
 
         const user = userEvent.setup()
         const setIsAuth = jest.fn();
         render(<LoginForm setIsAuth={setIsAuth} />);
         const emailInput = screen.getByPlaceholderText("Email...")
         const passwordInput = screen.getByPlaceholderText("Password...")
-        const submitButton = screen.getByTestId("signin-submit");
+        const submitButton = screen.getByTestId("signin-submit")
 
         await user.type(emailInput, 'essi@example.fi')
         await user.type(passwordInput, 'Password')
 
         await user.click(submitButton);
         await waitFor(() => { expect(setIsAuth).toHaveBeenCalledWith(true) })
-        await expect(mockedUsedNavigate).toHaveBeenCalledWith('/home');
+        await expect(mockedUsedNavigate).toHaveBeenCalledWith('/home')
+        expect(screen.queryByTestId("password-error")).toBeNull()
+        expect(screen.queryByTestId("email-error")).toBeNull()
 
     });
 
 })
-

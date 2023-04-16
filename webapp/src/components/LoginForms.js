@@ -149,7 +149,7 @@ export function LoginForm({ setIsAuth }) {
                 value={password} 
                 placeholder="Password..." {...register("password")}
                 onChange={user => setPassword(user.target.value)} />
-                {errors.password?.message && <p>{errors.password?.message}</p>}
+                {errors.password?.message && <p data-testid="password-error">{errors.password?.message}</p>}
                 
             <input data-testid="signin-submit" type="submit" value="Submit" />
         </form>

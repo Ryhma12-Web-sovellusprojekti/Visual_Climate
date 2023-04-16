@@ -2,10 +2,8 @@ import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-//import { MockFirebase } from 'firebase-mock';
 import LoginLinks from "../LoginLinks"
 import RegisterForm from '../LoginForms'
-//import { useNavigate } from 'react-router-dom';
 
 const mockedUsedNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
@@ -22,7 +20,7 @@ describe(("RegisterForm tests"), () => {
         expect(registerForm).toBeNull();
     });
 
-    test("shows RegisterForm after Sign Up button is clicked", async () => {
+    test("shows form after Sign Up button is clicked", async () => {
         const user = userEvent.setup()
         const { getByText, queryByText } = render(<LoginLinks />);
         const signUpButton = getByText("Sign Up");
@@ -48,7 +46,7 @@ describe(("RegisterForm tests"), () => {
         expect(submitButton).toBeInTheDocument();
     });
 
-    test('RegisterForm gives a note every input field where the data is missing', async () => {
+    test('gives a note every input field where the data is missing', async () => {
 
         const user = userEvent.setup()
         const setIsAuth = jest.fn();
@@ -75,7 +73,7 @@ describe(("RegisterForm tests"), () => {
 
     });
 
-   /* test('RegisterForm gives a note if the email does not contain @ character', async () => {
+   test('RegisterForm gives a note if the email does not contain @ character', async () => {
 
         const user = userEvent.setup()
         const setIsAuth = jest.fn();
@@ -102,33 +100,7 @@ describe(("RegisterForm tests"), () => {
 
     });
 
-    test('RegisterForm gives a note if the email is not in the correct format', async () => {
-
-        const user = userEvent.setup()
-        const setIsAuth = jest.fn();
-        render(<RegisterForm setIsAuth={setIsAuth} />);
-        const firstNamePlacehoder = screen.getByPlaceholderText("First Name...")
-        const lastNamePlacehoder = screen.getByPlaceholderText("Last Name...")
-        const emailPlacehoder = screen.getByPlaceholderText("Email...")
-        const usernamePlacehoder = screen.getByPlaceholderText("Username...")
-        const passwordPlacehoder = screen.getByPlaceholderText("Password...")
-        const passwordConfPlacehoder = screen.getByPlaceholderText("Password confirmation...")
-        const submitButton = screen.getByTestId("signup-submit");
-
-        await user.type(firstNamePlacehoder, 'Firstname')
-        await user.type(lastNamePlacehoder, 'Lastname')
-        await user.type(emailPlacehoder, 'name@example')
-        await user.type(usernamePlacehoder, 'username')
-        await user.type(passwordPlacehoder, 'password')
-        await user.type(passwordConfPlacehoder, 'password')
-        await user.click(submitButton);        
-        const emailInfo = screen.getByTestId("email-info");
-        await waitFor(() => { expect(setIsAuth).not.toHaveBeenCalledWith(true) })
-        await expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
-        expect(emailInfo).toBeInTheDocument();
-
-    });*/
-    test('RegisterForm gives a note if the email is not in the correct format', async () => {
+    test('gives a note if the email is not in the correct format', async () => {
 
         const user = userEvent.setup()
         const setIsAuth = jest.fn();
@@ -207,4 +179,33 @@ describe(("RegisterForm tests"), () => {
         expect(passwordConfInfo).toBeInTheDocument();
 
     });
+
+    test('successful sign up when form receives correct information', async () => {
+
+        const user = userEvent.setup()
+        const setIsAuth = jest.fn();
+        const navigate = jest.fn();
+
+        render(<RegisterForm setIsAuth={setIsAuth} navigate={navigate} />);
+        const firstNamePlacehoder = screen.getByPlaceholderText("First Name...")
+        const lastNamePlacehoder = screen.getByPlaceholderText("Last Name...")
+        const emailPlacehoder = screen.getByPlaceholderText("Email...")
+        const usernamePlacehoder = screen.getByPlaceholderText("Username...")
+        const passwordPlacehoder = screen.getByPlaceholderText("Password...")
+        const passwordConfPlacehoder = screen.getByPlaceholderText("Password confirmation...")
+        const submitButton = screen.getByTestId("signup-submit");
+
+        await user.type(firstNamePlacehoder, 'Firstname')
+        await user.type(lastNamePlacehoder, 'Lastname')
+        await user.type(emailPlacehoder, 'name@example.fi')
+        await user.type(usernamePlacehoder, 'username')
+        await user.type(passwordPlacehoder, 'password555')
+        await user.type(passwordConfPlacehoder, 'password555')
+
+        await user.click(submitButton);
+        await waitFor(() => { expect(setIsAuth).toHaveBeenCalledWith(true) })
+        await expect(navigate).toHaveBeenCalledWith('/home')
+
+    });
+
 })
