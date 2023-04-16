@@ -5,7 +5,7 @@ import Viewlinks from "../components/Viewlinks";
 import useAuth from "../components/CustomHooks";
 import LoginLinks from "../components/LoginLinks";
 
-function Home() {
+function Home({route}) {
     const user = useAuth();
 if(user){
     return (
@@ -14,7 +14,7 @@ if(user){
             <section className="sidebyside">
                 <main>
                     <h1>Welcome to The Visual Climate {user?.displayName}!</h1>
-                    <Viewlinks />
+                    <Viewlinks route={route} />
                 </main>
                 <Profile />
             </section>
