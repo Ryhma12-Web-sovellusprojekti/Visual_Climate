@@ -9,6 +9,7 @@ import Visu3 from "../components/Visu3";
 import Visu4 from "../components/Visu4";
 import Visu5 from "../components/Visu5";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import GetCustomViewRootUrl from "../components/GetCustomViewRootUrl";
 
 function CustomView({ goBack }) {
   const user = useAuth();
@@ -22,6 +23,7 @@ function CustomView({ goBack }) {
   const [showV5, setShowV5] = useState(false);
   const [newUrl, setNewUrl] = useState("");
   const [copied, setCopied] = useState(false);
+  const path = GetCustomViewRootUrl();
 
   const saveCustomView = async () => {
     const visuals = {
@@ -46,7 +48,7 @@ function CustomView({ goBack }) {
   };
 
   const generateUrl = () => {
-    setNewUrl(`http://localhost:3000/customview/${docId}`);
+    setNewUrl(`${path}${docId}`);
   };
   
   // timer to make copy to clipboard button remain orange for 1 s after clicking it
@@ -56,7 +58,6 @@ function CustomView({ goBack }) {
     }, 1000);
     return () => clearTimeout(timer);
   },[copied]);
-
 
   return (
     <div>
