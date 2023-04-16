@@ -25,6 +25,7 @@ export default function Visu5() {
 export function Visu5Information() {
     return(
       <div className="info">
+        <a href="https://ourworldindata.org/emissions-by-sector#co2-emissions-by-sector"target="_blank"rel="noreferrer">Data description</a>
         <a href="https://ourworldindata.org/uploads/2020/09/Global-GHG-Emissions-by-sector-based-on-WRI-2020.xlsx"target="_blank"rel="noreferrer">Data sources</a>
       </div>
     );

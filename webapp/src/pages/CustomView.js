@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { fsdb } from '../firebase-config';
 import { doc, collection, setDoc } from "firebase/firestore";
 import useAuth from "../components/CustomHooks";
@@ -8,18 +8,20 @@ import Visu2 from "../components/Visu2";
 import Visu3 from "../components/Visu3";
 import Visu4 from "../components/Visu4";
 import Visu5 from "../components/Visu5";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 function CustomView({ goBack }) {
   const user = useAuth();
   const [title, setTitle] = useState("");
   const [viewText, setViewText] = useState("");
   const [docId, setDocId] = useState("");
-  const [showUrl, setShowUrl] = useState("");
   const [showV1, setShowV1] = useState(false);
   const [showV2, setShowV2] = useState(false);
   const [showV3, setShowV3] = useState(false);
   const [showV4, setShowV4] = useState(false);
   const [showV5, setShowV5] = useState(false);
+  const [newUrl, setNewUrl] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const saveCustomView = async () => {
     const visuals = {
@@ -44,8 +46,16 @@ function CustomView({ goBack }) {
   };
 
   const generateUrl = () => {
-    setShowUrl(`http://localhost:3000/${docId}`);
+    setNewUrl(`http://localhost:3000/customview/${docId}`);
   };
+  
+  // timer to make copy to clipboard button remain orange for 1 s after clicking it
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCopied(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  },[copied]);
 
 
   return (
@@ -54,8 +64,8 @@ function CustomView({ goBack }) {
       <form>
 
         <h3>Add title and text to your view</h3>
-          <input type="text" value={title} placeholder="Title of your view..." onChange={e => setTitle(e.target.value)} />
-          <textarea value={viewText} placeholder="Text or comments..." onChange={e => setViewText(e.target.value)} />
+        <input type="text" value={title} placeholder="Title of your view..." onChange={e => setTitle(e.target.value)} />
+        <textarea value={viewText} placeholder="Text or comments..." onChange={e => setViewText(e.target.value)} />
 
         <h3>Select visualizations</h3>
         <label>Visualization 1 <Switch isToggled={showV1} onToggle={() => {setShowV1(!showV1)}}/></label>
@@ -68,8 +78,20 @@ function CustomView({ goBack }) {
     
       <button onClick={saveCustomView}>Save view info</button>     
       <button onClick={generateUrl}>Generate URL for this view</button>
-      <p>{showUrl}</p>
-           
+
+      <section className="copy-clipboard">
+        {newUrl.length > 0 &&
+        <>
+          <p>{newUrl}</p>
+          <CopyToClipboard 
+            text={newUrl}
+            onCopy={() => setCopied(true)} >
+            <button className={copied ? "copied" : ""}>Copy to clipboard</button>
+          </CopyToClipboard>
+        </>
+        }
+      </section>
+      
       <h1 dangerouslySetInnerHTML={{ __html: title }} />
       <div dangerouslySetInnerHTML={{ __html: viewText }} />
     

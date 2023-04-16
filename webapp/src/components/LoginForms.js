@@ -72,35 +72,35 @@ export default function RegisterForm({ setIsAuth }) {
             <input type="text" 
                 value={firstName} 
                 placeholder="First Name..." {...register("firstName")}
-                onChange={user => setFirstName(user.target.value)} />
-                <p>{errors.firstName?.message}</p>
+                onChange={user => setFirstName(user.target.value)} /> 
+                {errors.firstName?.message && <p data-testid="firstname-info">{errors.firstName?.message}</p>}
             <input type="text" 
                 value={lastName} 
                 placeholder="Last Name..." {...register("lastName")}
                 onChange={user => setLastName(user.target.value)}/>
-                <p>{errors.lastName?.message}</p>
+                {errors.lastName?.message && <p data-testid="lastname-info">{errors.lastName?.message}</p>}
             <input type="email" 
                 value={email} 
                 placeholder="Email..." 
                 {...register("email")}
                 onChange={user => setEmail(user.target.value)} />
-                <p>{errors.email?.message}</p>
+                {errors.email?.message && <p data-testid="email-info">{errors.email?.message}</p>}
             <input type="text" 
                 value={userName} 
                 placeholder="Username..." {...register("userName")}
                 onChange={user => setUserName(user.target.value)} />
-                <p>{errors.userName?.message}</p>
+                {errors.userName?.message && <p data-testid="username-info">{errors.userName?.message}</p>}
             <input type="password" 
                 value={password} 
                 placeholder="Password..." {...register("password")} 
                 onChange={user => setPassword(user.target.value)} />
-                <p>{errors.password?.message}</p>
+                {errors.password?.message && <p data-testid="password-info">{errors.password?.message}</p>}
             <input type="password" 
                 value={confirmPassword} 
                 placeholder="Password confirmation..." {...register("confirmPassword")}
                 onChange={user => setConfirmPassword(user.target.value)} />
-                <p>{errors.confirmPassword?.message}</p>
-            <input type="submit" value="Submit"/>
+                {errors.confirmPassword?.message && <p data-testid="password-confirmation-info">{errors.confirmPassword?.message}</p>}
+            <input data-testid="signup-submit" type="submit" value="Submit"/>
         </form>
     );
 };
@@ -143,13 +143,15 @@ export function LoginForm({ setIsAuth }) {
                 placeholder="Email..." 
                 {...register("email")}
                 onChange={user => setEmail(user.target.value)} />
-                <p>{errors.email?.message}</p>
+                {errors.email?.message && <p data-testid="email-error">{errors.email?.message}</p>}
+                
             <input type="password" 
                 value={password} 
                 placeholder="Password..." {...register("password")}
                 onChange={user => setPassword(user.target.value)} />
-                <p>{errors.password?.message}</p>
-            <input type="submit" value="Submit" />
+                {errors.password?.message && <p>{errors.password?.message}</p>}
+                
+            <input data-testid="signin-submit" type="submit" value="Submit" />
         </form>
     );
 };
