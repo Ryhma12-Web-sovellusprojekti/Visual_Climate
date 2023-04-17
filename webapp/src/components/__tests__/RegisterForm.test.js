@@ -5,6 +5,9 @@ import userEvent from '@testing-library/user-event'
 import LoginLinks from "../LoginLinks"
 import RegisterForm from '../LoginForms'
 
+import { signOut, deleteUser } from "firebase/auth";
+import { auth } from "../../firebase-config";
+
 const mockedUsedNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
@@ -180,6 +183,18 @@ describe(("RegisterForm tests"), () => {
 
     });
 
+    function generateTestEmailAddress() {
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = String(now.getFullYear());
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const timestamp = `${day}${month}${year}${hours}${minutes}`;
+        const emailAddress = `test${timestamp}@example.com`;
+        return emailAddress;
+      }
+      const testAddress = generateTestEmailAddress();
     test('successful sign up when form receives correct information', async () => {
 
         const user = userEvent.setup()
@@ -197,15 +212,24 @@ describe(("RegisterForm tests"), () => {
 
         await user.type(firstNamePlacehoder, 'Firstname')
         await user.type(lastNamePlacehoder, 'Lastname')
-        await user.type(emailPlacehoder, 'name@example.fi')
+        await user.type(emailPlacehoder, testAddress)
         await user.type(usernamePlacehoder, 'username')
         await user.type(passwordPlacehoder, 'password555')
         await user.type(passwordConfPlacehoder, 'password555')
 
         await user.click(submitButton);
+
+        await new Promise(resolve => setTimeout(resolve, 1500));
         await waitFor(() => { expect(setIsAuth).toHaveBeenCalledWith(true) })
-        await expect(navigate).toHaveBeenCalledWith('/home')
-
+        await expect(mockedUsedNavigate).toHaveBeenCalledWith('/home');
     });
-
+    const deleteTestUser = async () => {
+        const user = auth.currentUser; // Get current user
+        if (user) {
+          await user.delete(); // Delete current user
+        }
+      };
+      afterAll(async () => {
+        await deleteTestUser();
+      });
 })
