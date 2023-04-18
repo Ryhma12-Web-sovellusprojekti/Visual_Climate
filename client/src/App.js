@@ -18,8 +18,8 @@ function App() {
         <Route path="/home/View1" element={<Home isAuth={isAuth} route={"View1"}/>} />
         <Route path="/home/View2" element={<Home isAuth={isAuth} route={"View2"}/>} />
         <Route path="/home/CustomView" element={<Home isAuth={isAuth} route={"CustomView"}/>} />
-        <Route path="/home/ShowCustom" element={<Home isAuth={isAuth} route={"ShowCustom"}/>} />
-        <Route path="/customview/:id" element={<ShowCustomView />} />
+        <Route path="/CustomView/:id" element={<ShowCustomView />} />
+        <Route path="/home/CustomViewEdit" element={<Home isAuth={isAuth} route={"CustomViewEdit"}/>} />
       </Routes>
     </Router>
   </div>;

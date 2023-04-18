@@ -1,0 +1,2 @@
+### GET DATA FOR ONE VISUALIZATION
+GET http://localhost:5000/get/0/V1_Annual/global
