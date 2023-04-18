@@ -9,7 +9,7 @@ import Visu3 from "../components/Visu3";
 import Visu4 from "../components/Visu4";
 import Visu5 from "../components/Visu5";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import GetCustomViewRootUrl from "../components/GetCustomViewRootUrl";
+import GetCustomViewRootUrl from "../components/GetUrls";
 
 function CustomView({ goBack }) {
   const user = useAuth();
