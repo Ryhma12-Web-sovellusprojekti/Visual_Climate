@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const port = 5000
-const { rtdb, fsdb} = require('./firebase.js')
+const { admin, rtdb, fsdb} = require('./firebase.js')
 
 
 app.use(express.json());
@@ -34,6 +34,22 @@ app.get("/get/customview/:id", async (req, res) => {
      })
 });
 
+//check if a user exists
+app.get("/auth/:userId", async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+   await admin.auth().getUser(userId);
+    res.send(`User with ID ${userId} exists`);
+  } catch (error) {
+    if (error.code === "auth/user-not-found") {
+      res.status(404).send(`User with ID ${userId} does not exist`);
+    } else {
+      console.error("Error getting user:", error);
+      res.status(500).send("Error getting user");
+    }
+  }
+});
 
 
 app.listen(port, () => { console.log(`Server started on port ${port}`) })
