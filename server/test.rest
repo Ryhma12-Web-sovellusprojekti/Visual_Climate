@@ -1,2 +1,12 @@
 ### GET DATA FOR ONE VISUALIZATION
 GET http://localhost:5000/get/0/V1_Annual/global
+
+### GET SAVED DATA FOR CUSTOM VIEW
+GET http://localhost:5000/get/customview/BXVmk9roiWQiCnalYyNL
+
+### CHECK IF THE USER EXISTS OR NOT
+GET http://localhost:5000/auth/rw9o9LeXfxNIHAvXZwsExpszh4g2
+
+
+
+
