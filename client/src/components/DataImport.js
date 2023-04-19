@@ -1,21 +1,14 @@
-import { rtdb } from '../firebase-config';
-import { ref, get} from "firebase/database";
 import { useEffect } from "react";
+import axios from "axios";
+import { GetServerUrl } from "./GetUrls";
 
 export default function DataImport({ setData, path }) {
-    useEffect(() => {
-      const dataRef = ref(rtdb, path);
-      get(dataRef)
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            setData(snapshot.val());
-          } else {
-            console.log("No data available");
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }, []);
-    return null;
+  useEffect(() => {
+    const serverUrl = GetServerUrl();  
+    axios.get(`${serverUrl}get/visudata/${path}`).then((res) => {
+      setData(res.data);
+    });
+  }, []);
+  
+  return null;
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { fsdb } from '../firebase-config';
 import { collection, doc, query, where, getDocs, deleteDoc } from "firebase/firestore";
 import useAuth from "../components/CustomHooks";
-import GetCustomViewRootUrl from "../components/GetCustomViewRootUrl";
+import GetCustomViewRootUrl from "../components/GetUrls";
 
 function CustomViewEdit({ goBack }) {
     const user = useAuth();

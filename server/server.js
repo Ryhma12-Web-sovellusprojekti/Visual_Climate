@@ -2,19 +2,32 @@ const express = require('express')
 const app = express()
 const port = 5000
 const { admin, rtdb, fsdb} = require('./firebase.js')
-
+const cors = require('cors')
 
 app.use(express.json());
 app.use(express.urlencoded( {extended: true} ));
 
+app.use(cors({
+    origin: 'http://localhost:3000'
+}));
+
 // get data for graphs
-app.get("/get/:row/:visu/:table", (req, res) => {
+app.get("/get/visudata/:row/:visu/:table", (req, res) => {
     rtdb
       .ref(req.params.row+'/'+req.params.visu+'/'+req.params.table)
       .once("value")
       .then((snapshot) => {
         res.send(snapshot.val());
       });
+  });
+
+app.get("/get/visudata/:row/:visu", (req, res) => {
+  rtdb
+    .ref(req.params.row+'/'+req.params.visu)
+    .once("value")
+    .then((snapshot) => {
+      res.send(snapshot.val());
+    });
   });
 
 //get custom view data with document id
@@ -50,6 +63,5 @@ app.get("/auth/:userId", async (req, res) => {
     }
   }
 });
-
 
 app.listen(port, () => { console.log(`Server started on port ${port}`) })
