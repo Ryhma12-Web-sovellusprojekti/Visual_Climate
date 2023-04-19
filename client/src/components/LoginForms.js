@@ -6,15 +6,12 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fire
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { signInWithPopup, updateProfile } from "firebase/auth";
-import { fsdb } from '../firebase-config';
-import { doc, collection, setDoc } from "firebase/firestore";
 
 export default function RegisterForm({ setIsAuth }) {   
     const schema = yup.object().shape({
         firstName: yup.string().required("this is requred information"),
         lastName: yup.string().required("this is requred information"),
         email: yup.string().email().required("this is requred information"),
-        userName: yup.string().required("this is requred information"),
         password: yup.string().min(6).max(20).required("this is requred information"),
         confirmPassword: yup
             .string()
@@ -30,7 +27,6 @@ export default function RegisterForm({ setIsAuth }) {
     const [password, setPassword] = useState("")
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
-    const [userName, setUserName] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const navigate = useNavigate()
 
@@ -48,15 +44,6 @@ export default function RegisterForm({ setIsAuth }) {
             }).catch(
                 (err) => console.log(err)
               );
-
-            const usersCollectionRef = collection(fsdb, "users");
-            const docRef = doc(usersCollectionRef, user.user.uid);
-            
-            await setDoc(docRef, {
-              firstName: firstName,
-              lastName: lastName,
-              userName: userName
-            });
 
             console.log(user);
             localStorage.setItem("isAuth", true);
@@ -85,11 +72,6 @@ export default function RegisterForm({ setIsAuth }) {
                 {...register("email")}
                 onChange={user => setEmail(user.target.value)} />
                 {errors.email?.message && <p data-testid="email-info">{errors.email?.message}</p>}
-            <input type="text" 
-                value={userName} 
-                placeholder="Username..." {...register("userName")}
-                onChange={user => setUserName(user.target.value)} />
-                {errors.userName?.message && <p data-testid="username-info">{errors.userName?.message}</p>}
             <input type="password" 
                 value={password} 
                 placeholder="Password..." {...register("password")} 

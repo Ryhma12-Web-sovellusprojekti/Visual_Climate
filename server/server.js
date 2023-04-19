@@ -11,7 +11,7 @@ app.use(cors({
     origin: 'http://localhost:3000'
 }));
 
-// get data for graphs
+// get data for graphs (visualizations 1-3)
 app.get("/get/visudata/:row/:visu/:table", (req, res) => {
   rtdb.ref(req.params.row+'/'+req.params.visu+'/'+req.params.table)
   .once("value")
@@ -27,16 +27,25 @@ app.get("/get/visudata/:row/:visu/:table", (req, res) => {
     console.error("Error fetching data:", error);
     res.status(500).send("Error fetching data");
   });
-  });
+});
 
+// get data for graphs (visualizations 4-5)
 app.get("/get/visudata/:row/:visu", (req, res) => {
-  rtdb
-    .ref(req.params.row+'/'+req.params.visu)
-    .once("value")
-    .then((snapshot) => {
-      res.send(snapshot.val());
-    });
+  rtdb.ref(req.params.row+'/'+req.params.visu)
+  .once("value")
+  .then((snapshot) => {
+    const data = snapshot.val();
+    if (!data) {
+      res.status(404).send("Data not found");
+      return;
+    }
+    res.send(data);
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+    res.status(500).send("Error fetching data");
   });
+});
 
 //get custom view data with document id
 app.get("/get/customview/:id", async (req, res) => {
@@ -62,7 +71,7 @@ app.get("/all/customview/:id", async (req, res) => {
     .then((querySnapshot) => {
       const documents = [];
       querySnapshot.forEach((doc) => {
-        documents.push(doc.data());
+        documents.push({...doc.data(), id: doc.id});
       });
       res.send(documents);
     })
