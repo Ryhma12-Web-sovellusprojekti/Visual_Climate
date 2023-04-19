@@ -8,11 +8,11 @@ GET http://localhost:5000/get/customview/BXVmk9roiWQiCnalYyNL
 GET http://localhost:5000/auth/rw9o9LeXfxNIHAvXZwsExpszh4g2
 
 ### GET ALL THE USERS SAVED CUSTOM VIEWS
-GET http://localhost:5000/all/customview/4KsTuFwA2gfWCNmzhCIp489Aiis1
+GET http://localhost:5000/all/customview/s3lfLHsYRhMBKxQc6kCbtSb4COl1
 
 ### DELETE SPECIFIC CUSTOM VIEW
-DELETE http://localhost:5000/delete/customview/6yEk1Wa8Eq0UCGYUTxvd
+DELETE http://localhost:5000/delete/customview/w00SedPsMqE969wqgLRx
 
 ### DELETE ALL THE USERS CUSTOM VIEWS
-DELETE http://localhost:5000/deleteall/customview/4KsTuFwA2gfWCNmzhCIp489Aiis1
+DELETE http://localhost:5000/deleteall/customview/EruPjCOkhvdEwhnuaLcKkiQT1f42
 

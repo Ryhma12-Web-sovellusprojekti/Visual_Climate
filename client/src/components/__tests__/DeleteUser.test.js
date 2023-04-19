@@ -22,7 +22,6 @@ describe(("Delete account tests"), () => {
     const firstNamePlacehoder = screen.getByPlaceholderText("First Name...");
     const lastNamePlacehoder = screen.getByPlaceholderText("Last Name...");
     const emailPlacehoder = screen.getByPlaceholderText("Email...");
-    const usernamePlacehoder = screen.getByPlaceholderText("Username...");
     const passwordPlacehoder = screen.getByPlaceholderText("Password...");
     const passwordConfPlacehoder = screen.getByPlaceholderText("Password confirmation...");
     const submitButton = screen.getByTestId("signup-submit");
@@ -30,7 +29,6 @@ describe(("Delete account tests"), () => {
     await user.type(firstNamePlacehoder, 'Firstname');
     await user.type(lastNamePlacehoder, 'Lastname');
     await user.type(emailPlacehoder, "example@example.fi");
-    await user.type(usernamePlacehoder, 'username');
     await user.type(passwordPlacehoder, 'password555');
     await user.type(passwordConfPlacehoder, 'password555');
 
