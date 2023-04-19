@@ -13,12 +13,20 @@ app.use(cors({
 
 // get data for graphs
 app.get("/get/visudata/:row/:visu/:table", (req, res) => {
-    rtdb
-      .ref(req.params.row+'/'+req.params.visu+'/'+req.params.table)
-      .once("value")
-      .then((snapshot) => {
-        res.send(snapshot.val());
-      });
+  rtdb.ref(req.params.row+'/'+req.params.visu+'/'+req.params.table)
+  .once("value")
+  .then((snapshot) => {
+    const data = snapshot.val();
+    if (!data) {
+      res.status(404).send("Data not found");
+      return;
+    }
+    res.send(data);
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+    res.status(500).send("Error fetching data");
+  });
   });
 
 app.get("/get/visudata/:row/:visu", (req, res) => {
@@ -32,20 +40,89 @@ app.get("/get/visudata/:row/:visu", (req, res) => {
 
 //get custom view data with document id
 app.get("/get/customview/:id", async (req, res) => {
-  const docRef = await doc(collection(fsdb, "customview"), req.params.id);
-  getDoc(docRef)
-     .then((doc) => {
-         if (doc.exists()) {
-          res.send(doc.data());
-         } else {
-          res.status(404).send("Document not found");
-         }
-     })
-     .catch((error) => {
-      console.error("Error getting document:", error);
-      res.status(500).send("Error getting document");
-     })
+  try {
+    const doc = await fsdb.collection('customview').doc(req.params.id).get();
+    if (doc.exists) {
+      res.send(doc.data());
+    } else {
+      res.status(404).send("Document not found");
+    }
+  } catch (error) {
+    console.error("Error getting document:", error);
+    res.status(500).send("Error getting document");
+  }
 });
+
+//get all the users custom views data
+app.get("/all/customview/:id", async (req, res) => {
+  const id = req.params.id;
+  await fsdb.collection("customview")
+    .where("user", "==", id)
+    .get()
+    .then((querySnapshot) => {
+      const documents = [];
+      querySnapshot.forEach((doc) => {
+        documents.push(doc.data());
+      });
+      res.send(documents);
+    })
+    .catch((error) => {
+      console.error("Error getting documents:", error);
+      res.status(500).send("Error getting documents");
+    });
+});
+
+//delete custom view data with document id
+app.delete("/delete/customview/:id", async (req, res) => {
+  const id = req.params.id;
+
+  const docRef = fsdb.collection("customview").doc(id);
+  const doc = await docRef.get();
+
+  if (!doc.exists) {
+    res.status(404).send(`Document with ID ${id} not found.`);
+    return;
+  }
+
+  await docRef.delete()
+    .then(() => {
+      res.send(`Document with ID ${id} was deleted successfully.`);
+    })
+    .catch((error) => {
+      console.error("Error deleting document:", error);
+      res.status(500).send("Error deleting document");
+    });
+});
+
+//delete all the users saved custom views
+app.delete("/deleteall/customview/:id", async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const querySnapshot = await fsdb.collection("customview")
+      .where("user", "==", id)
+      .get();
+
+    if (querySnapshot.empty) {
+      res.status(404).send(`No documents found for user ${id}`);
+      return;
+    }
+
+    const batch = fsdb.batch();
+    querySnapshot.forEach((doc) => {
+      batch.delete(doc.ref);
+    });
+
+    await batch.commit();
+
+    res.send(`All custom views for user ${id} were deleted successfully.`);
+
+  } catch (error) {
+    console.error("Error deleting documents:", error);
+    res.status(500).send("Error deleting documents");
+  }
+});
+
 
 //check if a user exists
 app.get("/auth/:userId", async (req, res) => {
