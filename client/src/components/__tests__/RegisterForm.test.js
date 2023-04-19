@@ -33,7 +33,6 @@ describe(("RegisterForm tests"), () => {
         const firstNamePlacehoder = screen.getByPlaceholderText("First Name...");
         const lastNamePlacehoder = screen.getByPlaceholderText("Last Name...");
         const emailPlacehoder = screen.getByPlaceholderText("Email...");
-        const usernamePlacehoder = screen.getByPlaceholderText("Username...");
         const passwordPlacehoder = screen.getByPlaceholderText("Password...");
         const passwordConfPlacehoder = screen.getByPlaceholderText("Password confirmation...");
         const submitButton = screen.getByTestId("signup-submit");
@@ -43,7 +42,6 @@ describe(("RegisterForm tests"), () => {
         expect(firstNamePlacehoder).toBeInTheDocument();
         expect(lastNamePlacehoder).toBeInTheDocument();
         expect(emailPlacehoder).toBeInTheDocument();
-        expect(usernamePlacehoder).toBeInTheDocument();
         expect(passwordPlacehoder).toBeInTheDocument();
         expect(passwordConfPlacehoder).toBeInTheDocument();
         expect(submitButton).toBeInTheDocument();
@@ -62,7 +60,6 @@ describe(("RegisterForm tests"), () => {
         const fnInfo = screen.queryByTestId("firstname-info");
         const lnInfo = screen.queryByTestId("lastname-info");
         const emailInfo = screen.queryByTestId("email-info");
-        const usernameInfo = screen.queryByTestId("username-info");
         const passwordInfo = screen.queryByTestId("password-info");
         const passwordConfInfo = screen.queryByTestId("password-confirmation-info");
         
@@ -71,7 +68,6 @@ describe(("RegisterForm tests"), () => {
         expect(lnInfo).toBeInTheDocument();
         expect(emailInfo).toBeInTheDocument();
         expect(emailInfo).toBeInTheDocument();
-        expect(usernameInfo).toBeInTheDocument();
         expect(passwordInfo).toBeInTheDocument();
         expect(passwordConfInfo).toBeInTheDocument();
 
@@ -85,7 +81,6 @@ describe(("RegisterForm tests"), () => {
         const firstNamePlacehoder = screen.getByPlaceholderText("First Name...");
         const lastNamePlacehoder = screen.getByPlaceholderText("Last Name...");
         const emailPlacehoder = screen.getByPlaceholderText("Email...");
-        const usernamePlacehoder = screen.getByPlaceholderText("Username...");
         const passwordPlacehoder = screen.getByPlaceholderText("Password...");
         const passwordConfPlacehoder = screen.getByPlaceholderText("Password confirmation...");
         const submitButton = screen.getByTestId("signup-submit");
@@ -94,7 +89,6 @@ describe(("RegisterForm tests"), () => {
         await user.type(lastNamePlacehoder, 'Lastname');
         //email does not contain @ character
         await user.type(emailPlacehoder, 'example.fi');
-        await user.type(usernamePlacehoder, 'username');
         await user.type(passwordPlacehoder, 'password');
         await user.type(passwordConfPlacehoder, 'password');
         await user.click(submitButton);
@@ -115,7 +109,6 @@ describe(("RegisterForm tests"), () => {
         const firstNamePlacehoder = screen.getByPlaceholderText("First Name...");
         const lastNamePlacehoder = screen.getByPlaceholderText("Last Name...");
         const emailPlacehoder = screen.getByPlaceholderText("Email...");
-        const usernamePlacehoder = screen.getByPlaceholderText("Username...");
         const passwordPlacehoder = screen.getByPlaceholderText("Password...");
         const passwordConfPlacehoder = screen.getByPlaceholderText("Password confirmation...");
         const submitButton = screen.getByTestId("signup-submit");
@@ -124,7 +117,6 @@ describe(("RegisterForm tests"), () => {
         await user.type(lastNamePlacehoder, 'Lastname');
          //email is not in the correct format
         await user.type(emailPlacehoder, '@example.fi');
-        await user.type(usernamePlacehoder, 'username');
         await user.type(passwordPlacehoder, 'password');
         await user.type(passwordConfPlacehoder, 'password');
         await user.click(submitButton);
@@ -145,7 +137,6 @@ describe(("RegisterForm tests"), () => {
         const firstNamePlacehoder = screen.getByPlaceholderText("First Name...");
         const lastNamePlacehoder = screen.getByPlaceholderText("Last Name...");
         const emailPlacehoder = screen.getByPlaceholderText("Email...");
-        const usernamePlacehoder = screen.getByPlaceholderText("Username...");
         const passwordPlacehoder = screen.getByPlaceholderText("Password...");
         const passwordConfPlacehoder = screen.getByPlaceholderText("Password confirmation...");
         const submitButton = screen.getByTestId("signup-submit");
@@ -153,7 +144,6 @@ describe(("RegisterForm tests"), () => {
         await user.type(firstNamePlacehoder, 'Firstname');
         await user.type(lastNamePlacehoder, 'Lastname');
         await user.type(emailPlacehoder, 'name@example.fi');
-        await user.type(usernamePlacehoder, 'username');
         //password is too short, must be at least six characters
         await user.type(passwordPlacehoder, 'pass');
         await user.type(passwordConfPlacehoder, 'pass');
@@ -174,7 +164,6 @@ describe(("RegisterForm tests"), () => {
         const firstNamePlacehoder = screen.getByPlaceholderText("First Name...");
         const lastNamePlacehoder = screen.getByPlaceholderText("Last Name...");
         const emailPlacehoder = screen.getByPlaceholderText("Email...");
-        const usernamePlacehoder = screen.getByPlaceholderText("Username...");
         const passwordPlacehoder = screen.getByPlaceholderText("Password...");
         const passwordConfPlacehoder = screen.getByPlaceholderText("Password confirmation...");
         const submitButton = screen.getByTestId("signup-submit");
@@ -182,7 +171,6 @@ describe(("RegisterForm tests"), () => {
         await user.type(firstNamePlacehoder, 'Firstname');
         await user.type(lastNamePlacehoder, 'Lastname');
         await user.type(emailPlacehoder, 'name@example.fi');
-        await user.type(usernamePlacehoder, 'username');
         //password and confirmation are different
         await user.type(passwordPlacehoder, 'password');
         await user.type(passwordConfPlacehoder, 'passwodr');
@@ -218,7 +206,6 @@ describe(("RegisterForm tests"), () => {
         const firstNamePlacehoder = screen.getByPlaceholderText("First Name...");
         const lastNamePlacehoder = screen.getByPlaceholderText("Last Name...");
         const emailPlacehoder = screen.getByPlaceholderText("Email...");
-        const usernamePlacehoder = screen.getByPlaceholderText("Username...");
         const passwordPlacehoder = screen.getByPlaceholderText("Password...");
         const passwordConfPlacehoder = screen.getByPlaceholderText("Password confirmation...");
         const submitButton = screen.getByTestId("signup-submit");
@@ -226,7 +213,6 @@ describe(("RegisterForm tests"), () => {
         await user.type(firstNamePlacehoder, 'Firstname');
         await user.type(lastNamePlacehoder, 'Lastname');
         await user.type(emailPlacehoder, testAddress);
-        await user.type(usernamePlacehoder, 'username');
         await user.type(passwordPlacehoder, 'password555');
         await user.type(passwordConfPlacehoder, 'password555');
 

@@ -1,28 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { fsdb } from '../firebase-config';
-import { collection, doc, query, where, getDocs, deleteDoc } from "firebase/firestore";
-import useAuth from "../components/CustomHooks";
-import GetCustomViewRootUrl from "../components/GetUrls";
+import { auth } from "../firebase-config";
+import axios from "axios";
+import GetCustomViewRootUrl, { GetServerUrl } from "../components/GetUrls";
 
 function CustomViewEdit({ goBack }) {
-    const user = useAuth();
+    const user = auth.currentUser;
     const [views, setViews] = useState([]);
-    const path = GetCustomViewRootUrl();
+    const customViewUrl = GetCustomViewRootUrl();
+    const serverUrl = GetServerUrl();
 
-    // get current user's custom views:
-    useEffect(() => {
-        const getViews = async () => {
-            const q = query(collection(fsdb,"customview"), where("user", "==", user.uid));
-            const data = await getDocs(q);
-            setViews(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
-        };
-        getViews();
-    });
+    // get current user's custom views
+    useEffect( () => {
+        const fetchViews = () => {
+            axios.get(`${serverUrl}all/customview/${user.uid}`)
+                .then((res) => {
+                    setViews(res.data);
+                })         
+            .catch ((error) => {
+                // status code not 2xx
+                if (error.response) { 
+                    console.log("Data :" , error.response.data);
+                    console.log("Status :" + error.response.status);
+                // The request was made but no response was received
+                  } else if (error.request) { 
+                    console.log(error.request);
+                // Error on setting up the request
+                  } else { 
+                    console.log('Error', error.message);
+                };
+            });  
+        };        
+        fetchViews();
+    }, []);
 
     // delete custom view:
-    const deleteView = async (id) => {
-        const viewDoc = doc(fsdb, "customview", id)
-        await deleteDoc(viewDoc);
+    function deleteView (id) {
+        axios.delete(`${serverUrl}delete/customview/${id}`).then(() => {
+            setViews(views.filter((view) => view.id !== id));
+        });
     };
 
     return (
@@ -40,7 +55,7 @@ function CustomViewEdit({ goBack }) {
                             </div>
                         </div>
                         <div className="link" >
-                            {path}{view.id}
+                            {customViewUrl}{view.id}
                         </div>
                         <div className="text">
                             {view.viewText}
