@@ -1,42 +1,42 @@
 const express = require('express')
 const app = express()
 const port = 5000
-const { admin, rtdb, fsdb} = require('./firebase.js')
+const { admin, rtdb, fsdb } = require('./firebase.js')
 const cors = require('cors')
 
 app.use(express.json());
-app.use(express.urlencoded( {extended: true} ));
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
-    origin: 'http://localhost:3000'
+  origin: 'http://localhost:3000'
 }));
 
 // get data for graphs
 app.get("/get/visudata/:row/:visu/:table", (req, res) => {
-  rtdb.ref(req.params.row+'/'+req.params.visu+'/'+req.params.table)
-  .once("value")
-  .then((snapshot) => {
-    const data = snapshot.val();
-    if (!data) {
-      res.status(404).send("Data not found");
-      return;
-    }
-    res.send(data);
-  })
-  .catch((error) => {
-    console.error("Error fetching data:", error);
-    res.status(500).send("Error fetching data");
-  });
-  });
+  rtdb.ref(req.params.row + '/' + req.params.visu + '/' + req.params.table)
+    .once("value")
+    .then((snapshot) => {
+      const data = snapshot.val();
+      if (!data) {
+        res.status(404).send("Data not found");
+        return;
+      }
+      res.send(data);
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+      res.status(500).send("Error fetching data");
+    });
+});
 
 app.get("/get/visudata/:row/:visu", (req, res) => {
   rtdb
-    .ref(req.params.row+'/'+req.params.visu)
+    .ref(req.params.row + '/' + req.params.visu)
     .once("value")
     .then((snapshot) => {
       res.send(snapshot.val());
     });
-  });
+});
 
 //get custom view data with document id
 app.get("/get/customview/:id", async (req, res) => {
@@ -71,6 +71,25 @@ app.get("/all/customview/:id", async (req, res) => {
       res.status(500).send("Error getting documents");
     });
 });
+
+//add customview data
+app.post("/create/customview", async (req, res) => {
+  try {
+    console.log(req.body);
+    const customJson = {
+      title: req.body.title,
+      user: req.body.user,
+      viewText: req.body.viewText,
+      visuals: req.body.visuals
+    };
+    const response = fsdb.collection("customview").add(customJson);
+    res.send(response);
+  } catch(error){
+    console.error("Error creating custom view:", error);
+    res.status(500).send("Error creating custom view");
+  }
+})
+
 
 //delete custom view data with document id
 app.delete("/delete/customview/:id", async (req, res) => {
@@ -123,13 +142,31 @@ app.delete("/deleteall/customview/:id", async (req, res) => {
   }
 });
 
+//create a new user
+app.post('/createuser', async (req, res) => {
+
+   try {
+    console.log(req.body);
+    const userRecord = await admin.auth().createUser({
+      email: req.body.email,
+      password: req.body.password,
+      displayName: `${req.body.firstName} ${req.body.lastName}`,
+    });
+        console.log('User created:', userRecord.uid);
+    res.status(201).send('User created successfully!');
+  } catch (error) {
+    console.error('Error creating user:', error);
+    res.status(500).send('Error creating user!');
+  }
+});
+
 
 //check if a user exists
 app.get("/auth/:userId", async (req, res) => {
   const userId = req.params.userId;
 
   try {
-   await admin.auth().getUser(userId);
+    await admin.auth().getUser(userId);
     res.send(`User with ID ${userId} exists`);
   } catch (error) {
     if (error.code === "auth/user-not-found") {
@@ -140,5 +177,7 @@ app.get("/auth/:userId", async (req, res) => {
     }
   }
 });
+
+
 
 app.listen(port, () => { console.log(`Server started on port ${port}`) })
