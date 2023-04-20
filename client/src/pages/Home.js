@@ -3,10 +3,11 @@ import Profile from "./Profile";
 import Footer from "../components/Footer";
 import Viewlinks from "../components/Viewlinks";
 import useAuth from "../components/CustomHooks";
+import { auth } from "../firebase-config";
 import LoginLinks from "../components/LoginLinks";
 
-function Home({route}) {
-    const user = useAuth();
+function Home({isAuth, route}) {
+    const user = auth.currentUser;
 if(user){
     return (
         <div className="wrapper-side">
@@ -35,7 +36,7 @@ if(user){
         <Footer />
     </div>
     );
-}
+    }
 
 }
 

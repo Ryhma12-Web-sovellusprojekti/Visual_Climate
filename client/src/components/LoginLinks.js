@@ -10,8 +10,8 @@ function LoginLinks({ setIsAuth }) {
         setX(e.target.value);
         setIsClicked(true);
     };
+
 switch(x){
-  
   case "1":
     return (
       <div>
@@ -25,7 +25,6 @@ switch(x){
           <GoogleForm setIsAuth={setIsAuth}/>
           </div>
          }
-        
       </div>
     );
 
@@ -37,7 +36,7 @@ switch(x){
         {isClicked && 
         <div> 
         <h1>Not registered yet? Sign up here!</h1>
-        <RegisterForm setIsAuth={setIsAuth}/> 
+        <RegisterForm setIsAuth={setIsAuth} onRegister = {changeView}/> 
         </div>
        }
         </div>

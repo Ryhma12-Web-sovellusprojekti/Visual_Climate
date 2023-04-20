@@ -1,6 +1,7 @@
 import DataImport from "./DataImport";
 import { useState, React, useRef } from "react";
 import { Doughnut, getElementsAtEvent  } from "react-chartjs-2";
+let hasClicked = false;
 
 export default function Visu5() {
     const [sectors, setSectors] = useState([]);
@@ -117,10 +118,13 @@ function Graph({ sectors, subAgri, subEnergy, subIndustry, subWaste }) {
 
     const chartRef = useRef();
     const [subsectorData, setSubsectorData] = useState(dataSubAgri);
+    const [doughnutDuo, setDoughnutDuo ] = useState("doughnuts yksi");
     const [dataTitle, setDataTitle] = useState("");
   
     const onClick = (event) => {
         if(getElementsAtEvent(chartRef.current, event).length > 0) {
+            hasClicked = true;
+            setDoughnutDuo("doughnuts kaksi");
             const dataPoint = getElementsAtEvent(chartRef.current, event)[0].index;
             switch(dataPoint) {
                 case 0:
@@ -175,12 +179,14 @@ function Graph({ sectors, subAgri, subEnergy, subIndustry, subWaste }) {
             key: 'emission'
         }
     };
-
+    
     return (
-        <div className="doughnuts">
+        <div className={doughnutDuo}>
             <h1>CO2 emissions by sectors</h1>
             <Doughnut options={sectorOptions} data={dataSectors} onClick={onClick} ref={chartRef} />
-            <Doughnut options={subsectorOptions} data={subsectorData} />
+            {hasClicked &&
+                <Doughnut options={subsectorOptions} data={subsectorData} />
+            }
         </div>
     ); 
 }

@@ -61,7 +61,7 @@ main{
   width: 100%;
 }
 main h1{
-  grid-column: -1/-2;
+  /*grid-column: -1/-2;*/
   margin: auto;
   color: var(--oxblue);
   text-align: center;
@@ -254,19 +254,20 @@ a, input[type=submit], .logout-btn, button {
   grid-template-columns: 1fr;
   grid-template-rows: max-content max-content max-content;
   grid-gap: 1rem;
-  position: sticky;
-  top: 24px;
 }
+
 .profile img{
   border-radius: 100%;
   justify-self: center;
 }
+
 .profile a, .profile button{
   margin-left: 0px;
 }
+
 .sidebyside{
   display: grid;
-  grid-template-columns: 2fr 200px;
+  grid-template-columns: 1fr 200px;
   grid-gap: 24px;
   padding: 2rem;  
 }
@@ -464,14 +465,20 @@ article p{
 
 .doughnuts{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(500px,1fr));
   grid-template-rows: max-content;
+  align-items: center;
+  margin: auto;
 }
-
+.yksi{
+  grid-template-columns: 1fr;
+  max-width: 50%;
+}
+.kaksi{
+  grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+}
 .doughnuts canvas{
   height: 100% !important;
 }
-
 .doughnuts h1{
   grid-column: 1/-1;
 }
@@ -479,6 +486,9 @@ article p{
 @media screen and (max-width: 1024px) {
   .wrapper-side{
       grid-template-columns: 1fr;
+  }
+  .kaksi{
+    grid-template-columns: 1fr;
   }
   aside{
       display: none;
