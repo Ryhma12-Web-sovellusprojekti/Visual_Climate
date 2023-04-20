@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { auth, provider } from "../firebase-config"; 
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { signInWithPopup, updateProfile } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
+import axios from "axios";
+import { GetServerUrl } from "../components/GetUrls";
 
 export default function RegisterForm({ setIsAuth }) {   
     const schema = yup.object().shape({
@@ -28,27 +30,25 @@ export default function RegisterForm({ setIsAuth }) {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const serverUrl = GetServerUrl();
     const navigate = useNavigate()
 
-    const registerUser = async () => {
+    const registerUser = () => {
         try {
-            const user = await createUserWithEmailAndPassword(
-                auth, 
-                email, 
-                password
-            )
+            const user = {
+                email: email,
+                password: password,
+                firstName: firstName,
+                lastName: lastName
+            };
 
-            await updateProfile(auth.currentUser, { 
-                displayName: `${firstName} ${lastName}`,
-                photoURL: "https://cdn.pixabay.com/photo/2017/11/10/05/48/user-2935527_1280.png"
-            }).catch(
-                (err) => console.log(err)
-              );
-
-            console.log(user);
-            localStorage.setItem("isAuth", true);
-            setIsAuth(true);
-            navigate("/home");
+            axios.post(`${serverUrl}createuser`, user).then((res) => {
+                console.log(res.status, res.data);
+                setIsAuth(true);
+                localStorage.setItem("isAuth", true);
+                navigate("/home");
+            });
+            
         } catch (error) {
             console.log(error.message);
         }

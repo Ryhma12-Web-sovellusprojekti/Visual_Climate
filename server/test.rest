@@ -16,3 +16,32 @@ DELETE http://localhost:5000/delete/customview/w00SedPsMqE969wqgLRx
 ### DELETE ALL THE USERS CUSTOM VIEWS
 DELETE http://localhost:5000/deleteall/customview/EruPjCOkhvdEwhnuaLcKkiQT1f42
 
+### CREATE NEW CUSTOM VIEW
+POST http://localhost:5000/create/customview
+content-type: application/json
+
+{
+    "title": "Custom view created at Node",
+    "user": "some-user-id",
+    "viewText": "This comes from Node JS",
+    "visuals": 
+    {
+        "v1": "true",
+        "v2": "true",
+        "v3": "false",
+        "v4": "false",
+        "v5": "true"
+    }
+}
+
+### CREATE NEW USER
+POST http://localhost:5000/createuser
+content-type: application/json
+
+{
+    "email": "nodetest@testemail.com",
+    "password": "123456",
+    "firstName": "User",
+    "lastName": "FromNode"
+}
+

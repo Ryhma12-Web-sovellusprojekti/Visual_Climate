@@ -82,7 +82,7 @@ app.get("/all/customview/:id", async (req, res) => {
     });
 });
 
-//add customview data
+// create new customview
 app.post("/create/customview", async (req, res) => {
   try {
     console.log(req.body);
@@ -92,14 +92,13 @@ app.post("/create/customview", async (req, res) => {
       viewText: req.body.viewText,
       visuals: req.body.visuals
     };
-    const response = fsdb.collection("customview").add(customJson);
+    const response = await fsdb.collection("customview").add(customJson);
     res.send(response);
   } catch(error){
     console.error("Error creating custom view:", error);
     res.status(500).send("Error creating custom view");
   }
 })
-
 
 //delete custom view data with document id
 app.delete("/delete/customview/:id", async (req, res) => {
@@ -161,8 +160,9 @@ app.post('/createuser', async (req, res) => {
       email: req.body.email,
       password: req.body.password,
       displayName: `${req.body.firstName} ${req.body.lastName}`,
+      photoURL: "https://cdn.pixabay.com/photo/2017/11/10/05/48/user-2935527_1280.png"
     });
-        console.log('User created:', userRecord.uid);
+    console.log('User created:', userRecord.uid);
     res.status(201).send('User created successfully!');
   } catch (error) {
     console.error('Error creating user:', error);
