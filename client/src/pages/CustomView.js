@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { fsdb } from '../firebase-config';
-import { doc, collection, setDoc } from "firebase/firestore";
 import useAuth from "../components/CustomHooks";
 import Switch from "../components/Switch";
 import Visu1 from "../components/Visu1";
@@ -8,14 +6,14 @@ import Visu2 from "../components/Visu2";
 import Visu3 from "../components/Visu3";
 import Visu4 from "../components/Visu4";
 import Visu5 from "../components/Visu5";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
-import GetCustomViewRootUrl from "../components/GetUrls";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import GetCustomViewRootUrl, { GetServerUrl } from "../components/GetUrls";
+import axios from "axios";
 
 function CustomView({ goBack }) {
   const user = useAuth();
   const [title, setTitle] = useState("");
   const [viewText, setViewText] = useState("");
-  const [docId, setDocId] = useState("");
   const [showV1, setShowV1] = useState(false);
   const [showV2, setShowV2] = useState(false);
   const [showV3, setShowV3] = useState(false);
@@ -23,32 +21,36 @@ function CustomView({ goBack }) {
   const [showV5, setShowV5] = useState(false);
   const [newUrl, setNewUrl] = useState("");
   const [copied, setCopied] = useState(false);
-  const path = GetCustomViewRootUrl();
+  const [docId, setDocId] = useState("");
+  const customViewUrl = GetCustomViewRootUrl();
+  const serverUrl = GetServerUrl();
 
-  const saveCustomView = async () => {
-    const visuals = {
-      v1: showV1,
-      v2: showV2,
-      v3: showV3,
-      v4: showV4,
-      v5: showV5,
+  const saveCustomView = () => {
+    try {
+      const customView = {
+        user: user.uid,
+        title: title,
+        viewText: viewText,
+        visuals: {
+          v1: showV1,
+          v2: showV2,
+          v3: showV3,
+          v4: showV4,
+          v5: showV5
+        },
+      };
+      axios.post(`${serverUrl}create/customview`, customView).then((res) => {
+        setDocId(res.data._path.segments[1]);
+        console.log(res.status, res.data);
+      });
+
+    } catch (error) {
+      console.log(error.message);
     };
-
-    const collectionRef = collection(fsdb, "customview");
-    const docRef = doc(collectionRef);
-  
-    await setDoc(docRef, {
-      user: user.uid,
-      title: title,
-      visuals: visuals,
-      viewText: viewText,
-    }).then(() => {
-      setDocId(docRef.id);
-    });
   };
 
   const generateUrl = () => {
-    setNewUrl(`${path}${docId}`);
+    setNewUrl(`${customViewUrl}${docId}`);
   };
   
   // timer to make copy to clipboard button remain orange for 1 s after clicking it

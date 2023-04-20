@@ -121,7 +121,8 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
         },
         scales: {
           x:{
-            type: "linear", //using this type, the reconstruction data shows right
+            type: "time",
+            time:{unit: "year"},
             ticks: {
               stepSize: 1
             }
