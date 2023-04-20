@@ -34,3 +34,39 @@ const { admin } = require('../firebase.js');
       }
     }
   }
+  exports.getDisplayname = async (req, res) => {
+    const userId = req.params.userId;
+  
+    try {
+      const user = await admin.auth().getUser(userId);
+      const displayName = user.displayName;
+      if (displayName) {
+        res.send(displayName);
+      } else {
+        res.send(`User with ID ${userId} exists but does not have a display name`);
+      }
+    } catch (error) {
+      if (error.code === "auth/user-not-found") {
+        res.status(404).send(`User with ID ${userId} does not exist`);
+      } else {
+        console.error("Error getting user:", error);
+        res.status(500).send("Error getting user");
+      }
+    }
+  }
+
+  exports.deleteUser = async (req, res) => {
+    const userId = req.params.userId;
+  
+    try {
+      await admin.auth().deleteUser(userId);
+      res.send(`User with ID ${userId} has been deleted`);
+    } catch (error) {
+      if (error.code === "auth/user-not-found") {
+        res.status(404).send(`User with ID ${userId} does not exist`);
+      } else {
+        console.error("Error deleting user:", error);
+        res.status(500).send("Error deleting user");
+      }
+    }
+  }
