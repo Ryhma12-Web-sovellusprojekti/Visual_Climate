@@ -482,8 +482,61 @@ article p{
 .doughnuts h1{
   grid-column: 1/-1;
 }
+.selectors{
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  grid-gap: 16px;
+  width: 100%;
+  max-width: 1124px;
+  margin: auto;
+}
+.titletext{
+  grid-column: 1 / 2;
+  text-align: left;
+}
+.selectVis{
+  grid-column: -1/-2;
+  grid-row: 1/2;
+}
 
-@media screen and (max-width: 1024px) {
+.selectors form{
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  max-width: 100%;
+  width: 100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-left: 12px;
+  padding-right: 12px;
+  grid-gap: 4px;
+}
+
+.selectors form input:not(input[type="submit"]){
+  height: 3rem;
+}
+.selectors form textarea{
+  resize: none;
+  height: 100%;
+}
+
+.visualizations{
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+  grid-gap: 12px;
+  text-align: right;
+  padding-right: 12px;
+}
+.oneColumn{
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.twoColumns{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 12px;
+}
+@media screen and (max-width: 1124px) {
   .wrapper-side{
       grid-template-columns: 1fr;
   }
@@ -494,11 +547,18 @@ article p{
       display: none;
   }
 }
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 770px) {
   .sidebyside{
       grid-template-columns: 1fr;
       grid-template-rows: max-content max-content;
       grid-gap: 40px;
+  }
+  .selectors{
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, max-content);
+  }
+  .selectVis{
+    grid-row: auto;
   }
 }
 @media screen and (max-height: 600px){
