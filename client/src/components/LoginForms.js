@@ -9,16 +9,16 @@ import { signInWithPopup } from "firebase/auth";
 import axios from "axios";
 import { GetServerUrl } from "../components/GetUrls";
 
-export default function RegisterForm({ setIsAuth }) {   
+export default function RegisterForm({ setIsAuth, onRegister }) {   
     const schema = yup.object().shape({
-        firstName: yup.string().required("this is requred information"),
-        lastName: yup.string().required("this is requred information"),
-        email: yup.string().email().required("this is requred information"),
-        password: yup.string().min(6).max(20).required("this is requred information"),
+        firstName: yup.string().required("this is required information"),
+        lastName: yup.string().required("this is required information"),
+        email: yup.string().email().required("this is required information"),
+        password: yup.string().min(6).max(20).required("this is required information"),
         confirmPassword: yup
             .string()
             .oneOf([yup.ref("password"), null],"passwords don't match")
-            .required("this is requred information")
+            .required("this is required information")
     });
 
     const { register, handleSubmit, formState: {errors} } = useForm({
@@ -46,7 +46,7 @@ export default function RegisterForm({ setIsAuth }) {
                 console.log(res.status, res.data);
                 setIsAuth(true);
                 localStorage.setItem("isAuth", true);
-                navigate("/home");
+                navigate("/home", {replace: true, state: user});
             });
             
         } catch (error) {
@@ -151,7 +151,6 @@ export function GoogleForm({ setIsAuth }) {
     return(
         <button className="login-with-google-btn" onClick={signInWithGoogle}>
             Sign in with Google
-            </button>
+        </button>
     );
 };
-
