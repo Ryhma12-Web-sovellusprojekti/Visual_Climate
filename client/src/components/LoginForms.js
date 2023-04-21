@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { auth, provider } from "../firebase-config"; 
+import { auth, provider } from "../firebase-config";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -9,7 +9,7 @@ import { signInWithPopup } from "firebase/auth";
 import axios from "axios";
 import { GetServerUrl } from "../components/GetUrls";
 
-export default function RegisterForm({ onRegister }) {   
+export default function RegisterForm({ onRegister }) {
     const schema = yup.object().shape({
         firstName: yup.string().required("this is required information"),
         lastName: yup.string().required("this is required information"),
@@ -17,11 +17,11 @@ export default function RegisterForm({ onRegister }) {
         password: yup.string().min(6).max(20).required("this is required information"),
         confirmPassword: yup
             .string()
-            .oneOf([yup.ref("password"), null],"passwords don't match")
+            .oneOf([yup.ref("password"), null], "passwords don't match")
             .required("this is required information")
     });
 
-    const { register, handleSubmit, formState: {errors} } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
 
@@ -45,7 +45,7 @@ export default function RegisterForm({ onRegister }) {
                 console.log(res.status, res.data);
                 window.location.pathname = "/";
             });
-            
+
         } catch (error) {
             console.log(error.message);
         }
@@ -53,56 +53,57 @@ export default function RegisterForm({ onRegister }) {
 
     return (
         <form onSubmit={handleSubmit(registerUser)}>
-            <input type="text" 
-                value={firstName} 
+            <input type="text"
+                value={firstName}
                 placeholder="First Name..." {...register("firstName")}
-                onChange={user => setFirstName(user.target.value)} /> 
-                {errors.firstName?.message && <p data-testid="firstname-info">{errors.firstName?.message}</p>}
-            <input type="text" 
-                value={lastName} 
+                onChange={user => setFirstName(user.target.value)} />
+            {errors.firstName?.message && <p data-testid="firstname-info">{errors.firstName?.message}</p>}
+            <input type="text"
+                value={lastName}
                 placeholder="Last Name..." {...register("lastName")}
-                onChange={user => setLastName(user.target.value)}/>
-                {errors.lastName?.message && <p data-testid="lastname-info">{errors.lastName?.message}</p>}
-            <input type="email" 
-                value={email} 
-                placeholder="Email..." 
+                onChange={user => setLastName(user.target.value)} />
+            {errors.lastName?.message && <p data-testid="lastname-info">{errors.lastName?.message}</p>}
+            <input type="email"
+                value={email}
+                placeholder="Email..."
                 {...register("email")}
                 onChange={user => setEmail(user.target.value)} />
-                {errors.email?.message && <p data-testid="email-info">{errors.email?.message}</p>}
-            <input type="password" 
-                value={password} 
-                placeholder="Password..." {...register("password")} 
+            {errors.email?.message && <p data-testid="email-info">{errors.email?.message}</p>}
+            <input type="password"
+                value={password}
+                placeholder="Password..." {...register("password")}
                 onChange={user => setPassword(user.target.value)} />
-                {errors.password?.message && <p data-testid="password-info">{errors.password?.message}</p>}
-            <input type="password" 
-                value={confirmPassword} 
+            {errors.password?.message && <p data-testid="password-info">{errors.password?.message}</p>}
+            <input type="password"
+                value={confirmPassword}
                 placeholder="Password confirmation..." {...register("confirmPassword")}
                 onChange={user => setConfirmPassword(user.target.value)} />
-                {errors.confirmPassword?.message && <p data-testid="password-confirmation-info">{errors.confirmPassword?.message}</p>}
-            <input data-testid="signup-submit" type="submit" value="Submit"/>
+            {errors.confirmPassword?.message && <p data-testid="password-confirmation-info">{errors.confirmPassword?.message}</p>}
+            <input data-testid="signup-submit" type="submit" value="Submit" />
         </form>
     );
 };
 
-export function LoginForm() {   
+export function LoginForm() {
     const schema = yup.object().shape({
         email: yup.string().email().required("this is requred information"),
         password: yup.string().min(6).max(20).required("this is requred information"),
     });
 
-    const { register, handleSubmit, formState: {errors} } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    let navigate = useNavigate()
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    let navigate = useNavigate();
 
     const Login = async () => {
         try {
             const user = await signInWithEmailAndPassword(
-                auth, 
-                email, 
+                auth,
+                email,
                 password
             );
 
@@ -111,24 +112,26 @@ export function LoginForm() {
             navigate("/home");
         } catch (error) {
             console.log(error.message);
+            setErrorMessage("Incorrect email or password. Please try again.");
         }
     };
 
     return (
         <form onSubmit={handleSubmit(Login)}>
-            <input type="email" 
-                value={email} 
-                placeholder="Email..." 
+            {errorMessage && <p>{errorMessage}</p>}
+            <input type="email"
+                value={email}
+                placeholder="Email..."
                 {...register("email")}
                 onChange={user => setEmail(user.target.value)} />
-                {errors.email?.message && <p data-testid="email-error">{errors.email?.message}</p>}
-                
-            <input type="password" 
-                value={password} 
+            {errors.email?.message && <p data-testid="email-error">{errors.email?.message}</p>}
+
+            <input type="password"
+                value={password}
                 placeholder="Password..." {...register("password")}
                 onChange={user => setPassword(user.target.value)} />
-                {errors.password?.message && <p data-testid="password-error">{errors.password?.message}</p>}
-                
+            {errors.password?.message && <p data-testid="password-error">{errors.password?.message}</p>}
+
             <input data-testid="signin-submit" type="submit" value="Submit" />
         </form>
     );
@@ -143,7 +146,7 @@ export function GoogleForm() {
         });
     };
 
-    return(
+    return (
         <button className="login-with-google-btn" onClick={signInWithGoogle}>
             Sign in with Google
         </button>
