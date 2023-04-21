@@ -2,13 +2,15 @@ import React from "react";
 import Profile from "./Profile";
 import Footer from "../components/Footer";
 import Viewlinks from "../components/Viewlinks";
-import useAuth from "../components/CustomHooks";
 import { auth } from "../firebase-config";
 import LoginLinks from "../components/LoginLinks";
 
-function Home({isAuth, route}) {
+function Home({ route }) {
+    const isAuth = localStorage.getItem("isAuth");
+        
+if (isAuth) {
     const user = auth.currentUser;
-if(user){
+    
     return (
         <div className="wrapper-side">
             <aside></aside>
@@ -22,7 +24,8 @@ if(user){
             <Footer />
         </div>
     );
-} else{
+
+} else {
     return(
         <div className="wrapper-side">
         <aside></aside>

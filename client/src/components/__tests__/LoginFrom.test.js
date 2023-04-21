@@ -47,8 +47,7 @@ describe(("LoginForm tests"), () => {
     test(("gives a note if email and password are missing"), async () => {
 
         const user = userEvent.setup();
-        const setIsAuth = jest.fn();
-        render(<LoginForm setIsAuth={setIsAuth} />);
+        render(<LoginForm />);
 
 
         const SignInButton = screen.getByTestId("signin-submit");
@@ -59,7 +58,6 @@ describe(("LoginForm tests"), () => {
         expect(screen.getByTestId("email-error")).toBeDefined();
         expect(screen.getByTestId("password-error")).toBeDefined();
         //does not let the user forward
-        expect(setIsAuth).not.toHaveBeenCalledWith(true);
         expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
 
 
@@ -67,9 +65,8 @@ describe(("LoginForm tests"), () => {
 
     test(("gives a note if email is missing"), async () => {
 
-        const user = userEvent.setup();
-        const setIsAuth = jest.fn();
-        render(<LoginForm setIsAuth={setIsAuth} />);
+        const user = userEvent.setup();        
+        render(<LoginForm />);
 
 
         const passwordInput = screen.getByPlaceholderText("Password...");
@@ -82,7 +79,6 @@ describe(("LoginForm tests"), () => {
         //finds email info texts
         expect(screen.getByTestId("email-error")).toBeDefined();
         //does not let the user forward
-        expect(setIsAuth).not.toHaveBeenCalledWith(true);
         expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
 
     });
@@ -90,8 +86,7 @@ describe(("LoginForm tests"), () => {
     test(("gives a note if email is not valid"), async () => {
 
         const user = userEvent.setup();
-        const setIsAuth = jest.fn();
-        render(<LoginForm setIsAuth={setIsAuth} />);
+        render(<LoginForm />);
 
         const emailInput = screen.getByPlaceholderText("Email...");
         const passwordInput = screen.getByPlaceholderText("Password...");
@@ -105,7 +100,6 @@ describe(("LoginForm tests"), () => {
         //finds email info texts
         expect(screen.getByTestId("email-error")).toBeInTheDocument();
         //does not let the user forward
-        expect(setIsAuth).not.toHaveBeenCalledWith(true);
         expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
 
 
@@ -114,8 +108,7 @@ describe(("LoginForm tests"), () => {
     test(("gives a note if password is missing"), async () => {
 
         const user = userEvent.setup();
-        const setIsAuth = jest.fn();
-        render(<LoginForm setIsAuth={setIsAuth} />);
+        render(<LoginForm />);
 
         const emailInput = screen.getByPlaceholderText("Email...");
         const SignInButton = screen.getByTestId("signin-submit");
@@ -127,7 +120,6 @@ describe(("LoginForm tests"), () => {
         //finds password info texts
         expect(screen.getByTestId("password-error")).toBeDefined();
         //does not let the user forward
-        expect(setIsAuth).not.toHaveBeenCalledWith(true);
         expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
 
 
@@ -136,9 +128,7 @@ describe(("LoginForm tests"), () => {
     test(("gives a note if password is too short"), async () => {
 
         const user = userEvent.setup();
-
-        const setIsAuth = jest.fn();
-        render(<LoginForm setIsAuth={setIsAuth} />);
+        render(<LoginForm />);
 
         const emailInput = screen.getByPlaceholderText("Email...");
         const passwordInput = screen.getByPlaceholderText("Password...");
@@ -152,7 +142,6 @@ describe(("LoginForm tests"), () => {
         //finds password info texts
         expect(screen.getByTestId("password-error")).toBeDefined();
         //does not let the user forward
-        expect(setIsAuth).not.toHaveBeenCalledWith(true);
         expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
 
 
@@ -161,8 +150,7 @@ describe(("LoginForm tests"), () => {
     test('successful login when form receives correct email and password', async () => {
 
         const user = userEvent.setup();
-        const setIsAuth = jest.fn();
-        render(<LoginForm setIsAuth={setIsAuth} />);
+        render(<LoginForm />);
         const emailInput = screen.getByPlaceholderText("Email...");
         const passwordInput = screen.getByPlaceholderText("Password...");
         const submitButton = screen.getByTestId("signin-submit");
@@ -175,8 +163,6 @@ describe(("LoginForm tests"), () => {
         //info texts are not found when the given information is correct
         expect(screen.queryByTestId("password-error")).toBeNull();
         expect(screen.queryByTestId("email-error")).toBeNull();
-        //isAuth variable is set true when when the login is successful
-        await waitFor(() => { expect(setIsAuth).toHaveBeenCalledWith(true) });
         //user is redirected to home when the login is successful
         await expect(mockedUsedNavigate).toHaveBeenCalledWith('/home');
         

@@ -31,13 +31,11 @@ function CustomViewEdit({ goBack }) {
             });  
         };        
         fetchViews();
-    }, []);
+    }, [deleteView]);
 
     // delete custom view:
     function deleteView (id) {
-        axios.delete(`${serverUrl}delete/customview/${id}`).then(() => {
-            setViews(views.filter((view) => view.id !== id));
-        });
+        axios.delete(`${serverUrl}delete/customview/${id}`)
     };
 
     return (

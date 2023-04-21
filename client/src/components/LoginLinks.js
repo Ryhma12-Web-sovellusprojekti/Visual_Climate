@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import RegisterForm, { LoginForm, GoogleForm } from "./LoginForms";
 
-function LoginLinks({ setIsAuth }) {
+function LoginLinks() {
     const [isClicked, setIsClicked] = useState(true);
 
     const [x, setX ] = useState("1");
@@ -20,9 +20,9 @@ switch(x){
         {isClicked && 
           <div> 
           <h1>Sign in to Continue</h1>
-          <LoginForm setIsAuth={setIsAuth} />
+          <LoginForm />
           <h3>Or use your Google account</h3>
-          <GoogleForm setIsAuth={setIsAuth}/>
+          <GoogleForm />
           </div>
          }
       </div>
@@ -36,7 +36,7 @@ switch(x){
         {isClicked && 
         <div> 
         <h1>Not registered yet? Sign up here!</h1>
-        <RegisterForm setIsAuth={setIsAuth} onRegister = {changeView}/> 
+        <RegisterForm onRegister = {changeView}/> 
         </div>
        }
         </div>

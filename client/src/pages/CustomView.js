@@ -14,11 +14,19 @@ function CustomView({ goBack }) {
   const user = useAuth();
   const [title, setTitle] = useState("");
   const [viewText, setViewText] = useState("");
+
   const [showV1, setShowV1] = useState(false);
   const [showV2, setShowV2] = useState(false);
   const [showV3, setShowV3] = useState(false);
   const [showV4, setShowV4] = useState(false);
   const [showV5, setShowV5] = useState(false);
+
+  const [textV1, setTextV1] = useState("");
+  const [textV2, setTextV2] = useState("");
+  const [textV3, setTextV3] = useState("");
+  const [textV4, setTextV4] = useState("");
+  const [textV5, setTextV5] = useState("");
+
   const [sidebySide, setSidebySide] = useState(false);
   const [newUrl, setNewUrl] = useState("");
   const [copied, setCopied] = useState(false);
@@ -28,19 +36,30 @@ function CustomView({ goBack }) {
 
   const saveCustomView = () => {
     try {
+      let visuals = {
+        ...(showV1 && {v1: showV1}),
+        ...(showV2 && {v2: showV2}),
+        ...(showV3 && {v3: showV3}),
+        ...(showV4 && {v4: showV4}),
+        ...(showV5 && {v5: showV5}),
+        ...(sidebySide && {ss: sidebySide}),
+      }
+      let visuTexts = {
+        ...(showV1 && {v1: textV1}),
+        ...(showV2 && {v2: textV2}),
+        ...(showV3 && {v3: textV3}),
+        ...(showV4 && {v4: textV4}),
+        ...(showV5 && {v5: textV5}),
+      };
+
       const customView = {
         user: user.uid,
         title: title,
         viewText: viewText,
-        visuals: {
-          v1: showV1,
-          v2: showV2,
-          v3: showV3,
-          v4: showV4,
-          v5: showV5,
-          ss: sidebySide
-        },
+        visuals: visuals,
+        visuTexts: visuTexts
       };
+
       axios.post(`${serverUrl}create/customview`, customView).then((res) => {
         setDocId(res.data._path.segments[1]);
         console.log(res.status, res.data);
@@ -70,7 +89,12 @@ function CustomView({ goBack }) {
         <h3 className="titletext">Add title and text to your view</h3>
         <form>
           <input type="text" value={title} placeholder="Title of your view..." onChange={e => setTitle(e.target.value)} />
-          <textarea value={viewText} placeholder="Text or comments..." onChange={e => setViewText(e.target.value)} />
+          <textarea value={viewText} placeholder="General comments to this view..." onChange={e => setViewText(e.target.value)} />
+          {showV1 && <textarea value={textV1} placeholder="Text or comments to visualization 1..." onChange={e => setTextV1(e.target.value)} />}
+          {showV2 && <textarea value={textV2} placeholder="Text or comments to visualization 2..." onChange={e => setTextV2(e.target.value)} />}
+          {showV3 && <textarea value={textV3} placeholder="Text or comments to visualization 3..." onChange={e => setTextV3(e.target.value)} />}
+          {showV4 && <textarea value={textV4} placeholder="Text or comments to visualization 4..." onChange={e => setTextV4(e.target.value)} />}
+          {showV5 && <textarea value={textV5} placeholder="Text or comments to visualization 5..." onChange={e => setTextV5(e.target.value)} />}
         </form>
         <h3 className="selectVis">Select visualizations</h3>
       <div className="visualizations">
@@ -96,21 +120,41 @@ function CustomView({ goBack }) {
         </>
         }
       </section>
-      
-      <h1 dangerouslySetInnerHTML={{ __html: title }} />
-      <div dangerouslySetInnerHTML={{ __html: viewText }} />
+      <div>
+        <h1>{title}</h1>
+        <p>{viewText}</p>
+      </div>
       <div className={
         sidebySide ? 'twoColumns' : 'oneColumn'
       }>
-        {showV1 && <Visu1 />}
-        {showV2 && <Visu2 />}
-        {showV3 && <Visu3 />}
-        {showV4 && <Visu4 />}
-        {showV5 && <Visu5 />}
+        <div>
+          <p>{textV1}</p>
+          {showV1 && <Visu1 />}
+        </div>
+        <div>
+          <p>{textV2}</p>
+          {showV2 && <Visu2 />}
+        </div>
+        <div>
+          <p>{textV3}</p>
+          {showV3 && <Visu3 />}
+        </div>
+        <div>
+          <p>{textV4}</p>
+          {showV4 && <Visu4 />}
+        </div>
+        <div>
+          <p>{textV5}</p>
+          {showV5 && <Visu5 />}
+        </div>
       </div>
+
     </div>
   );
 }
 
 export default CustomView;
+
+
+
 
