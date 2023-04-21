@@ -16,9 +16,8 @@ describe(("Delete account tests"), () => {
 
   test('create an test account with RegisterForm', async () => {
     const user = userEvent.setup();
-    const setIsAuth = jest.fn();
-
-    render(<RegisterForm setIsAuth={setIsAuth} />);
+  
+    render(<RegisterForm />);
     const firstNamePlacehoder = screen.getByPlaceholderText("First Name...");
     const lastNamePlacehoder = screen.getByPlaceholderText("Last Name...");
     const emailPlacehoder = screen.getByPlaceholderText("Email...");
@@ -35,8 +34,6 @@ describe(("Delete account tests"), () => {
     await user.click(submitButton);
     //Wait a little while so the user's data will be saved in the database
     await new Promise(resolve => setTimeout(resolve, 1500));
-    //isAuth variable is set true when when the registration is successful
-    await waitFor(() => { expect(setIsAuth).toHaveBeenCalledWith(true) });
     //user is redirected to home when the registration is successful
     await expect(mockedUsedNavigate).toHaveBeenCalledWith('/home');
     
@@ -65,8 +62,7 @@ describe(("Delete account tests"), () => {
   test("created user is been deleted from Firebase and can't log in", async () => {
 
     const user = userEvent.setup();
-    const setIsAuth = jest.fn();
-    render(<LoginForm setIsAuth={setIsAuth}/>);
+    render(<LoginForm />);
     const emailInput = screen.getByPlaceholderText("Email...");
     const passwordInput = screen.getByPlaceholderText("Password...");
     const submitButton = screen.getByTestId("signin-submit");
@@ -76,8 +72,6 @@ describe(("Delete account tests"), () => {
     await user.type(passwordInput, 'password555');
     await user.click(submitButton);
 
-    //isAuth variable should not have been called with true
-    expect(setIsAuth).not.toHaveBeenCalledWith(true);
     //browser path should not be /home
     expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
 

@@ -9,7 +9,7 @@ import { signInWithPopup } from "firebase/auth";
 import axios from "axios";
 import { GetServerUrl } from "../components/GetUrls";
 
-export default function RegisterForm({ setIsAuth, onRegister }) {   
+export default function RegisterForm({ onRegister }) {   
     const schema = yup.object().shape({
         firstName: yup.string().required("this is required information"),
         lastName: yup.string().required("this is required information"),
@@ -31,7 +31,6 @@ export default function RegisterForm({ setIsAuth, onRegister }) {
     const [lastName, setLastName] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const serverUrl = GetServerUrl();
-    const navigate = useNavigate()
 
     const registerUser = () => {
         try {
@@ -44,9 +43,7 @@ export default function RegisterForm({ setIsAuth, onRegister }) {
 
             axios.post(`${serverUrl}createuser`, user).then((res) => {
                 console.log(res.status, res.data);
-                setIsAuth(true);
-                localStorage.setItem("isAuth", true);
-                navigate("/home", {replace: true, state: user});
+                window.location.pathname = "/";
             });
             
         } catch (error) {
@@ -87,7 +84,7 @@ export default function RegisterForm({ setIsAuth, onRegister }) {
     );
 };
 
-export function LoginForm({ setIsAuth }) {   
+export function LoginForm() {   
     const schema = yup.object().shape({
         email: yup.string().email().required("this is requred information"),
         password: yup.string().min(6).max(20).required("this is requred information"),
@@ -99,7 +96,7 @@ export function LoginForm({ setIsAuth }) {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const navigate = useNavigate()
+    let navigate = useNavigate()
 
     const Login = async () => {
         try {
@@ -111,7 +108,6 @@ export function LoginForm({ setIsAuth }) {
 
             console.log(user);
             localStorage.setItem("isAuth", true);
-            setIsAuth(true);
             navigate("/home");
         } catch (error) {
             console.log(error.message);
@@ -138,12 +134,11 @@ export function LoginForm({ setIsAuth }) {
     );
 };
 
-export function GoogleForm({ setIsAuth }) {
-    const navigate = useNavigate();
+export function GoogleForm() {
+    let navigate = useNavigate();
     const signInWithGoogle = () => {
         signInWithPopup(auth, provider).then((result) => {
             localStorage.setItem("isAuth", true);
-            setIsAuth(true);
             navigate("/home");
         });
     };

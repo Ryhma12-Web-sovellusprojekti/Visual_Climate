@@ -6,8 +6,6 @@ import { GetServerUrl } from "./GetUrls";
 export default function SignUserOut() {
     signOut(auth).then(() => {
         localStorage.clear();
-        localStorage.removeItem("user");
-        localStorage.setItem("isAuth", false);
         window.location.pathname = "/";
     });
 }
@@ -21,8 +19,7 @@ export function DeleteSignedUser() {
 
     deleteUser(user).then(() => {
         console.log("User Account Deleted");
-        localStorage.removeItem("user");
-        localStorage.setItem("isAuth", false);
+        localStorage.clear();
         window.location.pathname = "/";
     })
     .catch((error) => {

@@ -50,12 +50,10 @@ describe(("RegisterForm tests"), () => {
     test('gives a note every input field where the data is missing', async () => {
 
         const user = userEvent.setup();
-        const setIsAuth = jest.fn();
-        render(<RegisterForm setIsAuth={setIsAuth} />);
+        render(<RegisterForm />);
         const submitButton = screen.queryByTestId("signup-submit");
         
         await user.click(submitButton);
-        await waitFor(() => { expect(setIsAuth).not.toHaveBeenCalledWith(true) });
         await expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
         const fnInfo = screen.queryByTestId("firstname-info");
         const lnInfo = screen.queryByTestId("lastname-info");
@@ -76,8 +74,7 @@ describe(("RegisterForm tests"), () => {
    test('RegisterForm gives a note if the email does not contain @ character', async () => {
 
         const user = userEvent.setup();
-        const setIsAuth = jest.fn();
-        render(<RegisterForm setIsAuth={setIsAuth} />);
+        render(<RegisterForm />);
         const firstNamePlacehoder = screen.getByPlaceholderText("First Name...");
         const lastNamePlacehoder = screen.getByPlaceholderText("Last Name...");
         const emailPlacehoder = screen.getByPlaceholderText("Email...");
@@ -94,7 +91,6 @@ describe(("RegisterForm tests"), () => {
         await user.click(submitButton);
         const emailInfo = screen.getByTestId("email-info");
         //does not let the user forward
-        await waitFor(() => { expect(setIsAuth).not.toHaveBeenCalledWith(true) });
         await expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
         //finds emailInfo from the document
         expect(emailInfo).toBeInTheDocument();
@@ -104,8 +100,7 @@ describe(("RegisterForm tests"), () => {
     test('gives a note if the email is not in the correct format', async () => {
 
         const user = userEvent.setup();
-        const setIsAuth = jest.fn();
-        render(<RegisterForm setIsAuth={setIsAuth} />);
+        render(<RegisterForm />);
         const firstNamePlacehoder = screen.getByPlaceholderText("First Name...");
         const lastNamePlacehoder = screen.getByPlaceholderText("Last Name...");
         const emailPlacehoder = screen.getByPlaceholderText("Email...");
@@ -122,7 +117,6 @@ describe(("RegisterForm tests"), () => {
         await user.click(submitButton);
         const emailInfo = screen.getByTestId("email-info");
         //does not let the user forward
-        await waitFor(() => { expect(setIsAuth).not.toHaveBeenCalledWith(true) });
         await expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
         //finds emailInfo from the document
         expect(emailInfo).toBeInTheDocument();
@@ -132,8 +126,7 @@ describe(("RegisterForm tests"), () => {
     test('gives a note if password is too short', async () => {
 
         const user = userEvent.setup();
-        const setIsAuth = jest.fn();
-        render(<RegisterForm setIsAuth={setIsAuth} />);
+        render(<RegisterForm />);
         const firstNamePlacehoder = screen.getByPlaceholderText("First Name...");
         const lastNamePlacehoder = screen.getByPlaceholderText("Last Name...");
         const emailPlacehoder = screen.getByPlaceholderText("Email...");
@@ -150,7 +143,6 @@ describe(("RegisterForm tests"), () => {
         await user.click(submitButton);
         const passwordInfo = screen.getByTestId("password-info");
         //does not let the user forward
-        await waitFor(() => { expect(setIsAuth).not.toHaveBeenCalledWith(true) });
         await expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
         //finds passwordInfo from the document
         expect(passwordInfo).toBeInTheDocument();
@@ -159,8 +151,7 @@ describe(("RegisterForm tests"), () => {
 
     test("gives a note if password and its confirmation don't match", async () => {
         const user = userEvent.setup();
-        const setIsAuth = jest.fn();
-        render(<RegisterForm setIsAuth={setIsAuth} />);
+        render(<RegisterForm />);
         const firstNamePlacehoder = screen.getByPlaceholderText("First Name...");
         const lastNamePlacehoder = screen.getByPlaceholderText("Last Name...");
         const emailPlacehoder = screen.getByPlaceholderText("Email...");
@@ -177,7 +168,6 @@ describe(("RegisterForm tests"), () => {
         await user.click(submitButton);
         const passwordConfInfo = screen.getByTestId("password-confirmation-info"); 
         //does not let the user forward
-        waitFor(() => { expect(setIsAuth).not.toHaveBeenCalledWith(true) });
         expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
         //finds password confimration info from the document
         expect(passwordConfInfo).toBeInTheDocument();
@@ -200,9 +190,8 @@ describe(("RegisterForm tests"), () => {
     test('successful sign up when form receives correct information', async () => {
 
         const user = userEvent.setup();
-        const setIsAuth = jest.fn();
 
-        render(<RegisterForm setIsAuth={setIsAuth}/>);
+        render(<RegisterForm />);
         const firstNamePlacehoder = screen.getByPlaceholderText("First Name...");
         const lastNamePlacehoder = screen.getByPlaceholderText("Last Name...");
         const emailPlacehoder = screen.getByPlaceholderText("Email...");
@@ -220,8 +209,6 @@ describe(("RegisterForm tests"), () => {
 
         //wait a little while so the user's data will be saved to the database
         await new Promise(resolve => setTimeout(resolve, 1500));
-        //isAuth variable is set true when when the registration is successful
-        await waitFor(() => { expect(setIsAuth).toHaveBeenCalledWith(true) });
         //user is redirected to home when the registration is successful
         await expect(mockedUsedNavigate).toHaveBeenCalledWith('/home');
     });

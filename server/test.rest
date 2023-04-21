@@ -14,7 +14,7 @@ GET http://localhost:5000/all/customview/s3lfLHsYRhMBKxQc6kCbtSb4COl1
 DELETE http://localhost:5000/delete/customview/w00SedPsMqE969wqgLRx
 
 ### DELETE ALL THE USERS CUSTOM VIEWS
-DELETE http://localhost:5000/deleteall/customview/EruPjCOkhvdEwhnuaLcKkiQT1f42
+DELETE http://localhost:5000/deleteall/customview/NcTC3xH3E9bkVPPhwCgYODZyJtX2
 
 ### CREATE NEW CUSTOM VIEW
 POST http://localhost:5000/create/customview
