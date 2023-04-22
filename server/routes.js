@@ -1,9 +1,17 @@
 const visualsController = require("./controllers/visualsController");
 const customViewsController = require("./controllers/customViewsController");
 const userController = require("./controllers/userController");
+const { admin } = require('../firebase.js');
 
 const verifyToken = (req, res, next) => {
-    const idToken = req.headers.authorization;
+    const authorizationHeader = req.headers.authorization;
+    
+    if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
+      return res.status(401).send('Unauthorized');
+    }
+    
+    const idToken = authorizationHeader.split('Bearer ')[1];
+    
     admin.auth().verifyIdToken(idToken)
       .then((decodedToken) => {
         req.user = decodedToken;
@@ -26,7 +34,7 @@ module.exports = function(app) {
     app.delete("/deleteall/customview/:id", verifyToken, customViewsController.deleteAllCustomViews);
 
     app.get("/check/:userId", verifyToken, userController.checkUserExists);
-    app.get("/getname/:userId", verifyToken, userController.getDisplayname);
+    app.get("/getname/:userId",  verifyToken, userController.getDisplayname);
     app.post('/createuser', verifyToken, userController.createUser);
     app.delete('/deleteuser/:userId', verifyToken, userController.deleteUser);
 };
