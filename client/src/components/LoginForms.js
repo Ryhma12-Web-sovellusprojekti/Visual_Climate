@@ -101,14 +101,12 @@ export function LoginForm() {
 
     const createToken = async (userId) => {
         try {
-          const response = await fetch('/createusertoken', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ userId: userId })
-          });
-          const token = await response.text();
+            const response = await axios.post('/createusertoken', { userId }, {
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+              });
+          const token = response.data;
           console.log('User token:', token);
           localStorage.setItem("token", token);
           localStorage.setItem("isAuth", true);
@@ -126,7 +124,7 @@ export function LoginForm() {
           password
         );      
         console.log('User:', user);
-        await createToken(user.uid);
+        await createToken(user.user.uid);
         navigate("/home");
       } catch (error) {
         console.log(error.message);

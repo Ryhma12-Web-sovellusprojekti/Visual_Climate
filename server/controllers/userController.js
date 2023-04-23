@@ -20,7 +20,7 @@ exports.createUser = async (req, res) => {
 
 //create user token for the current user
 exports.createUserToken = async (req, res) => {
-  const userId = req.params.userId;
+  const userId = req.body.userId;
 
   try {
     const token = await admin.auth().createCustomToken(userId, { expiresIn: '3600s' });
