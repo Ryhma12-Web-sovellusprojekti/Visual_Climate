@@ -1,8 +1,7 @@
 const visualsController = require("./controllers/visualsController");
 const customViewsController = require("./controllers/customViewsController");
 const userController = require("./controllers/userController");
-const { admin } = require('../firebase.js');
-
+//const { admin } = require('../firebase.js');
 //const verifyToken = (req, res, next) => {
 //    const authorizationHeader = req.headers.authorization;
 //    
