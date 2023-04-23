@@ -17,6 +17,22 @@ exports.createUser = async (req, res) => {
       res.status(500).send("Couldn't create user! "+ error.message);
     }
 };
+
+//create user token for the current user
+exports.createUserToken = async (req, res) => {
+  const userId = req.body.userId;
+
+  try {
+    const token = await admin.auth().createCustomToken(userId, { expiresIn: '3600s' });
+    console.log('User token: ', token);
+    res.send(token);
+  } catch (error) {
+    console.error("Error creating user token:", error);
+    res.status(500).send("Error creating user token");
+  } 
+}
+
+
     
 //check if a user exists by given user ID
 exports.checkUserExists = async (req, res) => {

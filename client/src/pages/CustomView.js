@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import debounce from "lodash";
+
 import useAuth from "../components/CustomHooks";
 import Switch from "../components/Switch";
 import Visu1 from "../components/Visu1";
@@ -6,6 +8,8 @@ import Visu2 from "../components/Visu2";
 import Visu3 from "../components/Visu3";
 import Visu4 from "../components/Visu4";
 import Visu5 from "../components/Visu5";
+import Textarea from "../components/Textarea";
+
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import GetCustomViewRootUrl, { GetServerUrl } from "../components/GetUrls";
 import axios from "axios";
@@ -82,6 +86,10 @@ function CustomView({ goBack }) {
     return () => clearTimeout(timer);
   },[copied]);
 
+  function updateText(){
+
+  }
+
   return (
     <div className="customview">
       <button onClick={goBack}>Back</button>
@@ -90,11 +98,11 @@ function CustomView({ goBack }) {
         <form>
           <input type="text" value={title} placeholder="Title of your view..." onChange={e => setTitle(e.target.value)} />
           <textarea value={viewText} placeholder="General comments to this view..." onChange={e => setViewText(e.target.value)} />
-          {showV1 && <textarea value={textV1} placeholder="Text or comments to visualization 1..." onChange={e => setTextV1(e.target.value)} />}
-          {showV2 && <textarea value={textV2} placeholder="Text or comments to visualization 2..." onChange={e => setTextV2(e.target.value)} />}
-          {showV3 && <textarea value={textV3} placeholder="Text or comments to visualization 3..." onChange={e => setTextV3(e.target.value)} />}
-          {showV4 && <textarea value={textV4} placeholder="Text or comments to visualization 4..." onChange={e => setTextV4(e.target.value)} />}
-          {showV5 && <textarea value={textV5} placeholder="Text or comments to visualization 5..." onChange={e => setTextV5(e.target.value)} />}
+          {showV1 && <Textarea placeholder="Text or comments to visualization 1..." setParentValue={setTextV1} />}
+          {showV2 && <Textarea placeholder="Text or comments to visualization 2..." setParentValue={setTextV2}/>}
+          {showV3 && <Textarea placeholder="Text or comments to visualization 3..." setParentValue={setTextV3}/>}
+          {showV4 && <Textarea placeholder="Text or comments to visualization 4..." setParentValue={setTextV4}/>}
+          {showV5 && <Textarea  placeholder="Text or comments to visualization 5..." setParentValue={setTextV5}/>}
         </form>
         <h3 className="selectVis">Select visualizations</h3>
       <div className="visualizations">
@@ -127,26 +135,36 @@ function CustomView({ goBack }) {
       <div className={
         sidebySide ? 'twoColumns' : 'oneColumn'
       }>
+        {showV1 && 
         <div>
           <p>{textV1}</p>
-          {showV1 && <Visu1 />}
+            <Visu1 />
         </div>
+        }
+        {showV2 && 
         <div>
           <p>{textV2}</p>
-          {showV2 && <Visu2 />}
+            <Visu2 />
         </div>
+        }
+        {showV3 && 
         <div>
           <p>{textV3}</p>
-          {showV3 && <Visu3 />}
+            <Visu3 />
         </div>
+        }
+        {showV4 && 
         <div>
           <p>{textV4}</p>
-          {showV4 && <Visu4 />}
+            <Visu4 />
         </div>
+        }
+        {showV5 && 
         <div>
           <p>{textV5}</p>
-          {showV5 && <Visu5 />}
+            <Visu5 />
         </div>
+        }
       </div>
 
     </div>
