@@ -11,4 +11,15 @@ app.use(cors({
 }));
 
 const routes = require('./routes')(app);
-app.listen(port, () => { console.log(`Server started on port ${port}`) })
+
+let serverInstance = null;
+
+module.exports = {
+  start: function(){
+   serverInstance= app.listen(port, () => { console.log(`Server started on port ${port}`) })
+  },
+  close: function(){
+    serverInstance.close();
+    console.log(`Server closed on port ${port}`);
+  }
+}

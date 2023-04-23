@@ -14,6 +14,7 @@ module.exports = function(app) {
     app.delete("/deleteall/customview/:id", customViewsController.deleteAllCustomViews);
 
     app.get("/check/:userId", userController.checkUserExists);
+    app.get("/getuser/:email", userController.getUserInfo);
     app.get("/getname/:userId", userController.getDisplayname);
     app.post('/createuser', userController.createUser);
     app.delete('/deleteuser/:userId', userController.deleteUser);
