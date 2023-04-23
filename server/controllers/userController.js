@@ -11,16 +11,28 @@ exports.createUser = async (req, res) => {
       photoURL: "https://cdn.pixabay.com/photo/2017/11/10/05/48/user-2935527_1280.png"
     });
       console.log('User created:', userRecord.uid);
-
-      const token = await admin.auth().createCustomToken(userRecord.uid, { expiresIn: '3600s' });
-      console.log('User token: ', token);
-
       res.status(201).send('User created successfully!');
   } catch (error) {
       console.error('Error creating user:', error);
       res.status(500).send('Error creating user!');
     }
 };
+
+//create user token for the current user
+exports.createUserToken = async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const token = await admin.auth().createCustomToken(userId, { expiresIn: '3600s' });
+    console.log('User token: ', token);
+    res.send(token);
+  } catch (error) {
+    console.error("Error creating user token:", error);
+    res.status(500).send("Error creating user token");
+  } 
+}
+
+
     
 //check if a user exists
 exports.checkUserExists = async (req, res) => {

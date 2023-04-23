@@ -9,7 +9,7 @@ import { signInWithPopup } from "firebase/auth";
 import axios from "axios";
 import { GetServerUrl } from "../components/GetUrls";
 
-export default function RegisterForm({ onRegister }) {
+export default function RegisterForm() {
     const schema = yup.object().shape({
         firstName: yup.string().required("this is required information"),
         lastName: yup.string().required("this is required information"),
@@ -86,38 +86,56 @@ export default function RegisterForm({ onRegister }) {
 
 export function LoginForm() {
     const schema = yup.object().shape({
-        email: yup.string().email().required("this is requred information"),
-        password: yup.string().min(6).max(20).required("this is requred information"),
+      email: yup.string().email().required("This is required information"),
+      password: yup.string().min(6).max(20).required("This is required information"),
     });
-
+  
     const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(schema)
+      resolver: yupResolver(schema),
     });
-
+  
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
-    const Login = async () => {
+    const createToken = async (userId) => {
         try {
-            const user = await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-
-            console.log(user);
-            localStorage.setItem("isAuth", true);
-            navigate("/home");
+          const response = await fetch('/createusertoken', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId: userId })
+          });
+          const token = await response.text();
+          console.log('User token:', token);
+          localStorage.setItem("token", token);
+          localStorage.setItem("isAuth", true);
         } catch (error) {
-            console.log(error.message);
-            setErrorMessage("Incorrect email or password. Please try again.");
+          console.log("Error creating user token:", error);
+          setErrorMessage("Error creating user token");
         }
+    };
+  
+    const login = async () => {
+      try {
+        const user = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );      
+        console.log('User:', user);
+        await createToken(user.uid);
+        navigate("/home");
+      } catch (error) {
+        console.log(error.message);
+        setErrorMessage("Incorrect email or password. Please try again.");
+      }
     };
 
     return (
-        <form onSubmit={handleSubmit(Login)}>
+        <form onSubmit={handleSubmit(login)}>
             {errorMessage && <p>{errorMessage}</p>}
             <input type="email"
                 value={email}

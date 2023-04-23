@@ -53,4 +53,5 @@ module.exports = function(app) {
   app.get("/getname/:userId",  userController.getDisplayname);
   app.post('/createuser', userController.createUser);
   app.delete('/deleteuser/:userId', userController.deleteUser);
+  app.post('/createusertoken', userController.createUserToken);
 };
