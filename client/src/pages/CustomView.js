@@ -127,26 +127,36 @@ function CustomView({ goBack }) {
       <div className={
         sidebySide ? 'twoColumns' : 'oneColumn'
       }>
+        {showV1 && 
         <div>
           <p>{textV1}</p>
-          {showV1 && <Visu1 />}
+            <Visu1 />
         </div>
+        }
+        {showV2 && 
         <div>
           <p>{textV2}</p>
-          {showV2 && <Visu2 />}
+            <Visu2 />
         </div>
+        }
+        {showV3 && 
         <div>
           <p>{textV3}</p>
-          {showV3 && <Visu3 />}
+            <Visu3 />
         </div>
+        }
+        {showV4 && 
         <div>
           <p>{textV4}</p>
-          {showV4 && <Visu4 />}
+            <Visu4 />
         </div>
+        }
+        {showV5 && 
         <div>
           <p>{textV5}</p>
-          {showV5 && <Visu5 />}
+            <Visu5 />
         </div>
+        }
       </div>
 
     </div>
