@@ -10,6 +10,9 @@ GET http://localhost:5000/auth/rw9o9LeXfxNIHAvXZwsExpszh4g2
 ### GET ALL THE USERS SAVED CUSTOM VIEWS
 GET http://localhost:5000/all/customview/s3lfLHsYRhMBKxQc6kCbtSb4COl1
 
+### DELETE USER
+DELETE http://localhost:5000/deleteuser/sPPxE1n08iOZbygKiG8kP9sz3wm2
+
 ### DELETE SPECIFIC CUSTOM VIEW
 DELETE http://localhost:5000/delete/customview/w00SedPsMqE969wqgLRx
 

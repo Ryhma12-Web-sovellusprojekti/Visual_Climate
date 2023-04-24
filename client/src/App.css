@@ -469,12 +469,13 @@ article p{
   align-items: center;
   margin: auto;
 }
-.yksi{
+.one{
   grid-template-columns: 1fr;
   max-width: 50%;
 }
-.kaksi{
+.two{
   grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+  max-width: 50%;
 }
 .doughnuts canvas{
   height: 100% !important;

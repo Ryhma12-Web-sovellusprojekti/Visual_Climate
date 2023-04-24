@@ -118,13 +118,13 @@ function Graph({ sectors, subAgri, subEnergy, subIndustry, subWaste }) {
 
     const chartRef = useRef();
     const [subsectorData, setSubsectorData] = useState(dataSubAgri);
-    const [doughnutDuo, setDoughnutDuo ] = useState("doughnuts yksi");
+    const [doughnutDuo, setDoughnutDuo ] = useState("doughnuts one");
     const [dataTitle, setDataTitle] = useState("");
   
     const onClick = (event) => {
         if(getElementsAtEvent(chartRef.current, event).length > 0) {
             hasClicked = true;
-            setDoughnutDuo("doughnuts kaksi");
+            setDoughnutDuo("doughnuts two");
             const dataPoint = getElementsAtEvent(chartRef.current, event)[0].index;
             switch(dataPoint) {
                 case 0:
