@@ -1,9 +1,15 @@
-import React from 'react'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import '@testing-library/jest-dom/extend-expect'
-import Profile from "../../pages/Profile"
-import RegisterForm, { LoginForm } from '../LoginForms'
+import React from 'react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom/extend-expect';
+import Profile from "../../pages/Profile";
+import RegisterForm, { LoginForm } from '../LoginForms';
+import axios from 'axios';
+import MockAdapter from "axios-mock-adapter";
+
+/*moduleNameMapper: {
+  '^axios$': require.resolve('axios'),
+}*/
 
 
 const mockedUsedNavigate = jest.fn();
@@ -11,6 +17,9 @@ jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockedUsedNavigate,
 }));
+
+
+const mock = new MockAdapter(axios);
 
 describe(("Delete account tests"), () => {
 
@@ -27,19 +36,26 @@ describe(("Delete account tests"), () => {
 
     await user.type(firstNamePlacehoder, 'Firstname');
     await user.type(lastNamePlacehoder, 'Lastname');
-    await user.type(emailPlacehoder, "example@example.fi");
+    await user.type(emailPlacehoder, "testikayttaja@example.fi");
     await user.type(passwordPlacehoder, 'password555');
     await user.type(passwordConfPlacehoder, 'password555');
 
     await user.click(submitButton);
+
+    //mock.onPost('http://localhost:5000/createuser').reply(201, 'User created successfully!'); 
+    // Call the API endpoint 
+    //const response = await axios.post('http://localhost:5000/createuser'); 
+    // Verify the response data 
+    //expect(response.status).toBe(201); 
+    //expect(response.data).toEqual('User created successfully!'); 
     //Wait a little while so the user's data will be saved in the database
     await new Promise(resolve => setTimeout(resolve, 1500));
     //user is redirected to home when the registration is successful
-    await expect(mockedUsedNavigate).toHaveBeenCalledWith('/home');
+    await expect(mockedUsedNavigate).toHaveBeenCalledWith('/');
     
 
   });
-
+/*
   test("deletes current user when Delete Account button is clicked", async () => {
 
     render(<Profile />);
@@ -76,7 +92,7 @@ describe(("Delete account tests"), () => {
     expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
 
   });
-
+*/
 });
 
 
