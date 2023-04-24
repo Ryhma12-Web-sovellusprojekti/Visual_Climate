@@ -1,4 +1,4 @@
-import { signOut, deleteUser } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { auth } from "../firebase-config";
 import axios from "axios";
 import { GetServerUrl } from "./GetUrls";
@@ -14,15 +14,12 @@ export function DeleteSignedUser() {
     const user = auth.currentUser;
     const serverUrl = GetServerUrl();
 
-    // delete user's custom views
-    axios.delete(`${serverUrl}deleteall/customview/${user.uid}`);
-
-    deleteUser(user).then(() => {
-        console.log("User Account Deleted");
-        localStorage.clear();
-        window.location.pathname = "/";
-    })
-    .catch((error) => {
-        console.log(error.message)
-    })
+    // delete user's custom views and then the user
+    axios.delete(`${serverUrl}deleteall/customview/${user.uid}`)
+        .then(axios.delete(`${serverUrl}deleteuser/${user.uid}`))
+        .then(() => {
+            console.log("User Account Deleted");
+            localStorage.clear();
+            window.location.pathname = "/";
+        });
 }
