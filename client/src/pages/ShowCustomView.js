@@ -48,10 +48,15 @@ function ShowCustomView() {
             <h1>{data.title}</h1>
             <p>{data.viewText}</p>
             {data.visuals.v1 && <Visu1 />}
+            {data.visuTexts.v1 && <p>{data.visuTexts.v1}</p>}
             {data.visuals.v2 && <Visu2 />}
+            {data.visuTexts.v2 && <p>{data.visuTexts.v2}</p>}
             {data.visuals.v3 && <Visu3 />}
+            {data.visuTexts.v3 && <p>{data.visuTexts.v3}</p>}
             {data.visuals.v4 && <Visu4 />}
+            {data.visuTexts.v4 && <p>{data.visuTexts.v4}</p>}
             {data.visuals.v5 && <Visu5 />}
+            {data.visuTexts.v5 && <p>{data.visuTexts.v5}</p>}
         </div>
     );
 }
