@@ -1,7 +1,7 @@
 const visualsController = require("./controllers/visualsController");
 const customViewsController = require("./controllers/customViewsController");
 const userController = require("./controllers/userController");
-const { admin } = require('../firebase.js');
+const { admin } = require('./firebase.js');
 
 
 const verifyToken = (req, res, next) => {
@@ -37,6 +37,6 @@ module.exports = function(app) {
 
     app.get("/check/:userId", verifyToken, userController.checkUserExists);
     app.get("/getname/:userId",  verifyToken, userController.getDisplayname);
-    app.post('/createuser', verifyToken, userController.createUser);
+    app.post('/createuser', userController.createUser);
     app.delete('/deleteuser/:userId', verifyToken, userController.deleteUser);
 }
