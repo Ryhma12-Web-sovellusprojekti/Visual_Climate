@@ -41,7 +41,11 @@ export default function RegisterForm() {
                 lastName: lastName
             };
 
-            axios.post(`${serverUrl}createuser`, user).then((res) => {
+            axios.post(`${serverUrl}createuser`, user, {
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+              }).then((res) => {
                 console.log(res.status, res.data);
                 window.location.pathname = "/";
             });
