@@ -19,7 +19,7 @@ export function DeleteSignedUser() {
         headers: {
             Authorization: `Bearer ${token}`,
           },
-    })
+        })
         .then(axios.delete(`${serverUrl}deleteuser/${user.uid}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
