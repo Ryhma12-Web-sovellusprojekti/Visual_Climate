@@ -4,7 +4,8 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import LoginLinks from "../LoginLinks"
 import { LoginForm } from '../LoginForms'
-
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 
 const mockedUsedNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({

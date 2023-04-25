@@ -98,11 +98,11 @@ function CustomView({ goBack }) {
         <form>
           <input type="text" value={title} placeholder="Title of your view..." onChange={e => setTitle(e.target.value)} />
           <textarea value={viewText} placeholder="General comments to this view..." onChange={e => setViewText(e.target.value)} />
-          {showV1 && <Textarea placeholder="Text or comments to visualization 1..." setParentValue={setTextV1} />}
+          {showV1 && <Textarea placeholder="Text or comments to visualization 1..." setParentValue={setTextV1}/>}
           {showV2 && <Textarea placeholder="Text or comments to visualization 2..." setParentValue={setTextV2}/>}
           {showV3 && <Textarea placeholder="Text or comments to visualization 3..." setParentValue={setTextV3}/>}
           {showV4 && <Textarea placeholder="Text or comments to visualization 4..." setParentValue={setTextV4}/>}
-          {showV5 && <Textarea  placeholder="Text or comments to visualization 5..." setParentValue={setTextV5}/>}
+          {showV5 && <Textarea placeholder="Text or comments to visualization 5..." setParentValue={setTextV5}/>}
         </form>
         <h3 className="selectVis">Select visualizations</h3>
       <div className="visualizations">
