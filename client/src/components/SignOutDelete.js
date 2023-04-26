@@ -23,9 +23,10 @@ export function DeleteSignedUser() {
           },
         })
         .then(axios.delete(`${serverUrl}deleteuser/${user.uid}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-              },
+         headers: {
+            Authorization: `Bearer ${token}`,
+            ID: `${uid}`
+          },
         }))
         .then(() => {
             console.log("User Account Deleted");
