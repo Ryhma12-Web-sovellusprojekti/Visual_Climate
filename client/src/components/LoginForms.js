@@ -124,6 +124,7 @@ export function LoginForm() {
           password
         );      
         console.log('User:', user);
+        localStorage.setItem("id", user.user.uid);
         await createToken(user.user.uid);
         navigate("/home");
       } catch (error) {
