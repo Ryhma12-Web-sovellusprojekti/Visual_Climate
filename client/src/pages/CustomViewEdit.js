@@ -10,9 +10,16 @@ function CustomViewEdit({ goBack }) {
     const serverUrl = GetServerUrl();
 
     // get current user's custom views
-    useEffect( () => {
+    useEffect(() => {
         const fetchViews = () => {
-            axios.get(`${serverUrl}all/customview/${user.uid}`)
+            const token = localStorage.getItem("token");
+            const uid = localStorage.getItem("id");
+            axios.get(`${serverUrl}all/customview/${user.uid}`, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  ID: `${uid}`
+                },
+              })
                 .then((res) => {
                     setViews(res.data);
                 })         
@@ -28,14 +35,28 @@ function CustomViewEdit({ goBack }) {
                   } else { 
                     console.log('Error', error.message);
                 };
-            });  
-        };        
-        fetchViews();
-    }, [deleteView]);
+            });
+        }  
+            fetchViews();
+        }, []);      
+        
 
     // delete custom view:
     function deleteView (id) {
-        axios.delete(`${serverUrl}delete/customview/${id}`)
+        const token = localStorage.getItem("token");
+        const uid = localStorage.getItem("id");
+        axios.delete(`${serverUrl}delete/customview/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              ID: `${uid}`
+            },
+        })
+        .then(() => {
+          setViews((prevViews) => prevViews.filter((view) => view.id !== id));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     };
 
     return (

@@ -63,8 +63,16 @@ function CustomView({ goBack }) {
         visuals: visuals,
         visuTexts: visuTexts
       };
+      
+      const token = localStorage.getItem("token");
+      const uid = localStorage.getItem("id");
 
-      axios.post(`${serverUrl}create/customview`, customView).then((res) => {
+      axios.post(`${serverUrl}create/customview`, customView, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          ID: `${uid}`
+        },
+      }).then((res) => {
         setDocId(res.data._path.segments[1]);
         console.log(res.status, res.data);
       });
