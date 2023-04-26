@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { auth, provider } from "../firebase-config";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { getIdToken, signInWithEmailAndPassword } from "firebase/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { signInWithPopup } from "firebase/auth";
@@ -124,6 +124,7 @@ export function LoginForm() {
           password
         );      
         console.log('User:', user);
+        localStorage.setItem("id", user.user.uid);
         await createToken(user.user.uid);
         navigate("/home");
       } catch (error) {

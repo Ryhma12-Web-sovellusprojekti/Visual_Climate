@@ -1,28 +1,34 @@
 const visualsController = require("./controllers/visualsController");
 const customViewsController = require("./controllers/customViewsController");
 const userController = require("./controllers/userController");
+const jwt = require('jsonwebtoken');
 const { admin } = require('./firebase.js');
 
 
 const verifyToken = (req, res, next) => {
     const authorizationHeader = req.headers.authorization;
+    const id = req.headers.id;
     
     if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
       return res.status(401).send('Unauthorized');
     }
     
     const idToken = authorizationHeader.split('Bearer ')[1];
-    console.log(idToken);
-    
-    admin.auth().verifyIdToken(idToken)
-      .then((decodedToken) => {
-        req.user = decodedToken;
-        next();
-      })
-      .catch((error) => {
-        console.error('Error while verifying Firebase ID token:', error);
-        res.status(403).send('Unauthorized');
-      });
+
+    const decoded_payload = jwt.decode(idToken, id, algorithms=['RS256']);
+
+    console.log(decoded_payload);
+
+    const currentTimeInSeconds = Math.floor(Date.now() / 1000);
+    const tokenExpirationTimeInSeconds = decoded_payload.exp;
+
+    if (decoded_payload.uid == id && currentTimeInSeconds < tokenExpirationTimeInSeconds) {
+      console.log("Token is valid");
+      next();
+    } else {
+      res.status(403).send("Verification failed!");
+      console.log("Token is not valid");
+    }
 }
 
 module.exports = function(app) {
@@ -38,5 +44,6 @@ module.exports = function(app) {
     app.get("/check/:userId", verifyToken, userController.checkUserExists);
     app.get("/getname/:userId",  verifyToken, userController.getDisplayname);
     app.post('/createuser', userController.createUser);
+    app.post('/createusertoken', userController.createUserToken);
     app.delete('/deleteuser/:userId', verifyToken, userController.deleteUser);
 }
