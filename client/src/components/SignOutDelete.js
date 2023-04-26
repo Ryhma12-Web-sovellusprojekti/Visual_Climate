@@ -18,6 +18,7 @@ export function DeleteSignedUser() {
     axios.delete(`${serverUrl}deleteall/customview/${user.uid}`, {
         headers: {
             Authorization: `Bearer ${token}`,
+            ID: `${uid}`
           },
         })
         .then(axios.delete(`${serverUrl}deleteuser/${user.uid}`, {
