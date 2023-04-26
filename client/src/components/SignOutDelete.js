@@ -16,10 +16,19 @@ export function DeleteSignedUser() {
 
     // delete user's custom views and then the user
     axios.delete(`${serverUrl}deleteall/customview/${user.uid}`)
-        .then(axios.delete(`${serverUrl}deleteuser/${user.uid}`))
+        .catch((error) => {
+            console.log("Error deleting custom views:", error);
+            return Promise.resolve();
+        })
         .then(() => {
-            console.log("User Account Deleted");
-            localStorage.clear();
-            window.location.pathname = "/";
+            axios.delete(`${serverUrl}deleteuser/${user.uid}`)
+                .then(() => {
+                    console.log("User Account Deleted");
+                    localStorage.clear();
+                    window.location.pathname = "/";
+                })
+                .catch((error) => {
+                    console.log("Error deleting user:", error);
+                });
         });
 }

@@ -475,7 +475,6 @@ article p{
 }
 .two{
   grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
-  max-width: 50%;
 }
 .doughnuts canvas{
   height: 100% !important;
