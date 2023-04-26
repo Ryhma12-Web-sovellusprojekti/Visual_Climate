@@ -5,9 +5,20 @@ import { GetServerUrl } from "./GetUrls";
 export default function DataImport({ setData, path }) {
   useEffect(() => {
     const serverUrl = GetServerUrl();  
-    axios.get(`${serverUrl}get/visudata/${path}`).then((res) => {
-      setData(res.data);
-    });
+    const token = localStorage.getItem("token");
+    const uid = localStorage.getItem("id");
+    axios.get(`${serverUrl}get/visudata/${path}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        ID: `${uid}`
+      },
+    })
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
   
   return null;

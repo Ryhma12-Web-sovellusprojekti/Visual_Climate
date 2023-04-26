@@ -13,22 +13,34 @@ export default function SignUserOut() {
 export function DeleteSignedUser() {
     const user = auth.currentUser;
     const serverUrl = GetServerUrl();
+    const token = localStorage.getItem("token");
+    const uid = localStorage.getItem("id");
 
     // delete user's custom views and then the user
-    axios.delete(`${serverUrl}deleteall/customview/${user.uid}`)
+    axios.delete(`${serverUrl}deleteall/customview/${user.uid}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            ID: `${uid}`
+          },
+        })
         .catch((error) => {
             console.log("Error deleting custom views:", error);
             return Promise.resolve();
         })
         .then(() => {
-            axios.delete(`${serverUrl}deleteuser/${user.uid}`)
-                .then(() => {
-                    console.log("User Account Deleted");
-                    localStorage.clear();
-                    window.location.pathname = "/";
-                })
-                .catch((error) => {
-                    console.log("Error deleting user:", error);
-                });
+            axios.delete(`${serverUrl}deleteuser/${user.uid}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    ID: `${uid}`
+                },
+            })
+            .then(() => {
+                console.log("User Account Deleted");
+                localStorage.clear();
+                window.location.pathname = "/";
+            })
+            .catch((error) => {
+                console.log("Error deleting user:", error);
+            });
         });
 }

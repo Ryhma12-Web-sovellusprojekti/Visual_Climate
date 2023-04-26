@@ -36,7 +36,7 @@ switch(x){
         {isClicked && 
         <div> 
         <h1>Not registered yet? Sign up here!</h1>
-        <RegisterForm onRegister = {changeView}/> 
+        <RegisterForm /> 
         </div>
        }
         </div>
