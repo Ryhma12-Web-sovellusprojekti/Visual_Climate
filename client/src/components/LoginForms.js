@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { auth, provider } from "../firebase-config";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { getIdToken, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { signInWithPopup } from "firebase/auth";
