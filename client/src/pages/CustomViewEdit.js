@@ -10,7 +10,7 @@ function CustomViewEdit({ goBack }) {
     const serverUrl = GetServerUrl();
 
     // get current user's custom views
-    useEffect( () => {
+    useEffect(() => {
         const fetchViews = () => {
             const token = localStorage.getItem("token");
             const uid = localStorage.getItem("id");
@@ -35,10 +35,11 @@ function CustomViewEdit({ goBack }) {
                   } else { 
                     console.log('Error', error.message);
                 };
-            });  
-        };        
-        fetchViews();
-    }, [deleteView]);
+            });
+        }  
+            fetchViews();
+        }, []);      
+        
 
     // delete custom view:
     function deleteView (id) {
@@ -49,7 +50,13 @@ function CustomViewEdit({ goBack }) {
               Authorization: `Bearer ${token}`,
               ID: `${uid}`
             },
-          })
+        })
+        .then(() => {
+          setViews((prevViews) => prevViews.filter((view) => view.id !== id));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     };
 
     return (
