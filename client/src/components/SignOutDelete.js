@@ -14,6 +14,7 @@ export function DeleteSignedUser() {
     const user = auth.currentUser;
     const serverUrl = GetServerUrl();
     const token = localStorage.getItem("token");
+    const uid = localStorage.getItem("id");
     // delete user's custom views and then the user
     axios.delete(`${serverUrl}deleteall/customview/${user.uid}`, {
         headers: {
