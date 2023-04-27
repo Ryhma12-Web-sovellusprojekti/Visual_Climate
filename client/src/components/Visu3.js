@@ -2,7 +2,7 @@ import DataImport from "./DataImport";
 import { useState, React } from "react";
 import { Line } from "react-chartjs-2";
 
-export default function Visu3() {
+export default function Visu3({single}) {
   const [co2, setCo2] = useState([]);
   const [temperature, setTemperature] = useState([]);
   const [events, setEvents] = useState([]);
@@ -10,10 +10,10 @@ export default function Visu3() {
 
   return (
     <div>      
-      <DataImport setData={setCo2} path="5/V3_CO2_temperature/co2" />
-      <DataImport setData={setTemperature} path="5/V3_CO2_temperature/temperature" />
-      <DataImport setData={setEvents} path="6/V3_Events/event" />
-      <DataImport setData={setShortLabel} path="6/V3_Events/shortLabel" />
+      <DataImport setData={setCo2} path={single+"5/V3_CO2_temperature/co2"} />
+      <DataImport setData={setTemperature} path={single+"5/V3_CO2_temperature/temperature"} />
+      <DataImport setData={setEvents} path={single+"6/V3_Events/event"} />
+      <DataImport setData={setShortLabel} path={single+"6/V3_Events/shortLabel"} />
       <Graph co2={co2} temperature={temperature} events={events} shortLabel={shortLabel} />
     </div>
   );

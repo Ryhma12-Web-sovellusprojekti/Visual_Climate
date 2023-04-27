@@ -3,7 +3,7 @@ import { useState, React, useRef } from "react";
 import { Doughnut, getElementsAtEvent  } from "react-chartjs-2";
 let hasClicked = false;
 
-export default function Visu5() {
+export default function Visu5({single}) {
     const [sectors, setSectors] = useState([]);
     const [subAgri, setSubAgri] = useState([]);
     const [subEnergy, setSubEnergy] = useState([]);
@@ -12,11 +12,11 @@ export default function Visu5() {
 
   return (
     <div>
-        <DataImport setData={setSectors} path="8/V5_Sectors" />
-        <DataImport setData={setSubAgri} path="9/V5_Subsectors_Agriculture" />
-        <DataImport setData={setSubEnergy} path="10/V5_Subsectors_Energy" />
-        <DataImport setData={setSubIndustry} path="11/V5_Subsectors_Industrial" />
-        <DataImport setData={setSubWaste} path="12/V5_Subsectors_Waste" />
+        <DataImport setData={setSectors} path={single+"8/V5_Sectors"} />
+        <DataImport setData={setSubAgri} path={single+"9/V5_Subsectors_Agriculture"} />
+        <DataImport setData={setSubEnergy} path={single+"10/V5_Subsectors_Energy"} />
+        <DataImport setData={setSubIndustry} path={single+"11/V5_Subsectors_Industrial"} />
+        <DataImport setData={setSubWaste} path={single+"12/V5_Subsectors_Waste"} />
         <Graph sectors={sectors} subAgri={subAgri} subEnergy={subEnergy} subIndustry={subIndustry} 
             subWaste={subWaste}/>
     </div>

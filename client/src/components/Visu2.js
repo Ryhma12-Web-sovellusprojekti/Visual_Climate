@@ -5,7 +5,7 @@ import { Chart, registerables } from 'chart.js';
 import "chartjs-adapter-date-fns";
 Chart.register(...registerables);
 
-export default function Visu2() {
+export default function Visu2({single}) {
   const [maunaloa_annual, setMaunaloa_annual] = useState([]);
   const [maunaloa_monthly, setMaunaloa_monthly] = useState([]);
   const [de08_ice, setDe08_ice] = useState([]);
@@ -15,11 +15,11 @@ export default function Visu2() {
 
   return (
     <div>   
-      <DataImport setData={setMaunaloa_annual} path="4/V2_MaunaLoa/annual" />
-      <DataImport setData={setMaunaloa_monthly} path="4/V2_MaunaLoa/monthly" />
-      <DataImport setData={setDe08_ice} path="3/V2_Cores/DE08" />
-      <DataImport setData={setDe08_2_ice} path="3/V2_Cores/DE08_2" />
-      <DataImport setData={setDss_ice} path="3/V2_Cores/DSS" />
+      <DataImport setData={setMaunaloa_annual} path={single+"4/V2_MaunaLoa/annual"}/>
+      <DataImport setData={setMaunaloa_monthly} path={single+"4/V2_MaunaLoa/monthly"}/>
+      <DataImport setData={setDe08_ice} path={single+"3/V2_Cores/DE08"}/>
+      <DataImport setData={setDe08_2_ice} path={single+"3/V2_Cores/DE08_2"}/>
+      <DataImport setData={setDss_ice} path={single+"3/V2_Cores/DSS"}/>
       <Graph1  maunaloa_annual={maunaloa_annual} maunaloa_monthly={maunaloa_monthly}de08_ice={de08_ice} de08_2_ice={de08_2_ice}dss_ice={dss_ice}/>
     </div>
   );

@@ -44,6 +44,7 @@ exports.createCustomView = async (req, res) => {
       viewText: req.body.viewText,
       visuals: req.body.visuals,
       visuTexts: req.body.visuTexts,
+      sidebySide: req.body.sidebySide
     };
       
     const response = await fsdb.collection("customview").add(customJson);
