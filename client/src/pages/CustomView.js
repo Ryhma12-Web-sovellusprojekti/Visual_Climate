@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import debounce from "lodash";
 
 import useAuth from "../components/CustomHooks";
 import Switch from "../components/Switch";
@@ -61,7 +60,8 @@ function CustomView({ goBack }) {
         title: title,
         viewText: viewText,
         visuals: visuals,
-        visuTexts: visuTexts
+        visuTexts: visuTexts,
+        sidebySide: sidebySide
       };
       
       const token = localStorage.getItem("token");
@@ -94,9 +94,6 @@ function CustomView({ goBack }) {
     return () => clearTimeout(timer);
   },[copied]);
 
-  function updateText(){
-
-  }
 
   return (
     <div className="customview">
@@ -106,11 +103,11 @@ function CustomView({ goBack }) {
         <form>
           <input type="text" value={title} placeholder="Title of your view..." onChange={e => setTitle(e.target.value)} />
           <textarea value={viewText} placeholder="General comments to this view..." onChange={e => setViewText(e.target.value)} />
-          {showV1 && <Textarea placeholder="Text or comments to visualization 1..." setParentValue={setTextV1} />}
+          {showV1 && <Textarea placeholder="Text or comments to visualization 1..." setParentValue={setTextV1}/>}
           {showV2 && <Textarea placeholder="Text or comments to visualization 2..." setParentValue={setTextV2}/>}
           {showV3 && <Textarea placeholder="Text or comments to visualization 3..." setParentValue={setTextV3}/>}
           {showV4 && <Textarea placeholder="Text or comments to visualization 4..." setParentValue={setTextV4}/>}
-          {showV5 && <Textarea  placeholder="Text or comments to visualization 5..." setParentValue={setTextV5}/>}
+          {showV5 && <Textarea placeholder="Text or comments to visualization 5..." setParentValue={setTextV5}/>}
         </form>
         <h3 className="selectVis">Select visualizations</h3>
       <div className="visualizations">
@@ -146,31 +143,31 @@ function CustomView({ goBack }) {
         {showV1 && 
         <div>
           <p>{textV1}</p>
-            <Visu1 />
+            <Visu1 single=""/>
         </div>
         }
         {showV2 && 
         <div>
           <p>{textV2}</p>
-            <Visu2 />
+            <Visu2 single=""/>
         </div>
         }
         {showV3 && 
         <div>
           <p>{textV3}</p>
-            <Visu3 />
+            <Visu3 single=""/>
         </div>
         }
         {showV4 && 
         <div>
           <p>{textV4}</p>
-            <Visu4 />
+            <Visu4 single=""/>
         </div>
         }
         {showV5 && 
         <div>
           <p>{textV5}</p>
-            <Visu5 />
+            <Visu5 single=""/>
         </div>
         }
       </div>

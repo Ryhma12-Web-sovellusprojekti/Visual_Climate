@@ -47,16 +47,28 @@ function ShowCustomView() {
         <div>
             <h1>{data.title}</h1>
             <p>{data.viewText}</p>
-            {data.visuals.v1 && <Visu1 />}
-            {data.visuTexts.v1 && <p>{data.visuTexts.v1}</p>}
-            {data.visuals.v2 && <Visu2 />}
-            {data.visuTexts.v2 && <p>{data.visuTexts.v2}</p>}
-            {data.visuals.v3 && <Visu3 />}
-            {data.visuTexts.v3 && <p>{data.visuTexts.v3}</p>}
-            {data.visuals.v4 && <Visu4 />}
-            {data.visuTexts.v4 && <p>{data.visuTexts.v4}</p>}
-            {data.visuals.v5 && <Visu5 />}
-            {data.visuTexts.v5 && <p>{data.visuTexts.v5}</p>}
+            <div className={data.sidebySide ? 'twoColumns' : 'oneColumn'}>
+                {data.visuals.v1 && <div>
+                    {data.visuTexts.v1 && <p>{data.visuTexts.v1}</p>}
+                    <Visu1 single="single/"/>
+                </div>}
+                {data.visuals.v1 && <div>
+                    {data.visuTexts.v2 && <p>{data.visuTexts.v2}</p>}
+                    <Visu2 single="single/"/>
+                </div>}
+                {data.visuals.v3 && <div>
+                    {data.visuTexts.v3 && <p>{data.visuTexts.v3}</p>}
+                    <Visu3 single="single/"/>
+                </div>}
+                {data.visuals.v4 &&<div>
+                    {data.visuTexts.v4 && <p>{data.visuTexts.v4}</p>}
+                     <Visu4 single="single/"/>
+                </div>}
+                {data.visuals.v5 &&<div>
+                    {data.visuTexts.v5 && <p>{data.visuTexts.v5}</p>}
+                     <Visu5 single="single/"/>
+                </div>}
+            </div>
         </div>
     );
 }

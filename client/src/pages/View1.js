@@ -6,11 +6,11 @@ import Visu3, { Visu3Information } from "../components/Visu3";
 function View1({goBack}) {
     return <div>
         <button onClick={goBack}>Back</button>
-        <Visu1/>
+        <Visu1 single=""/>
         <Visu1Information />
-        <Visu2/>
+        <Visu2 single=""/>
         <Visu2Information/>
-        <Visu3 />
+        <Visu3 single=""/>
         <Visu3Information />
      </div>
 }

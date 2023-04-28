@@ -2,7 +2,7 @@ import DataImport from "./DataImport";
 import { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 
-export default function Visu4() {
+export default function Visu4({single}) {
   const [v4nationalstate, setV4National] = useState(null);
   const [selectedCountries, setSelectedCountries] = useState(["Finland"]);
   const [colors, setColors] = useState([]);
@@ -40,7 +40,7 @@ export default function Visu4() {
     }
   };
 
-  const path = `7/V4_National_CO2_emissions`;
+  const path = single+`7/V4_National_CO2_emissions`;
 
   useEffect(() => {
     setV4National(null);

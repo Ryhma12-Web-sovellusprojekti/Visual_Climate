@@ -5,7 +5,7 @@ import { Chart, registerables } from 'chart.js';
 import "chartjs-adapter-date-fns";
 Chart.register(...registerables);
 
-export default function Visu1() {
+export default function Visu1({single}) {
   const [annual_global, setAnnual_global] = useState([]);
   const [annual_north, setAnnual_north] = useState([]);
   const [annual_south, setAnnual_south] = useState([]);
@@ -16,13 +16,13 @@ export default function Visu1() {
 
   return (
     <div>   
-      <DataImport setData={setAnnual_global} path="0/V1_Annual/global" />
-      <DataImport setData={setAnnual_north} path="0/V1_Annual/north" />
-      <DataImport setData={setAnnual_south} path="0/V1_Annual/south" />
-      <DataImport setData={setAnnual_rec} path="2/V1_RecAnnual/reconstructed" />
-      <DataImport setData={setMonthly_global} path="1/V1_Monthly/global" />
-      <DataImport setData={setMonthly_north} path="1/V1_Monthly/north" />
-      <DataImport setData={setMonthly_south} path="1/V1_Monthly/south" />
+      <DataImport setData={setAnnual_global} path={single+"0/V1_Annual/global"}/>
+      <DataImport setData={setAnnual_north} path={single+"0/V1_Annual/north"}/>
+      <DataImport setData={setAnnual_south} path={single+"0/V1_Annual/south"}/>
+      <DataImport setData={setAnnual_rec} path={single+"2/V1_RecAnnual/reconstructed"}/>
+      <DataImport setData={setMonthly_global} path={single+"1/V1_Monthly/global"}/>
+      <DataImport setData={setMonthly_north} path={single+"1/V1_Monthly/north"}/>
+      <DataImport setData={setMonthly_south} path={single+"1/V1_Monthly/south"}/>
       <Graph1  annual_global={annual_global} annual_north={annual_north} annual_south={annual_south} annual_rec={annual_rec} monthly_global={monthly_global} monthly_north={monthly_north} monthly_south={monthly_south}/>
     </div>
   );
