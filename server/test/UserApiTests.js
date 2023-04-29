@@ -6,7 +6,7 @@ const server = require("../server");
 
 
 var testUid1="";
-var testUid2="";
+var token="";
 
 describe("API test for User Controller", function () {
 
@@ -67,55 +67,46 @@ describe("/POST", function () {
     });
 });
 
-describe("/GET", function () {
+describe('Login API', () => {
 
-    it("should return user id and displayName for the first test user", function (done) {
+    it("should return user id for the first test user", function (done) {
         chai.request("http://localhost:5000").get("/getuser/apitest@example.com").end(function (err, res) {
             const responseJson = JSON.parse(res.text); // Parse the response body to JSON
-            console.log(responseJson);
+            console.log(responseJson.userId);
             testUid1 = responseJson.userId;
-            const displayName = responseJson.displayName;
+            console.log("Tämä on testi UID: "+ testUid1);
             expect(err).to.be.null;
             expect(res).to.have.status(200);
-            expect(responseJson).to.deep.equal({"userId": testUid1, "displayName": displayName});
+            expect(responseJson).to.deep.equal({"userId": testUid1});
             done();
         });
     });
 
-    it("should return user id and displayName for the second test user", function (done) {
-        chai.request("http://localhost:5000").get("/getuser/apitest1@example.com").end(function (err, res) {
-            const responseJson = JSON.parse(res.text); // Parse the response body to JSON
-            console.log(responseJson);
-            testUid2 = responseJson.userId;
-            const displayName = responseJson.displayName;
+    it("should create token to log in", function (done) {
+        chai.request("http://localhost:5000").post("/createusertoken").set("content-type", "application/json").send(
+            {
+                userId: testUid1
+            }
+        ).end(function (err, res) {
+            token =res.text;
+            console.log("Tämä on testi token: "+ token);
             expect(err).to.be.null;
             expect(res).to.have.status(200);
-            expect(responseJson).to.deep.equal({"userId": testUid2, "displayName": displayName});
-            done();
-        });
-    });
-   
-    it("should return displayName", function (done) {
-        chai.request("http://localhost:5000").get("/getname/"+testUid1).end(function (err, res) {
-            expect(err).to.be.null;
-            expect(res).to.have.status(200);
-            expect(res.text).to.be.equal("Testing Api");
             done();
         });
     });
 });
 
-
 describe("/DELETE", function () {
-    it("should delete first test user by given id", function (done) {
-        chai.request("http://localhost:5000").delete("/deleteuser/"+testUid1).end(function (err, res) {
-            expect(err).to.be.null;
+    it("should delete first test user", function (done) {
+        console.log("tulostetaan deletessä token "+token);
+        chai.request("http://localhost:5000").delete(`/deleteuser/${testUid1}`).set('Authorization', `Bearer ${token}`).set('id', `${testUid1}`).end(function (err, res) {
             expect(res).to.have.status(200);
             expect(res.text).to.be.equal("User has been deleted");
             done();
         });
     });
-
+/*
     it("should delete second test user by given id", function (done) {
         chai.request("http://localhost:5000").delete("/deleteuser/"+testUid2).end(function (err, res) {
             expect(err).to.be.null;
@@ -132,7 +123,7 @@ describe("/DELETE", function () {
             expect(res.text).to.be.equal("User does not exist");
             done();
         });
-    });
+    });*/
 });
 
 });

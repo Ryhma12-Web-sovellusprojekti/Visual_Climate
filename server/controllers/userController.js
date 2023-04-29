@@ -32,8 +32,24 @@ exports.createUserToken = async (req, res) => {
   } 
 }
 
-
-    
+//get user id by given email
+exports.getUserid = async (req, res) => {
+  const email = req.params.email;
+  try {
+    // get the user by email
+    const user = await admin.auth().getUserByEmail(email);
+    const userId = user.uid;
+    res.json({userId});
+  } catch (error) {
+    if (error.code === "auth/user-not-found") {
+      res.status(404).send(`User does not exist`);
+    } else {
+      console.error("Error getting user:", error);
+      res.status(500).send("Error getting user");
+    }
+  }
+};
+ /*   
 //check if a user exists by given user ID
 exports.checkUserExists = async (req, res) => {
   const userId = req.params.userId;
@@ -90,7 +106,7 @@ exports.getDisplayname = async (req, res) => {
       res.status(500).send("Error getting user");
     }
   }
-}
+}*/
 
 //delete user by given user ID
 exports.deleteUser = async (req, res) => {
