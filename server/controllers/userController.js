@@ -54,64 +54,6 @@ exports.getUserid = async (req, res) => {
     }
   }
 };
- /*   
-//check if a user exists by given user ID
-exports.checkUserExists = async (req, res) => {
-  const userId = req.params.userId;
-
-  try {
-    await admin.auth().getUser(userId);
-    res.send(`User exists`);
-  } catch (error) {
-    if (error.code === "auth/user-not-found") {
-      res.status(404).send(`User does not exist`);
-    } else {
-      console.error("Error getting user:", error);
-      res.status(500).send("Error getting user");
-    }
-  }
-}
-
-//get user id and displayname by given email
-exports.getUserInfo = async (req, res) => {
-  const email = req.params.email;
-  try {
-    // get the user by email
-    const user = await admin.auth().getUserByEmail(email);
-    const userId = user.uid;
-    const displayName = user.displayName;
-    res.json({ userId, displayName });
-  } catch (error) {
-    if (error.code === "auth/user-not-found") {
-      res.status(404).send(`User does not exist`);
-    } else {
-      console.error("Error getting user:", error);
-      res.status(500).send("Error getting user");
-    }
-  }
-};
-
-//get users display name by given user ID
-exports.getDisplayname = async (req, res) => {
-  const userId = req.params.userId;
-
-  try {
-    const user = await admin.auth().getUser(userId);
-    const displayName = user.displayName;
-    if (displayName) {
-    res.send(displayName);
-    } else {
-    res.send(`User exists but does not have a display name`);
-    }
-  } catch (error) {
-    if (error.code === "auth/user-not-found") {
-      res.status(404).send(`User does not exist`);
-    } else {
-      console.error("Error getting user:", error);
-      res.status(500).send("Error getting user");
-    }
-  }
-}*/
 
 //delete user by given user ID
 exports.deleteUser = async (req, res) => {

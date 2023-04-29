@@ -43,8 +43,6 @@ module.exports = function(app) {
     app.delete("/delete/customview/:id", verifyToken, customViewsController.deleteCustomView);
     app.delete("/deleteall/customview/:id", verifyToken, customViewsController.deleteAllCustomViews);
 
-    //app.get("/check/:userId", verifyToken, userController.checkUserExists);
-    //app.get("/getname/:userId",  verifyToken, userController.getDisplayname);
     app.get("/getuser/:email", userController.getUserid);
     app.post('/createuser', userController.createUser);
     app.post('/createusertoken', userController.createUserToken);
