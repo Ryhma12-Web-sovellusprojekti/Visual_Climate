@@ -23,11 +23,9 @@ export default function DataImport({ setData, path }) {
                 ID: `${uid}`
             },
         }).then((res) => {
-
             // If the request is successful, update the state using the setData function with the data received from the server
             setData(res.data);
         }).catch((error) => {
-
             // If the request fails, log the error to the console
             console.error(error);
         });
