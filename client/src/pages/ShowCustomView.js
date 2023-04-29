@@ -52,7 +52,7 @@ function ShowCustomView() {
                     {data.visuTexts.v1 && <p>{data.visuTexts.v1}</p>}
                     <Visu1 single="single/"/>
                 </div>}
-                {data.visuals.v1 && <div>
+                {data.visuals.v2 && <div>
                     {data.visuTexts.v2 && <p>{data.visuTexts.v2}</p>}
                     <Visu2 single="single/"/>
                 </div>}

@@ -26,19 +26,9 @@ if (isAuth) {
     );
 
 } else {
-    return(
-        <div className="wrapper-side">
-        <aside></aside>
-        <section className="sidebyside">
-            <main>
-                <h1 id="error">Session timeout</h1>
-                <LoginLinks/>
-            </main>
-            <h1>No profile</h1>
-        </section>
-        <Footer />
-    </div>
-    );
+
+        window.location.pathname = "/";
+
     }
 
 }
