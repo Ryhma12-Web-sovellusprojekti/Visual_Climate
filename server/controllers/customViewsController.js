@@ -14,7 +14,7 @@ exports.getCustomView = async (req, res) => {
     }
   } catch (error) {
     console.error("Error getting document:", error);
-    // if there is other errors, given info is error getting document
+    // if there is other errors, given info is "Error getting document"
     res.status(500).send("Error getting document");
   }
 }
@@ -38,7 +38,7 @@ exports.getCustomViews = async (req, res) => {
     })
     .catch((error) => {
       console.error("Error getting documents:", error);
-      // if there is an error, give message error getting documents
+      // if there is an error, give message "Error getting documents"
       res.status(500).send("Error getting documents");
     });
 }
@@ -56,15 +56,13 @@ exports.createCustomView = async (req, res) => {
       visuTexts: req.body.visuTexts,
       sidebySide: req.body.sidebySide
     };
-
     // save information to new document in Firestore database customview collection
     const response = await fsdb.collection("customview").add(customJson);
     // give response
     res.send(response);
-
   } catch (error) {
     console.error("Error creating custom view:", error);
-    // if there is an error, give info error creating custom view
+    // if there is an error, give info "Error creating custom view"
     res.status(500).send("Error creating custom view");
   }
 }
@@ -89,7 +87,7 @@ exports.deleteCustomView = async (req, res) => {
     })
     .catch((error) => {
       console.error("Error deleting document:", error);
-      // if there is an error, give info error deleting document
+      // if there is an error, give info "Error deleting document"
       res.status(500).send("Error deleting document");
     });
 }
@@ -116,10 +114,9 @@ exports.deleteAllCustomViews = async (req, res) => {
     await batch.commit();
     // when all the documents is been deleted, give info All custom views were deleted successfully
     res.send(`All custom views for user ${id} were deleted successfully.`);
-
   } catch (error) {
     console.error("Error deleting documents:", error);
-     // if there is an error, give info error deleting documents
+     // if there is an error, give info "Error deleting documents"
     res.status(500).send("Error deleting documents");
   }
 }
