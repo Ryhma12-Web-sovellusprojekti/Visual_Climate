@@ -19,18 +19,6 @@ export default function Visu3({single}) {
   );
 }
 
-export function Visu3Information() {
-  return(
-    <section>
-      <article>
-        <p>Reconstruction of global average surface temperature over the past 2 million years and atmospheric CO2 levels over the past 800,000 years. Horizontal axis is negative values of years before the common era. Left vertical axis corresponds to CO2 concentration (in ppm) and right vertical axis is the surface temperature deviation (in Celsius) from the present.  Selected global events can be added to the figure to investigate their association with temperature and CO2 changes.</p>
-        <a href="https://climate.fas.harvard.edu/files/climate/files/snyder_2016.pdf"target="_blank"rel="noreferrer">CO2 and temperature data sources</a>
-        <a href="https://www.southampton.ac.uk/~cpd/history.html"target="_blank"rel="noreferrer">Global events data source</a>
-      </article>
-    </section>
-  );
-}
-
 function Graph({co2, temperature, events, shortLabel}) {
   const dat1 = Object.keys(co2);
   const dat2 = Object.keys(temperature);
@@ -120,4 +108,22 @@ function Graph({co2, temperature, events, shortLabel}) {
             <Line options={options} data={data} />
         </div>
     ); 
+}
+
+export function Visu3Information() {
+
+  /*
+  Visu3Information component is responsible for rendering the data information section
+  for the visualization 1.
+  */
+
+  return(
+      <section>
+          <article>
+              <p>Reconstruction of global average surface temperature over the past 2 million years and atmospheric CO2 levels over the past 800,000 years. Horizontal axis is negative values of years before the common era. Left vertical axis corresponds to CO2 concentration (in ppm) and right vertical axis is the surface temperature deviation (in Celsius) from the present.  Selected global events can be added to the figure to investigate their association with temperature and CO2 changes.</p>
+              <a href="https://climate.fas.harvard.edu/files/climate/files/snyder_2016.pdf"target="_blank"rel="noreferrer">CO2 and temperature data sources</a>
+              <a href="https://www.southampton.ac.uk/~cpd/history.html"target="_blank"rel="noreferrer">Global events data source</a>
+          </article>
+      </section>
+  );
 }

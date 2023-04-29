@@ -211,8 +211,7 @@ export function Visu1Information() {
 
     /*
     Visu1Information component is responsible for rendering the data information section
-    for the visualization 1. It displays information about the data sources used to generate
-    the visualizations along with their characteristics.
+    for the visualization 1.
     */
 
     return(

@@ -121,18 +121,24 @@ function Graph1({maunaloa_annual, maunaloa_monthly, de08_ice, de08_2_ice, dss_ic
 }
 
 export function Visu2Information() {
+
+    /*
+    Visu2Information component is responsible for rendering the data information section
+    for the visualization 1.
+    */
+
     return(<section>
-      <article>
-      <h3>Annual and monthly CO2 data</h3>
-      <p>The CO2 measurements are made in Mauna Loa Observatory and findings shows the changes in the atmosphere. All of the measurements are rigorously and very frequently calibrated and these independent measurements are constantly compared. Therefore, the measurements can be considered reliable. You can learn more from the links below.</p>
-      <a href="https://gml.noaa.gov/ccgg/about/co2_measurements.html" target="_blank" rel="noreferrer" title="link to data description">CO2 data description</a>
-      <a href="https://gml.noaa.gov/ccgg/trends/data.html" target="_blank" rel="noreferrer" title="link to data sources">CO2 data sources</a>
-      <h3>Antarctic Ice Core records</h3>
-      <p>The CO2 records (DE08 ice, DE08-2 ice and DSS ice) are from three ice cores obtained at East Antarctica. The place where the measurements were made fullfills many of the desirable characteristics of an ideal ice core site for atmospheric CO2 reconstructions, for example negligible melting of the ice sheet surface and high snow accumulation rate. You can learn more from the links below.</p>
-      <a href="https://gml.noaa.gov/ccgg/about/co2_measurements.html" target="_blank" rel="noreferrer" title="link to reconstruction data description">Antarctic Ice Core data description</a>
-      <a href="https://cdiac.ess-dive.lbl.gov/ftp/trends/co2/lawdome.combined.dat" target="_blank" rel="noreferrer" title="link to reconstruction">Antarctic Ice Core records</a>
-    </article>
-  </section>
+        <article>
+            <h3>Annual and monthly CO2 data</h3>
+            <p>The CO2 measurements are made in Mauna Loa Observatory and findings shows the changes in the atmosphere. All of the measurements are rigorously and very frequently calibrated and these independent measurements are constantly compared. Therefore, the measurements can be considered reliable. You can learn more from the links below.</p>
+            <a href="https://gml.noaa.gov/ccgg/about/co2_measurements.html" target="_blank" rel="noreferrer" title="link to data description">CO2 data description</a>
+            <a href="https://gml.noaa.gov/ccgg/trends/data.html" target="_blank" rel="noreferrer" title="link to data sources">CO2 data sources</a>
+            <h3>Antarctic Ice Core records</h3>
+            <p>The CO2 records (DE08 ice, DE08-2 ice and DSS ice) are from three ice cores obtained at East Antarctica. The place where the measurements were made fullfills many of the desirable characteristics of an ideal ice core site for atmospheric CO2 reconstructions, for example negligible melting of the ice sheet surface and high snow accumulation rate. You can learn more from the links below.</p>
+            <a href="https://gml.noaa.gov/ccgg/about/co2_measurements.html" target="_blank" rel="noreferrer" title="link to reconstruction data description">Antarctic Ice Core data description</a>
+            <a href="https://cdiac.ess-dive.lbl.gov/ftp/trends/co2/lawdome.combined.dat" target="_blank" rel="noreferrer" title="link to reconstruction">Antarctic Ice Core records</a>
+        </article>
+    </section>
     );
-  }
+}
 

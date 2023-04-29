@@ -138,15 +138,21 @@ function Graph({ countriesData }) {
 }
 
 export function Visu4Information() {
-  return (
-    <div>
-      <a
-        href="https://www.icos-cp.eu/science-and-impact/global-carbon-budget/2021"
-        target="_blank"
-        rel="noreferrer"
-      >
-        National emissions data source
-      </a>
-    </div>
-  );
+
+    /*
+    Visu4Information component is responsible for rendering the data information section
+    for the visualization 1.
+    */
+
+    return (
+        <div>
+            <a
+            href="https://www.icos-cp.eu/science-and-impact/global-carbon-budget/2021"
+            target="_blank"
+            rel="noreferrer"
+            >
+            National emissions data source
+            </a>
+        </div>
+    );
 }

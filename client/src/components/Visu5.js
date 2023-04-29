@@ -23,15 +23,6 @@ export default function Visu5({single}) {
   );
 };
 
-export function Visu5Information() {
-    return(
-      <div className="info">
-        <a href="https://ourworldindata.org/emissions-by-sector#co2-emissions-by-sector"target="_blank"rel="noreferrer">Data description</a>
-        <a href="https://ourworldindata.org/uploads/2020/09/Global-GHG-Emissions-by-sector-based-on-WRI-2020.xlsx"target="_blank"rel="noreferrer">Data sources</a>
-      </div>
-    );
-  }
-
 function Graph({ sectors, subAgri, subEnergy, subIndustry, subWaste }) {
     const dataSectors = {
         labels: Object.keys(sectors),
@@ -189,4 +180,19 @@ function Graph({ sectors, subAgri, subEnergy, subIndustry, subWaste }) {
             }
         </div>
     ); 
+}
+
+export function Visu5Information() {
+
+    /*
+    Visu5Information component is responsible for rendering the data information section
+    for the visualization 1.
+    */
+
+    return(
+        <div className="info">
+            <a href="https://ourworldindata.org/emissions-by-sector#co2-emissions-by-sector"target="_blank"rel="noreferrer">Data description</a>
+            <a href="https://ourworldindata.org/uploads/2020/09/Global-GHG-Emissions-by-sector-based-on-WRI-2020.xlsx"target="_blank"rel="noreferrer">Data sources</a>
+        </div>
+    );
 }
