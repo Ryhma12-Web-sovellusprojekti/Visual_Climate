@@ -13,9 +13,14 @@ exports.createUser = async (req, res) => {
       console.log('User created:', userRecord.uid);
       res.status(201).send('User created successfully!');
   } catch (error) {
-      console.error('Error creating user:', error);
+    if (error.code === "auth/email-already-exists") {
+      console.error("Error creating user:", error);
+      res.status(404).send("Couldn't create user! "+ error.message);
+    } else {
+      console.error("Error creating user:", error);
       res.status(500).send("Couldn't create user! "+ error.message);
     }
+  }
 };
 
 //create user token for the current user
