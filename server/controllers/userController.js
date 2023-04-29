@@ -13,9 +13,14 @@ exports.createUser = async (req, res) => {
       console.log('User created:', userRecord.uid);
       res.status(201).send('User created successfully!');
   } catch (error) {
-      console.error('Error creating user:', error);
+    if (error.code === "auth/email-already-exists") {
+      console.error("Error creating user:", error);
+      res.status(404).send("Couldn't create user! "+ error.message);
+    } else {
+      console.error("Error creating user:", error);
       res.status(500).send("Couldn't create user! "+ error.message);
     }
+  }
 };
 
 //create user token for the current user
@@ -32,34 +37,14 @@ exports.createUserToken = async (req, res) => {
   } 
 }
 
-
-    
-//check if a user exists by given user ID
-exports.checkUserExists = async (req, res) => {
-  const userId = req.params.userId;
-
-  try {
-    await admin.auth().getUser(userId);
-    res.send(`User exists`);
-  } catch (error) {
-    if (error.code === "auth/user-not-found") {
-      res.status(404).send(`User does not exist`);
-    } else {
-      console.error("Error getting user:", error);
-      res.status(500).send("Error getting user");
-    }
-  }
-}
-
-//get user id and displayname by given email
-exports.getUserInfo = async (req, res) => {
+//get user id by given email
+exports.getUserid = async (req, res) => {
   const email = req.params.email;
   try {
     // get the user by email
     const user = await admin.auth().getUserByEmail(email);
     const userId = user.uid;
-    const displayName = user.displayName;
-    res.json({ userId, displayName });
+    res.json({userId});
   } catch (error) {
     if (error.code === "auth/user-not-found") {
       res.status(404).send(`User does not exist`);
@@ -69,28 +54,6 @@ exports.getUserInfo = async (req, res) => {
     }
   }
 };
-
-//get users display name by given user ID
-exports.getDisplayname = async (req, res) => {
-  const userId = req.params.userId;
-
-  try {
-    const user = await admin.auth().getUser(userId);
-    const displayName = user.displayName;
-    if (displayName) {
-    res.send(displayName);
-    } else {
-    res.send(`User exists but does not have a display name`);
-    }
-  } catch (error) {
-    if (error.code === "auth/user-not-found") {
-      res.status(404).send(`User does not exist`);
-    } else {
-      console.error("Error getting user:", error);
-      res.status(500).send("Error getting user");
-    }
-  }
-}
 
 //delete user by given user ID
 exports.deleteUser = async (req, res) => {

@@ -8,7 +8,6 @@ const { admin } = require('./firebase.js');
 const verifyToken = (req, res, next) => {
     const authorizationHeader = req.headers.authorization;
     const id = req.headers.id;
-    
     if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
       return res.status(401).send('Unauthorized');
     }
@@ -44,8 +43,7 @@ module.exports = function(app) {
     app.delete("/delete/customview/:id", verifyToken, customViewsController.deleteCustomView);
     app.delete("/deleteall/customview/:id", verifyToken, customViewsController.deleteAllCustomViews);
 
-    app.get("/check/:userId", verifyToken, userController.checkUserExists);
-    app.get("/getname/:userId",  verifyToken, userController.getDisplayname);
+    app.get("/getuser/:email", userController.getUserid);
     app.post('/createuser', userController.createUser);
     app.post('/createusertoken', userController.createUserToken);
     app.delete('/deleteuser/:userId', verifyToken, userController.deleteUser);
