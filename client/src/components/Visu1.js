@@ -41,6 +41,7 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
     const dat5 = Object.keys(monthly_global);
     const dat6 = Object.keys(monthly_north);
     const dat7 = Object.keys(monthly_south);
+
         // The 'datasets' property is an array of objects, each defining a data set.
         const annual = {
             datasets: [{
