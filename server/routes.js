@@ -32,11 +32,11 @@ const verifyToken = (req, res, next) => {
 }
 
 module.exports = function(app) {
-    app.get("/get/visudata/:row/:visu/:table", verifyToken, visualsController.getVisuals1to3);
-    app.get("/get/visudata/:row/:visu/", verifyToken, visualsController.getVisuals4to5);
-
     app.get("/get/visudata/single/:row/:visu/:table", visualsController.getVisuals1to3);
     app.get("/get/visudata/single/:row/:visu/", visualsController.getVisuals4to5);
+
+    app.get("/get/visudata/:row/:visu/:table", verifyToken, visualsController.getVisuals1to3);
+    app.get("/get/visudata/:row/:visu/", verifyToken, visualsController.getVisuals4to5);
 
     app.get("/get/customview/:id", customViewsController.getCustomView);
     app.get("/all/customview/:id", verifyToken, customViewsController.getCustomViews);
