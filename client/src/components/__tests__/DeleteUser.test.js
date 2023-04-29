@@ -13,8 +13,10 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe(("Delete account tests"), () => {
+
   // Tämä testaa rekisteröitymisen luomalla käyttäjän käyttäen RegisterForm-komponenttia
   test('create an test account with RegisterForm', async () => {
+
     // Tuodaan userEvent-moduulin asetukset
     const user = userEvent.setup();
 
