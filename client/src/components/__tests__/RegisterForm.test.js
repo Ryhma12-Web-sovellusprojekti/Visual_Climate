@@ -94,7 +94,6 @@ describe(("RegisterForm tests"), () => {
 
     });
 
-    // Test to verify that a message is displayed if the email does not contain '@' character
     test('RegisterForm gives a note if the email does not contain @ character', async () => {
 
         // Set up the user event library
