@@ -5,7 +5,7 @@ import '@testing-library/jest-dom/extend-expect'
 import Profile from "../../pages/Profile"
 import RegisterForm, { LoginForm } from '../LoginForms'
 
-// Luodaan muuttuja nimeltä "mockedUsedNavigate" ja asetetaan se Jestin mock-funktioksi
+// Create a variable named "mockedUsedNavigate" and set it as a Jest mock function
 const mockedUsedNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -14,82 +14,72 @@ jest.mock('react-router-dom', () => ({
 
 describe(("Delete account tests"), () => {
 
-  // Tämä testaa rekisteröitymisen luomalla käyttäjän käyttäen RegisterForm-komponenttia
+  // Test registering by creating a user using the RegisterForm component
   test('create an test account with RegisterForm', async () => {
 
-    // Tuodaan userEvent-moduulin asetukset
+    // Import the userEvent module settings
     const user = userEvent.setup();
 
-    // Renderöi RegisterForm-komponentin ja tallenna muuttujiin sen 
+    // Render the RegisterForm component and save its elements to variables
     render(<RegisterForm />);
-
-    //Haetaan kenttiä elementit placeholderin perusteella
     const firstNamePlacehoder = screen.getByPlaceholderText("First Name...");
     const lastNamePlacehoder = screen.getByPlaceholderText("Last Name...");
     const emailPlacehoder = screen.getByPlaceholderText("Email...");
     const passwordPlacehoder = screen.getByPlaceholderText("Password...");
     const passwordConfPlacehoder = screen.getByPlaceholderText("Password confirmation...");
-
-    //Haetaan submit-nappula test id:n perusteella
     const submitButton = screen.getByTestId("signup-submit");
 
-    // Syöttää käyttäjän tiedot input-kenttiin käyttäen userEvent-moduulia
+    // Enter the user's information in the input fields using the userEvent module
     await user.type(firstNamePlacehoder, 'Firstname');
     await user.type(lastNamePlacehoder, 'Lastname');
     await user.type(emailPlacehoder, "example@example.fi");
     await user.type(passwordPlacehoder, 'password555');
     await user.type(passwordConfPlacehoder, 'password555');
 
-    // Simuloi submit-napin klikkauksen ja odottaa, että käyttäjän tiedot tallennetaan tietokantaan
+    // Simulate clicking the submit button and wait for the user's information to be saved to the database
     await user.click(submitButton);
     await new Promise(resolve => setTimeout(resolve, 1500));
 
-    // Tarkistus, että käyttäjä on ohjattu oikeaan polkuun (home)
+    // Check that the user has been redirected to the correct path (home)
     await expect(mockedUsedNavigate).toHaveBeenCalledWith('/home');
   });
 
-  // Tämä testaa käyttäjän tilin poistamista
+  // Test deleting the current user's account
   test("deletes current user when Delete Account button is clicked", async () => {
 
-    // Renderöi Profile-komponentin
+    // Render the Profile component and save the "Delete Account" button to a variable
     render(<Profile />);
-    // tallennus "Delete Account" -nappi muuttujaan
     const deleteButton = screen.getByText('Delete Account');
     fireEvent.click(deleteButton);
 
-    // Simuloi "Delete Account" -napin klikkauksen ja odottaa, että "Are you sure?" -teksti tulee näkyviin
+    // Simulate clicking the "Delete Account" button and wait for the "Are you sure?" text to appear
     await waitFor(() =>
       expect(screen.getByText('Are you sure?')).toBeInTheDocument());
     const yesButton = screen.getByText('Yes');
     fireEvent.click(yesButton);
 
-    // Odotetaan hetki, että user data on poistettu tietokannasta
+    // Wait for a moment for the user data to be deleted from the database
     await new Promise(resolve => setTimeout(resolve, 1500));
   });
 
-  // Luodaan testi, joka tarkistaa että käyttäjä poistetaan tietokannasta ja ettei käyttäjä voi enää kirjautua sisään
+  // Test that the user has been deleted from the database and can no longer log in
   test("created user is been deleted from Firebase and can't log in", async () => {
 
-    // Alustetaan userEvent-kirjasto
+    // Initialize the userEvent library
     const user = userEvent.setup();
 
-    // Renderöidään LoginForm-komponentti
+    // Render the LoginForm component and save its elements to variables
     render(<LoginForm />);
-
-    // Haetaan kenttiä elementit placeholderin perusteella
     const emailInput = screen.getByPlaceholderText("Email...");
     const passwordInput = screen.getByPlaceholderText("Password...");
-
-    // Haetaan submit-nappula test id:n perusteella
     const submitButton = screen.getByTestId("signin-submit");
 
-    // Odotetaan käyttäjän syötöt
+    // Wait for the user to input their information
     await user.type(emailInput, 'example@example.fi');
     await user.type(passwordInput, 'password555');
     await user.click(submitButton);
 
-    // Selaimen polku ei saa olla /home
+    // The browser path should not be /home
     expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
   });
-
 });

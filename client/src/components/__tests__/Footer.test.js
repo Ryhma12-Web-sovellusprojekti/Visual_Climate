@@ -1,37 +1,37 @@
-import {render, screen, cleanup} from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import renderer from 'react-test-renderer';
 import Footer from '../Footer';
 
 afterEach(() => {
 
-    // Poistetaan kaikki piirretyt elementit jokaisen testin jälkeen
+    // Remove all rendered elements after each test
     cleanup();
 });
 
 test('Footer manual test', () => {
 
-    // Renderöidään footer-komponentti
+    // Render the Footer component
     render(<Footer/>);
 
-    // Haetaan Footer-komponentin elementti, jolla on "data-testid" -ominaisuus "Footer1"
+    // Get the element of the Footer component that has the "data-testid" property "Footer1"
     const footerElement = screen.getByTestId('Footer1');
 
-    // Tarkistetaan, että elementti on olemassa
+    // Check that the element exists
     expect(footerElement).toBeInTheDocument;
 
-    // Tarkistetaan, että elementti sisältää oikean tekstin
+    // Check that the element contains the correct text
     expect(footerElement).toHaveTextContent('© Ryhmä 12 2023');
 
-    // Tarkistetaan, että elementti sisältää oikean HTML-rakenteen
+    // Check that the element contains the correct HTML structure
     expect(footerElement).toContainHTML('<footer data-testid="Footer1">© Ryhmä 12 2023</footer>');
 }); 
 
 test('Matches Footer snapshot', () =>{
 
-    // Luodaan Footer-komponentin kuva (snapshot) ja tallennetaan se JSON-muotoon
+    // Create a snapshot image of the Footer component and save it in JSON format
     const tree = renderer.create(<Footer />).toJSON();
 
-    // Tarkistetaan, vastaako Footer-komponentin kuva tallennettua kuvaa
+    // Check if the snapshot of the Footer component matches the saved snapshot image
     expect(tree).toMatchSnapshot();
 });
