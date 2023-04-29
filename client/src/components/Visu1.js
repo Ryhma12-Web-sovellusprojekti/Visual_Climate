@@ -6,29 +6,34 @@ import "chartjs-adapter-date-fns";
 Chart.register(...registerables);
 
 export default function Visu1({single}) {
-  const [annual_global, setAnnual_global] = useState([]);
-  const [annual_north, setAnnual_north] = useState([]);
-  const [annual_south, setAnnual_south] = useState([]);
-  const [annual_rec, setAnnual_rec] = useState([]);
-  const [monthly_global, setMonthly_global] = useState([]);
-  const [monthly_north, setMonthly_north] = useState([]);
-  const [monthly_south, setMonthly_south] = useState([]);
 
-  return (
-    <div>   
-      <DataImport setData={setAnnual_global} path={single+"0/V1_Annual/global"}/>
-      <DataImport setData={setAnnual_north} path={single+"0/V1_Annual/north"}/>
-      <DataImport setData={setAnnual_south} path={single+"0/V1_Annual/south"}/>
-      <DataImport setData={setAnnual_rec} path={single+"2/V1_RecAnnual/reconstructed"}/>
-      <DataImport setData={setMonthly_global} path={single+"1/V1_Monthly/global"}/>
-      <DataImport setData={setMonthly_north} path={single+"1/V1_Monthly/north"}/>
-      <DataImport setData={setMonthly_south} path={single+"1/V1_Monthly/south"}/>
-      <Graph1  annual_global={annual_global} annual_north={annual_north} annual_south={annual_south} annual_rec={annual_rec} monthly_global={monthly_global} monthly_north={monthly_north} monthly_south={monthly_south}/>
-    </div>
-  );
+    // Initializing seven state variables using the useState hook
+    const [annual_global, setAnnual_global] = useState([]);
+    const [annual_north, setAnnual_north] = useState([]);
+    const [annual_south, setAnnual_south] = useState([]);
+    const [annual_rec, setAnnual_rec] = useState([]);
+    const [monthly_global, setMonthly_global] = useState([]);
+    const [monthly_north, setMonthly_north] = useState([]);
+    const [monthly_south, setMonthly_south] = useState([]);
+
+    return (
+        // Setting state variables using the DataImport component with a path"
+        <div>   
+            <DataImport setData={setAnnual_global} path={single+"0/V1_Annual/global"}/>
+            <DataImport setData={setAnnual_north} path={single+"0/V1_Annual/north"}/>
+            <DataImport setData={setAnnual_south} path={single+"0/V1_Annual/south"}/>
+            <DataImport setData={setAnnual_rec} path={single+"2/V1_RecAnnual/reconstructed"}/>
+            <DataImport setData={setMonthly_global} path={single+"1/V1_Monthly/global"}/>
+            <DataImport setData={setMonthly_north} path={single+"1/V1_Monthly/north"}/>
+            <DataImport setData={setMonthly_south} path={single+"1/V1_Monthly/south"}/>
+            <Graph1  annual_global={annual_global} annual_north={annual_north} annual_south={annual_south} annual_rec={annual_rec} monthly_global={monthly_global} monthly_north={monthly_north} monthly_south={monthly_south}/>
+        </div>
+    );
 }
 
 function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_global, monthly_north, monthly_south }) {
+
+    // Seven arrays of keys corresponding to the state variables
     const dat1 = Object.keys(annual_global);
     const dat2 = Object.keys(annual_north);
     const dat3 = Object.keys(annual_south);
@@ -36,152 +41,148 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
     const dat5 = Object.keys(monthly_global);
     const dat6 = Object.keys(monthly_north);
     const dat7 = Object.keys(monthly_south);
-    
-      const annual = {
-          datasets: [{
-              label: "Global annual anomalies",
-              data: dat1.map((v, i) => ({ x: v, y: Object.values(annual_global)[i] })),
-              borderColor: "rgb(10, 17, 40)",
-              backgroundColor: "rgba(10, 17, 40, 0.5)",
-              pointRadius: 1,
-              tension: 0.4,
-              yAxisID: "y"
-          },{
-              label: "North annual anomalies",
-              data: dat2.map((v, i) => ({ x: v, y: Object.values(annual_north)[i] })),
-              borderColor: "rgb(3, 64, 120)",
-              backgroundColor: "rgba(3, 64, 120, 0.5)",
-              pointRadius: 1,
-              tension: 0.4,
-              yAxisID: "y"
+        // The 'datasets' property is an array of objects, each defining a data set.
+        const annual = {
+            datasets: [{
+                label: "Global annual anomalies",
+                data: dat1.map((v, i) => ({ x: v, y: Object.values(annual_global)[i] })),
+                borderColor: "rgb(10, 17, 40)",
+                backgroundColor: "rgba(10, 17, 40, 0.5)",
+                pointRadius: 1,
+                tension: 0.4,
+                yAxisID: "y"
             },{
-              label: "South annual anomalies",
-              data: dat3.map((v, i) => ({ x: v, y: Object.values(annual_south)[i] })),
-              borderColor: "rgb(253, 99, 43)",
-              backgroundColor: "rgba(253, 99, 43, 0.5)",
+                label: "North annual anomalies",
+                data: dat2.map((v, i) => ({ x: v, y: Object.values(annual_north)[i] })),
+                borderColor: "rgb(3, 64, 120)",
+                backgroundColor: "rgba(3, 64, 120, 0.5)",
+                pointRadius: 1,
+                tension: 0.4,
+                yAxisID: "y"
+            },{
+                label: "South annual anomalies",
+                data: dat3.map((v, i) => ({ x: v, y: Object.values(annual_south)[i] })),
+                borderColor: "rgb(253, 99, 43)",
+                backgroundColor: "rgba(253, 99, 43, 0.5)",
+                pointRadius: 1,
+                tension: 0.4,
+                yAxisID: "y"
+            },
+            {
+                label: "Reconstruction",
+                data: dat4.map((v, i) => ({ x: v, y: Object.values(annual_rec)[i] })),
+                borderColor: "rgb(18, 130, 162)",
+                backgroundColor: "rgba(18, 130, 162, 0.5)",
+                pointRadius: 1,
+                tension: 0.4,
+                yAxisID: "y",
+                hidden: true
+            },],
+        };
+
+    const monthly = {
+        datasets: [{
+              label: "Global monthly anomalies",
+              data: dat5.map((v, i) => ({ x: v, y: Object.values(monthly_global)[i] })),
+              borderColor: "rgb(0, 0, 0)",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
               pointRadius: 1,
               tension: 0.4,
               yAxisID: "y"
-          },
-         {
-              label: "Reconstruction",
-              data: dat4.map((v, i) => ({ x: v, y: Object.values(annual_rec)[i] })),
-              borderColor: "rgb(18, 130, 162)",
-              backgroundColor: "rgba(18, 130, 162, 0.5)",
+          },{
+              label: "North monthly anomalies",
+              data: dat6.map((v, i) => ({ x: v, y: Object.values(monthly_north)[i] })),
+              borderColor: "rgb(255, 99, 132)",
+              backgroundColor: "rgba(255, 99, 132, 0.5)",
               pointRadius: 1,
               tension: 0.4,
-              yAxisID: "y",
-              hidden: true
-          },
-      ],
-      };
-
-      const monthly = {
-        datasets: [{
-            label: "Global monthly anomalies",
-            data: dat5.map((v, i) => ({ x: v, y: Object.values(monthly_global)[i] })),
-            borderColor: "rgb(0, 0, 0)",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            pointRadius: 1,
-            tension: 0.4,
-            yAxisID: "y"
-        },{
-            label: "North monthly anomalies",
-            data: dat6.map((v, i) => ({ x: v, y: Object.values(monthly_north)[i] })),
-            borderColor: "rgb(255, 99, 132)",
-            backgroundColor: "rgba(255, 99, 132, 0.5)",
-            pointRadius: 1,
-            tension: 0.4,
-            yAxisID: "y"
+              yAxisID: "y"
           },{
-            label: "South monthly anomalies",
-            data: dat7.map((v, i) => ({ x: v, y: Object.values(monthly_south)[i] })),
-            borderColor: "rgb(255, 145, 0)",
-            backgroundColor: "rgba(255, 145, 0, 0.5)",
-            pointRadius: 1,
-            tension: 0.4,
-            yAxisID: "y"
-        },
-    ],
+              label: "South monthly anomalies",
+              data: dat7.map((v, i) => ({ x: v, y: Object.values(monthly_south)[i] })),
+              borderColor: "rgb(255, 145, 0)",
+              backgroundColor: "rgba(255, 145, 0, 0.5)",
+              pointRadius: 1,
+              tension: 0.4,
+              yAxisID: "y"
+          },],
       };
       
       const options1 = {
         responsive: true,
-        plugins: {
-          tooltip: {
-            displayColors: false,
+          plugins: {
+              tooltip: {
+                  displayColors: false,
+              },
+              legend: {
+                  position: "top",
+              },
+              title: {
+                  display: true,
+                  text: "Global historical surface temperature anomalies from January 1850 onwards",
+              },
+            },
+          scales: {
+              x:{
+                  type: "time",
+                  time:{unit: "year"},
+                  ticks: {
+                      stepSize: 1
+                  }
+              },
+              y:  {
+                  beginAtZero: true,
+                  type: "linear",
+                  position: "left"
+              }
           },
-          legend: {
-            position: "top",
-          },
-          title: {
-            display: true,
-            text: "Global historical surface temperature anomalies from January 1850 onwards",
-          },
-        },
-        scales: {
-          x:{
-            type: "time",
-            time:{unit: "year"},
-            ticks: {
-              stepSize: 1
-            }
-          },
-            y:  {
-              beginAtZero: true,
-              type: "linear",
-              position: "left"
-            }
-        },
       };
 
       const options2 = {
-        responsive: true,
-        plugins: {
-          tooltip: {
-            displayColors: false,
+          responsive: true,
+          plugins: {
+              tooltip: {
+                  displayColors: false,
+              },
+              legend: {
+                  position: "top",
+              },
+              title: {
+                  display: true,
+                  text: "Global historical surface temperature anomalies from January 1850 onwards",
+              },
           },
-          legend: {
-            position: "top",
+          scales: {
+              x:{
+                  type: "time",
+                  time:{unit: "month"},
+              ticks: {
+                  stepSize: 1
+              }
+              },
+              y:  {
+                  beginAtZero: true,
+                  type: "linear",
+                  position: "left"
+              }
           },
-          title: {
-            display: true,
-            text: "Global historical surface temperature anomalies from January 1850 onwards",
-          },
-        },
-        scales: {
-          x:{
-            type: "time",
-            time:{unit: "month"},
-            ticks: {
-              stepSize: 1
-            }
-          },
-            y:  {
-              beginAtZero: true,
-              type: "linear",
-              position: "left"
-            }
-        },
       };
       
-
-      const [isClicked, setIsClicked] = useState(true);
-
+    // Initializing two state variables using the useState hook
+    const [isClicked, setIsClicked] = useState(true);
     const [x, setX] = useState("1");
 
+    // ChangeView which sets x and isClicked state based on button clicked
     const changeView = (e) => {
         setX(e.target.value);
         setIsClicked(true);
-
     };
 
+    // Switch statement to conditionally render a different set of JSX based on the value of x
     switch (x) {
-
         case "1":
             return (
                 <div className="chart" data-testid="visu1">
-                    
                     <button value={"1"} onClick={e => changeView(e)}>Annual</button>
                     <button value={"2"} onClick={e => changeView(e)}>Monthly</button>
                     {isClicked &&                     
@@ -191,11 +192,9 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
                     </div>}
                 </div>
             );
-
         case "2":
             return (
                 <div className="chart" data-testid="visu1">
-                    
                     <button value={"1"} onClick={e => changeView(e)}>Annual</button>
                     <button value={"2"} onClick={e => changeView(e)}>Monthly</button>
                     {isClicked &&
@@ -205,11 +204,16 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
                     </div>}
                 </div>
             );
-
     }
 }
 
 export function Visu1Information() {
+
+    /*
+    Visu1Information component is responsible for rendering the data information section
+    for the visualization 1. It displays information about the data sources used to generate
+    the visualizations along with their characteristics.
+    */
 
     return(
     <section>
@@ -224,5 +228,4 @@ export function Visu1Information() {
       </article>
     </section>
     );
-  }
-
+}
