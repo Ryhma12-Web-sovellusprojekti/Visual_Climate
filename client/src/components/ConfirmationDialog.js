@@ -2,6 +2,7 @@ import React from "react";
 
 function ConfirmationDialog({yesFunction, noFunction }) {
 
+    // Return JSX that represents a confirmation dialog with two buttons, one to confirm and one to cancel
     return (
         <div className="dialog-wrapper">
             <div className="dialog">
