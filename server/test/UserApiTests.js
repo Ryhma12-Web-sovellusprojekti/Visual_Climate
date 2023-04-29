@@ -107,6 +107,7 @@ describe("/DELETE", function () {
         });
     });
 /*
+//testi kommentti
     it("should delete second test user by given id", function (done) {
         chai.request("http://localhost:5000").delete("/deleteuser/"+testUid2).end(function (err, res) {
             expect(err).to.be.null;
