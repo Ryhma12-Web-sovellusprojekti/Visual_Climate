@@ -83,6 +83,7 @@ function Graph1({maunaloa_annual, maunaloa_monthly, de08_ice, de08_2_ice, dss_ic
             },],
         };
 
+        // Define options for a chart with a responsive layout and various plugins
         const options = {
             responsive: true,
             plugins: {
@@ -143,4 +144,3 @@ export function Visu2Information() {
     </section>
     );
 }
-

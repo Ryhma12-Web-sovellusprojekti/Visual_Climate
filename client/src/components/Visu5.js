@@ -4,6 +4,8 @@ import { Doughnut, getElementsAtEvent  } from "react-chartjs-2";
 let hasClicked = false;
 
 export default function Visu5({single}) {
+
+    // Initializing five state variables using the useState hook
     const [sectors, setSectors] = useState([]);
     const [subAgri, setSubAgri] = useState([]);
     const [subEnergy, setSubEnergy] = useState([]);
@@ -11,6 +13,7 @@ export default function Visu5({single}) {
     const [subWaste, setSubWaste] = useState([]);
 
   return (
+    // Setting state variables using the DataImport component with a path"
     <div>
         <DataImport setData={setSectors} path={single+"8/V5_Sectors"} />
         <DataImport setData={setSubAgri} path={single+"9/V5_Subsectors_Agriculture"} />
@@ -24,6 +27,8 @@ export default function Visu5({single}) {
 };
 
 function Graph({ sectors, subAgri, subEnergy, subIndustry, subWaste }) {
+
+    // defines of multiple objects that contain data and styling information for different chart datasets.
     const dataSectors = {
         labels: Object.keys(sectors),
         datasets: [{
@@ -107,16 +112,20 @@ function Graph({ sectors, subAgri, subEnergy, subIndustry, subWaste }) {
         }]
     };
 
+    // Initialize React state variables
     const chartRef = useRef();
     const [subsectorData, setSubsectorData] = useState(dataSubAgri);
     const [doughnutDuo, setDoughnutDuo ] = useState("doughnuts one");
     const [dataTitle, setDataTitle] = useState("");
   
     const onClick = (event) => {
+
+        // Checks if the click event occurred on an element of the chart
         if(getElementsAtEvent(chartRef.current, event).length > 0) {
             hasClicked = true;
             setDoughnutDuo("doughnuts two");
             const dataPoint = getElementsAtEvent(chartRef.current, event)[0].index;
+            // Updates state variables based on the clicked element
             switch(dataPoint) {
                 case 0:
                     setSubsectorData(dataSubAgri);
@@ -137,6 +146,7 @@ function Graph({ sectors, subAgri, subEnergy, subIndustry, subWaste }) {
         };        
     };
 
+    // Define sectorOptions for a chart with a responsive layout and various plugins
     const sectorOptions = {
         responsive: true,
         plugins: {
@@ -154,6 +164,7 @@ function Graph({ sectors, subAgri, subEnergy, subIndustry, subWaste }) {
         }
     };
 
+    // Define subsectorOptions for a chart with a responsive layout and various plugins
     const subsectorOptions = {
         responsive: true,
         plugins: {
@@ -170,7 +181,7 @@ function Graph({ sectors, subAgri, subEnergy, subIndustry, subWaste }) {
             key: 'emission'
         }
     };
-    
+
     return (
         <div className={doughnutDuo}>
             <h1>CO2 emissions by sectors</h1>

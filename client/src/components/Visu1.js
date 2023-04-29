@@ -108,37 +108,39 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
               yAxisID: "y"
           },],
       };
-      
+
+      // Define options1 for a chart with a responsive layout and various plugins
       const options1 = {
-        responsive: true,
-          plugins: {
-              tooltip: {
-                  displayColors: false,
+          responsive: true,
+              plugins: {
+                  tooltip: {
+                      displayColors: false,
+                  },
+                  legend: {
+                      position: "top",
+                  },
+                  title: {
+                      display: true,
+                      text: "Global historical surface temperature anomalies from January 1850 onwards",
+                  },
               },
-              legend: {
-                  position: "top",
-              },
-              title: {
-                  display: true,
-                  text: "Global historical surface temperature anomalies from January 1850 onwards",
-              },
-            },
-          scales: {
-              x:{
-                  type: "time",
-                  time:{unit: "year"},
-                  ticks: {
-                      stepSize: 1
+              scales: {
+                  x:{
+                      type: "time",
+                      time:{unit: "year"},
+                      ticks: {
+                          stepSize: 1
+                      }
+                  },
+                  y:  {
+                      beginAtZero: true,
+                      type: "linear",
+                      position: "left"
                   }
               },
-              y:  {
-                  beginAtZero: true,
-                  type: "linear",
-                  position: "left"
-              }
-          },
       };
 
+      // Define options2 for a chart with a responsive layout and various plugins
       const options2 = {
           responsive: true,
           plugins: {
