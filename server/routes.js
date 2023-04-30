@@ -4,29 +4,36 @@ const userController = require("./controllers/userController");
 const jwt = require('jsonwebtoken');
 const { admin } = require('./firebase.js');
 
-
+// Verifies the authenticity of the token
 const verifyToken = (req, res, next) => {
     const authorizationHeader = req.headers.authorization;
     const id = req.headers.id;
+
+    // If authorization header is not present or does not start with Bearer, return Unauthorized
     if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
-      return res.status(401).send('Unauthorized');
+        return res.status(401).send('Unauthorized');
     }
-    
+
+    // Retiving the token from the header
     const idToken = authorizationHeader.split('Bearer ')[1];
 
+    // Decoding the token payload with the given ID and algorithm
     const decoded_payload = jwt.decode(idToken, id, algorithms=['RS256']);
 
+    // Logging the decoded payload for debugging purposes
     console.log(decoded_payload);
 
+    // Getting the current time and token expiration time in seconds
     const currentTimeInSeconds = Math.floor(Date.now() / 1000);
     const tokenExpirationTimeInSeconds = decoded_payload.exp;
 
+    // Verifying if the token is valid by checking the uid and expiration time
     if (decoded_payload.uid == id && currentTimeInSeconds < tokenExpirationTimeInSeconds) {
-      console.log("Token is valid");
-      next();
+        console.log("Token is valid");
+        next();
     } else {
-      res.status(403).send("Verification failed!");
-      console.log("Token is not valid");
+        res.status(403).send("Verification failed!");
+        console.log("Token is not valid");
     }
 }
 
