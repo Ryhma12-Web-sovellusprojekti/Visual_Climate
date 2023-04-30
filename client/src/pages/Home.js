@@ -6,10 +6,12 @@ import { auth } from "../firebase-config";
 import LoginLinks from "../components/LoginLinks";
 
 function Home({ route }) {
+
+    // Checking if user is authenticated
     const isAuth = localStorage.getItem("isAuth");
-        
-if (isAuth) {
-    const user = auth.currentUser;
+
+    if (isAuth) {
+        const user = auth.currentUser;
     
     return (
         <div className="wrapper-side">
@@ -24,13 +26,10 @@ if (isAuth) {
             <Footer />
         </div>
     );
-
-} else {
-
+    } else {
+        // If user is not authenticated, redirect to login page
         window.location.pathname = "/";
-
     }
-
 }
 
 export default Home;

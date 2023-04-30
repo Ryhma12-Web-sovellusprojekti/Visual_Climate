@@ -5,9 +5,12 @@ import SignUserOut, { DeleteSignedUser } from "../components/SignOutDelete";
 import ConfirmationDialog from "../components/ConfirmationDialog";
 
 function Profile() {
+
+    // Initializing state variables
     const [user, setUser] = useState({});
     const [removeState, setRemove] = useState(false);
 
+    // Using useEffect hook to watch for changes in the authentication state
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
@@ -17,10 +20,12 @@ function Profile() {
         };
     }, []);
 
+    // Function to toggle the confirmation dialog box
     const toggleDialog = () => {
         setRemove(removeState => !removeState);
     }; 
 
+    // Rendering Profile component
     return (
         <section className="profile">
             {user?.photoURL &&
