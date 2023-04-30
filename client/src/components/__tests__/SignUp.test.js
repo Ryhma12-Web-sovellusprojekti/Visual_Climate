@@ -1,6 +1,4 @@
 const puppeteer = require("puppeteer");
-import { render, screen } from '@testing-library/react';
-import { TIMEOUT } from 'dns';
 
 let browser;
 let page;
@@ -82,8 +80,19 @@ describe('Sign up form malicious tests', () =>{
         expect(passwordConfPlaceholder).not.toBeNull();
         expect(submitButton).not.toBeNull();
     })
-    test("Register form filled incompletetly", async () => {
-        
+    test("Register form submitted without filling anything, expect to fail", async () => {
+        await page.click('input[type="submit"]');
+        await page.$('input[name="firstName"]');
+        const fnInfo = await page.$('p[data-testid="firstname-info"]');
+        const lnInfo = await page.$('p[data-testid="lastname-info"]');
+        const emailInfo = await page.$('p[data-testid="email-info"]');
+        const passwordInfo = await page.$('p[data-testid="password-info"]');
+        const passwordConfInfo = await page.$('p[data-testid="password-confirmation-info"]');
+        expect(fnInfo).not.toBeNull();
+        expect(lnInfo).not.toBeNull();
+        expect(emailInfo).not.toBeNull();
+        expect(passwordInfo ).not.toBeNull();
+        expect(passwordConfInfo).not.toBeNull();
     })
 })
 
