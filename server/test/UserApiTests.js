@@ -4,6 +4,7 @@ const chaiHttp = require ("chai-http");
 chai.use(chaiHttp);
 const server = require("../server");
 
+const baseUrl = "http://localhost:5000";
 // test variables
 var testUid1="";
 var testUid2="";
@@ -23,7 +24,7 @@ after(function(){
     describe("Tests for user creation", function () {
         it("Should create new user", function (done) {
             // http request to create user from api
-            chai.request("http://localhost:5000").post("/createuser").set("content-type", "application/json").send(
+            chai.request(baseUrl).post("/createuser").set("content-type", "application/json").send(
                 {   
                     // user information in request body
                     email: "apitest@example.com",
@@ -44,7 +45,7 @@ after(function(){
 
         it("Should create second new user when email is different", function (done) {
             // http request to create user from api
-            chai.request("http://localhost:5000").post("/createuser").set("content-type", "application/json").send(
+            chai.request(baseUrl).post("/createuser").set("content-type", "application/json").send(
                 {
                     // user information in request body
                     email: "apitest1@example.com",
@@ -65,7 +66,7 @@ after(function(){
 
         it("Should fail when trying to create new user with email that already exists", function (done) {
             // http request to create user from api
-            chai.request("http://localhost:5000").post("/createuser").set("content-type", "application/json").send(
+            chai.request(baseUrl).post("/createuser").set("content-type", "application/json").send(
                 {
                     // user information in request body
                     email: "apitest@example.com",
@@ -87,7 +88,7 @@ after(function(){
 
         it("Should return user id for the first test user", function (done) {
             // http request to get user id
-            chai.request("http://localhost:5000").get("/getuser/apitest@example.com").end(function (err, res) {
+            chai.request(baseUrl).get("/getuser/apitest@example.com").end(function (err, res) {
                 // parse the response body to json
                 const responseJson = JSON.parse(res.text); 
                 console.log(responseJson.userId);
@@ -106,7 +107,7 @@ after(function(){
 
         it("Should return user id for the second test user", function (done) {
             // http request to get user id
-            chai.request("http://localhost:5000").get("/getuser/apitest1@example.com").end(function (err, res) {
+            chai.request(baseUrl).get("/getuser/apitest1@example.com").end(function (err, res) {
                 // parse the response body to json
                 const responseJson = JSON.parse(res.text); 
                 console.log(responseJson.userId);
@@ -125,7 +126,7 @@ after(function(){
 
         it("Should create token to first test user to log in", function (done) {
             // http request to create user token from api
-            chai.request("http://localhost:5000").post("/createusertoken").set("content-type", "application/json").send(
+            chai.request(baseUrl).post("/createusertoken").set("content-type", "application/json").send(
                 {
                     // userId given in request body
                     userId: testUid1
@@ -144,7 +145,7 @@ after(function(){
 
         it("Should create token to second test user to log in", function (done) {
             // http request to create user token from api
-            chai.request("http://localhost:5000").post("/createusertoken").set("content-type", "application/json").send(
+            chai.request(baseUrl).post("/createusertoken").set("content-type", "application/json").send(
                 {
                     // userId given in request body
                     userId: testUid2
@@ -165,7 +166,7 @@ after(function(){
     describe("Tests for user deletion", function () {
         it("Should delete first test user", function (done) {
             // http request to delete user from api
-            chai.request("http://localhost:5000").delete(`/deleteuser/${testUid1}`).set('Authorization', `Bearer ${token1}`).set('id', `${testUid1}`).end(function (err, res) {
+            chai.request(baseUrl).delete(`/deleteuser/${testUid1}`).set('Authorization', `Bearer ${token1}`).set('id', `${testUid1}`).end(function (err, res) {
                 // no errors expected
                 expect(err).to.be.null;    
                 // expected response status to be 200
@@ -178,7 +179,7 @@ after(function(){
 
         it("Should delete second test user", function (done) {
             // http request to delete user from api
-            chai.request("http://localhost:5000").delete(`/deleteuser/${testUid2}`).set('Authorization', `Bearer ${token2}`).set('id', `${testUid2}`).end(function (err, res) {
+            chai.request(baseUrl).delete(`/deleteuser/${testUid2}`).set('Authorization', `Bearer ${token2}`).set('id', `${testUid2}`).end(function (err, res) {
                // no errors expected
                expect(err).to.be.null;    
                // expected response status to be 200
@@ -191,7 +192,7 @@ after(function(){
     
         it("Should give user not found when trying to delete same user again", function (done) {
             // http request to delete user from api
-            chai.request("http://localhost:5000").delete(`/deleteuser/${testUid2}`).set('Authorization', `Bearer ${token2}`).set('id', `${testUid2}`).end(function (err, res) {
+            chai.request(baseUrl).delete(`/deleteuser/${testUid2}`).set('Authorization', `Bearer ${token2}`).set('id', `${testUid2}`).end(function (err, res) {
                 // expected response status to be 404
                 expect(res).to.have.status(404);
                 // response text gives information that user does not exist
