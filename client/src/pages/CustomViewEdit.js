@@ -4,8 +4,11 @@ import axios from "axios";
 import GetCustomViewRootUrl, { GetServerUrl } from "../components/GetUrls";
 
 function CustomViewEdit({ goBack }) {
+    // definition state and initializing with the useState() hook
     const user = auth.currentUser;
     const [views, setViews] = useState([]);
+
+    // GetCustomViewRootUrl() and GetServerUrl() are helper functions that return URLs.
     const customViewUrl = GetCustomViewRootUrl();
     const serverUrl = GetServerUrl();
 
@@ -16,46 +19,49 @@ function CustomViewEdit({ goBack }) {
             const uid = localStorage.getItem("id");
             axios.get(`${serverUrl}all/customview/${user.uid}`, {
                 headers: {
-                  Authorization: `Bearer ${token}`,
-                  ID: `${uid}`
+                    Authorization: `Bearer ${token}`,
+                    ID: `${uid}`
                 },
               })
                 .then((res) => {
                     setViews(res.data);
                 })         
-            .catch ((error) => {
-                // status code not 2xx
-                if (error.response) { 
-                    console.log("Data :" , error.response.data);
-                    console.log("Status :" + error.response.status);
-                // The request was made but no response was received
-                  } else if (error.request) { 
-                    console.log(error.request);
-                // Error on setting up the request
-                  } else { 
-                    console.log('Error', error.message);
-                };
-            });
+                .catch ((error) => {
+                    // status code not 2xx
+                    if (error.response) { 
+                        console.log("Data :" , error.response.data);
+                        console.log("Status :" + error.response.status);
+                    // The request was made but no response was received
+                    } else if (error.request) { 
+                        console.log(error.request);
+                    // Error on setting up the request
+                    } else { 
+                        console.log('Error', error.message);
+                    };
+                });
         }  
             fetchViews();
-        }, []);      
-        
+    }, []);      
 
     // delete custom view:
     function deleteView (id) {
+
+        // The token and uid variables from localStorage
         const token = localStorage.getItem("token");
         const uid = localStorage.getItem("id");
+
+        // The axios.delete function sends an HTTP POST request to the server to delete a custom view
         axios.delete(`${serverUrl}delete/customview/${id}`, {
             headers: {
-              Authorization: `Bearer ${token}`,
-              ID: `${uid}`
+                Authorization: `Bearer ${token}`,
+                ID: `${uid}`
             },
         })
         .then(() => {
-          setViews((prevViews) => prevViews.filter((view) => view.id !== id));
+            setViews((prevViews) => prevViews.filter((view) => view.id !== id));
         })
         .catch((error) => {
-          console.log(error);
+            console.log(error);
         });
     };
 

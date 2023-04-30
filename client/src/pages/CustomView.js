@@ -66,11 +66,11 @@ function CustomView({ goBack }) {
                 sidebySide: sidebySide
             };
 
-             // The token and uid variables from localStorage
+            // The token and uid variables from localStorage
             const token = localStorage.getItem("token");
             const uid = localStorage.getItem("id");
 
-             // The axios.post function sends an HTTP POST request to the server to create a new custom view
+            // The axios.post function sends an HTTP POST request to the server to create a new custom view
             axios.post(`${serverUrl}create/customview`, customView, {
                 headers: {
                     Authorization: `Bearer ${token}`,
