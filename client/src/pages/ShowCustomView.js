@@ -9,9 +9,13 @@ import Visu4 from "../components/Visu4";
 import Visu5 from "../components/Visu5";
 
 function ShowCustomView() {
+
+    // definition state and initializing with the useState() hook
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
+
+    // GetServerUrl() is a helper function that return URL.
     const serverUrl = GetServerUrl();
 
     useEffect( () => {
@@ -22,19 +26,19 @@ function ShowCustomView() {
                     setData(res.data);
                     setLoading(false);
                 })         
-            .catch ((error) => {
-                // status code not 2xx
-                if (error.response) { 
-                    console.log("Data :" , error.response.data);
-                    console.log("Status :" + error.response.status);
-                // The request was made but no response was received
-                  } else if (error.request) { 
-                    console.log(error.request);
-                // Error on setting up the request
-                  } else { 
-                    console.log('Error', error.message);
-                };
-            });  
+                .catch ((error) => {
+                    // status code not 2xx
+                    if (error.response) { 
+                        console.log("Data :" , error.response.data);
+                        console.log("Status :" + error.response.status);
+                    // The request was made but no response was received
+                    } else if (error.request) { 
+                        console.log(error.request);
+                    // Error on setting up the request
+                    } else { 
+                        console.log('Error', error.message);
+                    };
+                });  
         };        
         fetchData();
     }, []);
@@ -42,7 +46,8 @@ function ShowCustomView() {
     if (loading) {
         return <p>Loading...</p>;
     };
-    
+
+    // Shows the user made custom view
     return (
         <div>
             <h1>{data.title}</h1>
@@ -62,11 +67,11 @@ function ShowCustomView() {
                 </div>}
                 {data.visuals.v4 &&<div>
                     {data.visuTexts.v4 && <p>{data.visuTexts.v4}</p>}
-                     <Visu4 single="single/"/>
+                    <Visu4 single="single/"/>
                 </div>}
                 {data.visuals.v5 &&<div>
                     {data.visuTexts.v5 && <p>{data.visuTexts.v5}</p>}
-                     <Visu5 single="single/"/>
+                    <Visu5 single="single/"/>
                 </div>}
             </div>
         </div>
