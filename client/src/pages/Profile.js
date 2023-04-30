@@ -27,7 +27,7 @@ function Profile() {
                 <img src={user?.photoURL} alt={user?.displayName} title={user?.displayName} width="100"></img> 
             }
             <button className="small-btn" onClick={SignUserOut}>Log Out</button>
-            <button className="small-btn" onClick={toggleDialog}>Delete Account</button>
+            <button className="small-btn" data-testid="delete" onClick={toggleDialog}>Delete Account</button>
             {removeState &&
                 <ConfirmationDialog yesFunction={DeleteSignedUser} noFunction={toggleDialog} />
             }
