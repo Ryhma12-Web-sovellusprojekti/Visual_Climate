@@ -1,7 +1,13 @@
 const puppeteer = require("puppeteer");
+import { render, screen } from '@testing-library/react';
+import { TIMEOUT } from 'dns';
+
 let browser;
 let page;
 let url = "http://localhost:3000";
+let newTIMETOUT = 30000;
+
+//jest.setTimeout(30000);
 
 function generateTestEmailAddress(testid) {
     const now = new Date();
@@ -23,6 +29,14 @@ function delay(ms){
     })
 }
 
+function getErrors(errorSelectors){
+    const errorList = document.querySelectorAll(errorSelectors);
+    if(errorList.length > 0){
+        return [...errorList].map(error => error.textContent)
+    }
+    return []
+}
+
 beforeAll(async()=>{
     browser = await puppeteer.launch({
         headless: false
@@ -31,8 +45,49 @@ beforeAll(async()=>{
 
     await page.goto(url);
 })
+describe('Sign up form malicious tests', () =>{
+    test("page has been loaded", async () =>{
+        const title = await page.title();
+        expect(title).toBe("Visual Climate");
+    })
 
-describe('test user Sign up creation, signing in and deletion', () =>{
+    test("does not show Register Form by default", async () => {
+        const element = await page.$('input[name=confirmPassword]');
+        expect(element).toBeNull();
+    })
+
+    test("Sign up form is rendering correctly after Sign up button is pressed", async () => {
+        const signUpSelector = 'button[value="2"]';
+        await page.waitForSelector(signUpSelector);
+        await page.click(signUpSelector);
+        await page.waitForSelector('input[name=confirmPassword]');
+
+        const element = await page.$('h1');
+        const expectedText = 'Not registered yet? Sign up here!';
+        const text = await page.evaluate(element => element.textContent, element);
+        expect(text).toBe(expectedText);
+
+        const firstNamePlaceholder = await page.$('input[name="firstName"]');
+        const lastNamePlaceholder = await page.$('input[name="lastName"]');
+        const emailPlaceholder = await page.$('input[name="email"]');
+        const passwordPlaceholder = await page.$('input[name="password"]');
+        const passwordConfPlaceholder = await page.$('input[name="confirmPassword"]');
+        const submitButton = await page.$('input[type="submit"]');
+
+        // Assert that all of the expected elements are in the document
+        expect(firstNamePlaceholder).not.toBeNull();
+        expect(lastNamePlaceholder).not.toBeNull();
+        expect(emailPlaceholder).not.toBeNull();
+        expect(passwordPlaceholder).not.toBeNull();
+        expect(passwordConfPlaceholder).not.toBeNull();
+        expect(submitButton).not.toBeNull();
+    })
+    test("Register form filled incompletetly", async () => {
+        
+    })
+})
+
+describe('test user Sign up creation, signing in and deletion succesfully', () =>{
     const testAddress = generateTestEmailAddress("signin");
     
     test("page has been loaded", async () =>{
@@ -40,7 +95,7 @@ describe('test user Sign up creation, signing in and deletion', () =>{
         expect(title).toBe("Visual Climate");
     })
 
-    test("open sign up tab", async () => {
+    test("open sign up tab succesfully", async () => {
         const signUpSelector = 'button[value="2"]';
         await page.waitForSelector(signUpSelector);
         await page.click(signUpSelector);
@@ -69,7 +124,7 @@ describe('test user Sign up creation, signing in and deletion', () =>{
         expect(element).not.toBeNull();
     })
 
-    test("Delete user", async () =>{
+    test("Delete user", async () =>{ 
         await page.click('button[data-testid="delete"]');
         await page.waitForSelector('div[class=dialog]');
         await page.click('button[data-testid="yes"]');
