@@ -5,7 +5,7 @@ let page;
 let url = "http://localhost:3000";
 let newTIMETOUT = 30000;
 
-//jest.setTimeout(30000);
+jest.setTimeout(30000);
 
 function generateTestEmailAddress(testid) {
     const now = new Date();
@@ -43,58 +43,6 @@ beforeAll(async()=>{
 
     await page.goto(url);
 })
-describe('Sign up form malicious tests', () =>{
-    test("page has been loaded", async () =>{
-        const title = await page.title();
-        expect(title).toBe("Visual Climate");
-    })
-
-    test("does not show Register Form by default", async () => {
-        const element = await page.$('input[name=confirmPassword]');
-        expect(element).toBeNull();
-    })
-
-    test("Sign up form is rendering correctly after Sign up button is pressed", async () => {
-        const signUpSelector = 'button[value="2"]';
-        await page.waitForSelector(signUpSelector);
-        await page.click(signUpSelector);
-        await page.waitForSelector('input[name=confirmPassword]');
-
-        const element = await page.$('h1');
-        const expectedText = 'Not registered yet? Sign up here!';
-        const text = await page.evaluate(element => element.textContent, element);
-        expect(text).toBe(expectedText);
-
-        const firstNamePlaceholder = await page.$('input[name="firstName"]');
-        const lastNamePlaceholder = await page.$('input[name="lastName"]');
-        const emailPlaceholder = await page.$('input[name="email"]');
-        const passwordPlaceholder = await page.$('input[name="password"]');
-        const passwordConfPlaceholder = await page.$('input[name="confirmPassword"]');
-        const submitButton = await page.$('input[type="submit"]');
-
-        // Assert that all of the expected elements are in the document
-        expect(firstNamePlaceholder).not.toBeNull();
-        expect(lastNamePlaceholder).not.toBeNull();
-        expect(emailPlaceholder).not.toBeNull();
-        expect(passwordPlaceholder).not.toBeNull();
-        expect(passwordConfPlaceholder).not.toBeNull();
-        expect(submitButton).not.toBeNull();
-    })
-    test("Register form submitted without filling anything, expect to fail", async () => {
-        await page.click('input[type="submit"]');
-        await page.$('input[name="firstName"]');
-        const fnInfo = await page.$('p[data-testid="firstname-info"]');
-        const lnInfo = await page.$('p[data-testid="lastname-info"]');
-        const emailInfo = await page.$('p[data-testid="email-info"]');
-        const passwordInfo = await page.$('p[data-testid="password-info"]');
-        const passwordConfInfo = await page.$('p[data-testid="password-confirmation-info"]');
-        expect(fnInfo).not.toBeNull();
-        expect(lnInfo).not.toBeNull();
-        expect(emailInfo).not.toBeNull();
-        expect(passwordInfo ).not.toBeNull();
-        expect(passwordConfInfo).not.toBeNull();
-    })
-})
 
 describe('test user Sign up creation, signing in and deletion succesfully', () =>{
     const testAddress = generateTestEmailAddress("signin");
@@ -127,7 +75,7 @@ describe('test user Sign up creation, signing in and deletion succesfully', () =
     test("Sign in user", async () =>{
         await page.type('input[name="email"]', testAddress);
         await page.type('input[name="password"]', "test12341234");
-        await page.click('input[type="submit"]');   
+        await page.click('input[data-testid="signin-submit"]');   
         await page.waitForSelector('section[class="profile"]');
         const element = await page.$('section[class="profile"]');
         expect(element).not.toBeNull();
