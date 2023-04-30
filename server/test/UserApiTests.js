@@ -1,31 +1,31 @@
 const chai = require("chai");
 const expect = chai.expect;
-const chaiHttp = require ("chai-http");
+const chaiHttp = require("chai-http");
 chai.use(chaiHttp);
 const server = require("../server");
 
 const baseUrl = "http://localhost:5000";
 // test variables
-var testUid1="";
-var testUid2="";
-var token1="";
-var token2="";
+var testUid1 = "";
+var testUid2 = "";
+var token1 = "";
+var token2 = "";
 
 describe("API test for User Controller", function () {
-// start server before tests
-before(function(){
-    server.start();
-})
-// stop server after tests
-after(function(){
-    server.close();
-})
+    // start server before tests
+    before(function () {
+        server.start();
+    })
+    // stop server after tests
+    after(function () {
+        server.close();
+    })
 
     describe("Tests for user creation", function () {
         it("Should create new user", function (done) {
             // http request to create user from api
             chai.request(baseUrl).post("/createuser").set("content-type", "application/json").send(
-                {   
+                {
                     // user information in request body
                     email: "apitest@example.com",
                     password: "password112",
@@ -85,22 +85,21 @@ after(function(){
     });
 
     describe('Tests for login', () => {
-
         it("Should return user id for the first test user", function (done) {
             // http request to get user id
             chai.request(baseUrl).get("/getuser/apitest@example.com").end(function (err, res) {
                 // parse the response body to json
-                const responseJson = JSON.parse(res.text); 
+                const responseJson = JSON.parse(res.text);
                 console.log(responseJson.userId);
                 // save user id to testUid1 variable
                 testUid1 = responseJson.userId;
-                console.log("This is testUid1: "+ testUid1);
+                console.log("This is testUid1: " + testUid1);
                 // no errors expected
                 expect(err).to.be.null;
                 // expected response status to be 200
                 expect(res).to.have.status(200);
                 // expected responseJson to be same form as {"userId": testUid1}
-                expect(responseJson).to.deep.equal({"userId": testUid1});
+                expect(responseJson).to.deep.equal({ "userId": testUid1 });
                 done();
             });
         });
@@ -109,17 +108,17 @@ after(function(){
             // http request to get user id
             chai.request(baseUrl).get("/getuser/apitest1@example.com").end(function (err, res) {
                 // parse the response body to json
-                const responseJson = JSON.parse(res.text); 
+                const responseJson = JSON.parse(res.text);
                 console.log(responseJson.userId);
                 // save user id to testUid2 variable
                 testUid2 = responseJson.userId;
-                console.log("Tämä on testi UID2: "+ testUid2);
+                console.log("Tämä on testi UID2: " + testUid2);
                 // no errors expected
                 expect(err).to.be.null;
                 // expected response status to be 200
                 expect(res).to.have.status(200);
                 // expected responseJson to be same form as {"userId": testUid2}
-                expect(responseJson).to.deep.equal({"userId": testUid2});
+                expect(responseJson).to.deep.equal({ "userId": testUid2 });
                 done();
             });
         });
@@ -133,8 +132,8 @@ after(function(){
                 }
             ).end(function (err, res) {
                 // save response text to token1 variable
-                token1 =res.text;
-                console.log("This is token1: "+ token1);
+                token1 = res.text;
+                console.log("This is token1: " + token1);
                 // no errors expected
                 expect(err).to.be.null;
                 // expected response status to be 200
@@ -152,12 +151,28 @@ after(function(){
                 }
             ).end(function (err, res) {
                 // save response text to token2 variable
-                token2 =res.text;
-                console.log("This is token2: "+ token2);
+                token2 = res.text;
+                console.log("This is token2: " + token2);
                 // no errors expected
                 expect(err).to.be.null;
                 // expected response status to be 200
                 expect(res).to.have.status(200);
+                done();
+            });
+        });
+
+        it("Should not create token to user that don't exists", function (done) {
+            // http request to create user token from api
+            chai.request(baseUrl).post("/createusertoken").set("content-type", "application/json").send(
+                {
+                    // userId that don't exists
+                    userId: "N0tVal1dU53rID"
+                }
+            ).end(function (err, res) {
+                // expected response status to be 500
+                expect(res).to.have.status(500);
+                // response text gives information that there was error creating user token
+                expect(res.text).to.be.equal("Error creating user token");
                 done();
             });
         });
@@ -166,9 +181,9 @@ after(function(){
     describe("Tests for user deletion", function () {
         it("Should delete first test user", function (done) {
             // http request to delete user from api
-            chai.request(baseUrl).delete(`/deleteuser/${testUid1}`).set('Authorization', `Bearer ${token1}`).set('id', `${testUid1}`).end(function (err, res) {
+            chai.request(baseUrl).delete(`/deleteuser/${testUid1}`).set("Authorization", `Bearer ${token1}`).set("id", `${testUid1}`).end(function (err, res) {
                 // no errors expected
-                expect(err).to.be.null;    
+                expect(err).to.be.null;
                 // expected response status to be 200
                 expect(res).to.have.status(200);
                 // response text gives information that user has been deleted
@@ -177,22 +192,55 @@ after(function(){
             });
         });
 
-        it("Should delete second test user", function (done) {
-            // http request to delete user from api
-            chai.request(baseUrl).delete(`/deleteuser/${testUid2}`).set('Authorization', `Bearer ${token2}`).set('id', `${testUid2}`).end(function (err, res) {
-               // no errors expected
-               expect(err).to.be.null;    
-               // expected response status to be 200
-               expect(res).to.have.status(200);
-               // response text gives information that user has been deleted
-               expect(res.text).to.be.equal("User has been deleted");
-               done();
+        it("Should not delete second test user when id is not given", function (done) {
+            // http request to delete user from api without id in header
+            chai.request(baseUrl).delete(`/deleteuser/${testUid2}`).set("Authorization", `Bearer ${token2}`).set("id", "").end(function (err, res) {
+                // expected response status to be 403
+                expect(res).to.have.status(403);
+                // response text gives information that verification failed
+                expect(res.text).to.be.equal("Verification failed!");
+                done();
             });
         });
-    
+
+        it("Should not delete second test user when token is not given", function (done) {
+            // http request to delete user from api without token in header
+            chai.request(baseUrl).delete(`/deleteuser/${testUid2}`).set("Authorization", `Bearer `).set("id", `${testUid2}`).end(function (err, res) {
+                // expected response status to be 401
+                expect(res).to.have.status(401);
+                // response text gives information that request is unauthorized
+                expect(res.text).to.be.equal("Unauthorized");
+                done();
+            });
+        });
+
+        it("Should not delete second test user when id and token isn't given", function (done) {
+            // http request to delete user from api without token or user id in header
+            chai.request(baseUrl).delete(`/deleteuser/${testUid2}`).end(function (err, res) {
+                // expected response status to be 401
+                expect(res).to.have.status(401);
+                // response text gives information that request is unauthorized
+                expect(res.text).to.be.equal("Unauthorized");
+                done();
+            });
+        });
+
+        it("Should delete second test user", function (done) {
+            // http request to delete user from api
+            chai.request(baseUrl).delete(`/deleteuser/${testUid2}`).set("Authorization", `Bearer ${token2}`).set("id", `${testUid2}`).end(function (err, res) {
+                // no errors expected
+                expect(err).to.be.null;
+                // expected response status to be 200
+                expect(res).to.have.status(200);
+                // response text gives information that user has been deleted
+                expect(res.text).to.be.equal("User has been deleted");
+                done();
+            });
+        });
+
         it("Should give user not found when trying to delete same user again", function (done) {
             // http request to delete user from api
-            chai.request(baseUrl).delete(`/deleteuser/${testUid2}`).set('Authorization', `Bearer ${token2}`).set('id', `${testUid2}`).end(function (err, res) {
+            chai.request(baseUrl).delete(`/deleteuser/${testUid2}`).set("Authorization", `Bearer ${token2}`).set("id", `${testUid2}`).end(function (err, res) {
                 // expected response status to be 404
                 expect(res).to.have.status(404);
                 // response text gives information that user does not exist

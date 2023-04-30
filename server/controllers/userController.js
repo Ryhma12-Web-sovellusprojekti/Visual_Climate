@@ -31,7 +31,10 @@ exports.createUser = async (req, res) => {
 exports.createUserToken = async (req, res) => {
   // id given in request body is saved to userId variable
   const userId = req.body.userId;
+  
   try {
+    // check if the user exists
+    await admin.auth().getUser(userId)
     //creates custom token and saves it to token variable
     const token = await admin.auth().createCustomToken(userId, { expiresIn: '3600s' });
     console.log('User token: ', token);
