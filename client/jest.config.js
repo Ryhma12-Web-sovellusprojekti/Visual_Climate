@@ -6,7 +6,7 @@ module.exports = {
   "transformIgnorePatterns": [
     "/node_modules/(?!(module-that-needs-to-be-transpiled)/)"
   ],
-  "testEnvironment": "node",
+  "testEnvironment": "jest-environment-puppeteer",
   "testMatch": [
     "**/__tests__/**/*.js?(x)",
     "**/?(*.)+(spec|test).js?(x)"
