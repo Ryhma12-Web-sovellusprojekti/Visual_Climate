@@ -25,8 +25,7 @@ function LoginLinks() {
                     <div> 
                     <h1>Sign in to Continue</h1>
                     <LoginForm />
-                    <h3>Or use your Google account</h3>
-                    <GoogleForm />
+
                     </div>
                 }
             </div>
