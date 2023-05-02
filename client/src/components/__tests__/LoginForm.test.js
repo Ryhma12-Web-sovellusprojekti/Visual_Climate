@@ -4,8 +4,6 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import LoginLinks from "../LoginLinks"
 import { LoginForm } from '../LoginForms'
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 
 // Create a jest-mock function for the useNavigate hook
 const mockedUsedNavigate = jest.fn();
@@ -172,6 +170,54 @@ describe(("LoginForm tests"), () => {
         expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
     });
 
+    test('login fails when email is incorrect', async () => {
+
+        // Initialize userEvent
+        const user = userEvent.setup();
+
+        // Render the LoginForm component
+        render(<LoginForm />);
+
+        // Enter correct credentials and click the Sign In button
+        const emailInput = screen.getByPlaceholderText("Email...");
+        const passwordInput = screen.getByPlaceholderText("Password...");
+        const submitButton = screen.getByTestId("signin-submit");
+
+        // Type incorrect email
+        await user.type(emailInput, 'essi@xmple.fi');
+        await user.type(passwordInput, 'Password');
+        await user.click(submitButton);
+
+        // Check that error messages is shown
+        await waitFor(() => {
+            expect(screen.getByText("Incorrect email or password. Please try again.")).toBeInTheDocument();
+        });
+    });
+
+    test('login fails when password is incorrect', async () => {
+
+        // Initialize userEvent
+        const user = userEvent.setup();
+
+        // Render the LoginForm component
+        render(<LoginForm />);
+
+        // Enter correct credentials and click the Sign In button
+        const emailInput = screen.getByPlaceholderText("Email...");
+        const passwordInput = screen.getByPlaceholderText("Password...");
+        const submitButton = screen.getByTestId("signin-submit");
+
+        // Type incorrect password
+        await user.type(emailInput, 'essi@example.fi');
+        await user.type(passwordInput, 'Passwro');
+        await user.click(submitButton);
+
+        // Check that error messages is shown
+        await waitFor(() => {
+            expect(screen.getByText("Incorrect email or password. Please try again.")).toBeInTheDocument();
+        });
+    });
+
     test('successful login when form receives correct email and password', async () => {
 
         // Initialize userEvent
@@ -195,6 +241,8 @@ describe(("LoginForm tests"), () => {
         expect(screen.queryByTestId("email-error")).toBeNull();
 
         // Check that useNavigate has been called with '/home'
-        await expect(mockedUsedNavigate).toHaveBeenCalledWith('/home');
+        await waitFor(() => {
+            expect(mockedUsedNavigate).toHaveBeenCalledWith('/home');
+        });
     });
 });

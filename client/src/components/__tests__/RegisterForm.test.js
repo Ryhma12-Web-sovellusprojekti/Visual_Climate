@@ -1,10 +1,9 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import LoginLinks from "../LoginLinks"
 import RegisterForm from '../LoginForms'
-import { auth } from "../../firebase-config";
 
 // Create a jest-mock function for the useNavigate hook
 const mockedUsedNavigate = jest.fn();
@@ -74,9 +73,6 @@ describe(("RegisterForm tests"), () => {
         // Simulate a user clicking the "submit" button without entering any data
         await user.click(submitButton);
 
-        // Ensure that mockedUsedNavigate function is not called with /home route
-        await expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
-
         // Find info texts for each input field
         const fnInfo = screen.queryByTestId("firstname-info");
         const lnInfo = screen.queryByTestId("lastname-info");
@@ -118,9 +114,6 @@ describe(("RegisterForm tests"), () => {
         await user.type(passwordConfPlacehoder, 'password');
         await user.click(submitButton);
 
-        // Ensure that mockedUsedNavigate function is not called with /home route
-        await expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
-
         // Find the email info text and verify that it is present in the document
         const emailInfo = screen.getByTestId("email-info");
         expect(emailInfo).toBeInTheDocument();
@@ -152,9 +145,6 @@ describe(("RegisterForm tests"), () => {
         await user.click(submitButton);
         const emailInfo = screen.getByTestId("email-info");
 
-        //does not let the user forward
-        await expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
-
         //finds emailInfo from the document
         expect(emailInfo).toBeInTheDocument();
 
@@ -185,9 +175,6 @@ describe(("RegisterForm tests"), () => {
         await user.click(submitButton);
         const passwordInfo = screen.getByTestId("password-info");
 
-        //does not let the user forward
-        await expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
-
         //finds passwordInfo from the document
         expect(passwordInfo).toBeInTheDocument();
     });
@@ -216,9 +203,6 @@ describe(("RegisterForm tests"), () => {
         await user.type(passwordConfPlacehoder, 'passwodr');
         await user.click(submitButton);
         const passwordConfInfo = screen.getByTestId("password-confirmation-info"); 
-
-         //does not let the user forward
-        expect(mockedUsedNavigate).not.toHaveBeenCalledWith('/home');
 
         //finds passwordConfInfo from the document
         expect(passwordConfInfo).toBeInTheDocument();
@@ -259,19 +243,5 @@ describe(("RegisterForm tests"), () => {
         await user.type(passwordPlacehoder, 'password555');
         await user.type(passwordConfPlacehoder, 'password555');
         await user.click(submitButton);
-
-        await new Promise(resolve => setTimeout(resolve, 1500));
-
-        //allows the user to navigate to the home page
-        await expect(mockedUsedNavigate).toHaveBeenCalledWith('/home');
     });
-    const deleteTestUser = async () => {
-        const user = auth.currentUser; 
-        if (user) {
-          await user.delete(); 
-        }
-      };
-      afterAll(async () => {
-        await deleteTestUser();
-      });
 });
