@@ -1,6 +1,6 @@
 @charset "utf-8";
 @import url("https://fonts.googleapis.com/css?family=Raleway:800|Source+Sans+Pro:300,300i,600,600i");
-
+/* General resettors, fonts and variables */
 html {
     box-sizing: border-box;
     scroll-behavior: smooth;
@@ -30,12 +30,15 @@ body {
   font-family: "Source Sans Pro", Helvetica, sans-serif;
   background-color: var(--white);
 }
+
+/* 2 different wrappers used, with css-grid in use  one with top-image and one with side image*/
 .wrapper-side{
   min-height: 100vh;
   display: grid;
   grid-template-rows: 1fr max-content;
   grid-template-columns: 225px 1fr;
 }
+
 header{
   grid-column: 1/-1;
   grid-row: 1/2;
@@ -84,7 +87,7 @@ footer{
   grid-template-rows: 200px 1fr max-content;
   grid-template-columns: 1fr;
 }
-
+/* Form general settings */
 form {
   max-width: 300px;
   display: grid;
@@ -114,7 +117,7 @@ form textarea {
   padding-right: 0.5rem;
   padding-top: 0.5rem;
 }
-
+/* Details */
 .signup-link:hover {
   text-decoration: underline;
   cursor: pointer;
@@ -231,7 +234,7 @@ a, input[type=submit], .logout-btn, button {
   font-size: 1rem;
   margin: 10px;
 }
-
+/* components */
 .signinselect{
   background-color: rgba(0,0, 0, 0.0);
   color: var(--cerulean);
@@ -354,6 +357,8 @@ input:checked + .slider::before {
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.25);
   cursor: not-allowed;
 }
+
+/* Charts */
 .chart p, .chart a{
   padding-top: 24px;
 }
@@ -536,6 +541,8 @@ article p{
   grid-template-columns: 1fr 1fr;
   grid-gap: 12px;
 }
+
+/* responsiveness needs some mediaqueries */
 @media screen and (max-width: 1280px) {
   .wrapper-side{
       grid-template-columns: 1fr;
