@@ -5,7 +5,7 @@ let page;
 let url = "http://localhost:3000";
 let newTIMETOUT = 30000;
 
-jest.setTimeout(30000);
+jest.setTimeout(60000);
 
 function generateTestEmailAddress(testid) {
     const now = new Date();

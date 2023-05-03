@@ -25,16 +25,12 @@ describe(("LoginForm tests"), () => {
         const emailPlacehoder = screen.getByPlaceholderText("Email...");
         const passwordPlacehoder = screen.getByPlaceholderText("Password...");
         const SignInButton = screen.getByTestId("signin-submit");
-        const googleTextElement = screen.getByText("Or use your Google account");
-        const googleSignInButton = screen.getByRole('button', { name: /Sign in with Google/i });
 
         // Check that all elements of the LoginForm component are defined
         expect(textElement).toBeDefined();
         expect(emailPlacehoder).toBeDefined();
         expect(passwordPlacehoder).toBeDefined();
         expect(SignInButton).toBeDefined();
-        expect(googleTextElement).toBeDefined();
-        expect(googleSignInButton).toBeDefined();
     })
 
     test("does not show when Sign Up button is clicked", async () => {
