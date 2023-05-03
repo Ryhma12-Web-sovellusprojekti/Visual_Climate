@@ -170,14 +170,17 @@ export function Visu4Information() {
     */
 
     return (
-        <div>
-            <a
-            href="https://www.icos-cp.eu/science-and-impact/global-carbon-budget/2021"
-            target="_blank"
-            rel="noreferrer"
-            >
-            National emissions data source
-            </a>
-        </div>
+        <section>
+            <article>
+                <p>National estimates of CO2 between years 1959-2020 (MtCO2/yr). Total emissions include emissions from fossil fuel combustion and oxidation and cement production and excludes emissions from bunker fuels. World totals include emissions from bunker fuels. </p>
+                <a
+                href="https://www.icos-cp.eu/science-and-impact/global-carbon-budget/2021"
+                target="_blank"
+                rel="noreferrer"
+                >
+                National emissions data source
+                </a>
+            </article>
+        </section>
     );
 }
