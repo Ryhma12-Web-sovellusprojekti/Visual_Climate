@@ -124,13 +124,13 @@ export function Visu3Information() {
   for the visualization 1.
   */
 
-  return(
-      <section>
-          <article>
-              <p>Reconstruction of global average surface temperature over the past 2 million years and atmospheric CO2 levels over the past 800,000 years. Horizontal axis is negative values of years before the common era. Left vertical axis corresponds to CO2 concentration (in ppm) and right vertical axis is the surface temperature deviation (in Celsius) from the present.  Selected global events can be added to the figure to investigate their association with temperature and CO2 changes.</p>
-              <a href="https://climate.fas.harvard.edu/files/climate/files/snyder_2016.pdf"target="_blank"rel="noreferrer">CO2 and temperature data sources</a>
-              <a href="https://www.southampton.ac.uk/~cpd/history.html"target="_blank"rel="noreferrer">Global events data source</a>
-          </article>
-      </section>
-  );
+    return(
+        <section>
+            <article>
+                <p>Reconstruction of global average surface temperature over the past 2 million years and atmospheric CO2 levels over the past 800,000 years. Horizontal axis is negative values of years before the common era. Left vertical axis corresponds to CO2 concentration (in ppm) and right vertical axis is the surface temperature deviation (in Celsius) from the present.  Selected global events can be added to the figure to investigate their association with temperature and CO2 changes.</p>
+                <a href="https://climate.fas.harvard.edu/files/climate/files/snyder_2016.pdf"target="_blank"rel="noreferrer">CO2 and temperature data sources</a>
+                <a href="https://www.southampton.ac.uk/~cpd/history.html"target="_blank"rel="noreferrer">Global events data source</a>
+            </article>
+        </section>
+    );
 }

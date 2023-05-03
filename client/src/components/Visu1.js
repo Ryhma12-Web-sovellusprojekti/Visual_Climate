@@ -126,8 +126,7 @@ function Graph1({annual_global, annual_north, annual_south, annual_rec, monthly_
               },
               scales: {
                   x:{
-                      type: "time",
-                      time:{unit: "year"},
+                      type: "linear",
                       ticks: {
                           stepSize: 1
                       }
