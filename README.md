@@ -76,7 +76,7 @@ Projektiryhmään numero 12 kuuluivat Joose Ahonen (GitHub-tunnus runtuaho), Ess
 Sovellus löytyy GitHubista osoitteesta https://github.com/Ryhma12-Web-sovellusprojekti/Visual_Climate.git. 
 1.	Avaa koneellasi resurssienhallinta, navigoi haluttuun kansioon ja avaa Git Bash tai muu komentorivityökalu. 
 2.	Aja komento git clone https://github.com/Ryhma12-Web-sovellusprojekti/Visual_Climate.git. 
-3.	Vie server-kansion sisälle creds.json ja firebase.json tiedostot sekä client-kansion src-kansioon firebase-config.json-tiedosto. Tiedostot ovat salaisia configure-tiedostoja, joten ne löytyvät vain Moodlen palautuskansiosta. 
+3.	Vie server-kansion sisälle creds.json ja firebase.json tiedostot sekä client-kansion src-kansioon firebase-config.json-tiedosto. Tiedostot ovat salaisia configure-tiedostoja, joten ne löytyvät vain projektiryhmän Teams-kanavalta. 
 4.	Avaa sovellus esimerkiksi Visual Studio Codessa ja avaa sovelluksessa terminal-ikkuna. 
 5.	Navigoi terminal-ikkunassa server-kansioon komennolla cd server ja aja komento npm install.  
 6.	Tämän jälkeen käynnistä palvelin komennolla node startServer.js.
